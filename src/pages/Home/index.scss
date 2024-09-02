@@ -1,0 +1,35 @@
+.banner {
+  height: 350px; /* Đặt chiều cao của Carousel */
+  overflow: hidden; /* Ẩn phần nội dung ngoài vùng hiển thị */
+  position: relative;
+  .carousel {
+    height: 100%;
+    .carousel-inner {
+      height: 100%; /* Đặt chiều cao của mỗi item trong Carousel */
+      .carousel-item {
+        height: 100%; /* Đặt chiều cao của mỗi item trong Carousel */
+
+        img {
+          height: 100%; /* Đặt chiều cao của hình ảnh để phù hợp với chiều cao của item */
+          object-fit: cover; /* Đảm bảo hình ảnh phủ kín mà không bị biến dạng */
+        }
+      }
+    }
+  }
+  .box-banner {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    text-align: center; /* Căn giữa tiêu đề trong caption */
+    color: #fff; /* Đặt màu chữ cho tiêu đề */
+    z-index: 2;
+    .content-banner {
+      border-radius: 3px;
+      padding: 20px 0;
+      background: rgba(21, 84, 23, 0.7);
+      width: 418px;
+      max-width: 100%;
+    }
+  }
+}
