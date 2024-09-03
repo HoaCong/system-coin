@@ -1,13 +1,5 @@
-import React, { useState } from "react";
-import {
-  Card,
-  Col,
-  Container,
-  Dropdown,
-  Image,
-  Nav,
-  Row,
-} from "react-bootstrap";
+import { useState } from "react";
+import { Card, Col, Dropdown, Image, Nav, Row } from "react-bootstrap";
 
 const questions = [
   {
@@ -42,11 +34,11 @@ const QAItem = ({ question, index }) => (
   <div>
     <Card className="mb-3">
       <Card.Body>
-        <Row>
-          <Col xs={1}>
+        <div className="d-flex gap-2">
+          <div xs="auto">
             <Image src={question.avatar} roundedCircle />
-          </Col>
-          <Col xs={11}>
+          </div>
+          <div xs className="px-0">
             <div>
               <strong>{question.username}</strong> -{" "}
               <span className="text-muted">{question.role}</span>
@@ -56,8 +48,8 @@ const QAItem = ({ question, index }) => (
             <small className="text-muted">
               {question.time} | Posted in {question.postCategory}
             </small>
-          </Col>
-        </Row>
+          </div>
+        </div>
       </Card.Body>
       <Card.Footer className="d-flex text-secondary gap-4">
         <div>
@@ -71,7 +63,7 @@ const QAItem = ({ question, index }) => (
         </div>
       </Card.Footer>
     </Card>
-    {index < questions.length && <hr />}
+    {index < questions.length - 1 && <hr />}
   </div>
 );
 

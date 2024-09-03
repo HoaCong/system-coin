@@ -8,7 +8,7 @@ function Header({ menuIcon, children }) {
     <div id="header">
       <Navbar expand="lg" className="py-0 h-60px">
         <Container>
-          <Navbar.Brand href="#home">
+          <Navbar.Brand href="/">
             <img src={Logo} width={70} height="auto" alt="logo" />
           </Navbar.Brand>
           <Navbar.Toggle

@@ -146,14 +146,16 @@ const NewsSection = () => {
       <h1 className="text-start">TIN TỨC</h1>
       <Row>
         {currentNews.map((news, index) => (
-          <Col xs={12} md={6} className="mb-4" key={index}>
+          <Col xs={12} lg={6} className="mb-4" key={index}>
             <Card className="border-0">
               <div className="d-flex">
-                <Image
-                  src={news.image}
-                  className="rounded-3 me-3"
-                  style={{ width: "150px", height: "auto" }}
-                />
+                <div>
+                  <Image
+                    src={news.image}
+                    className="rounded-3 me-3"
+                    style={{ width: "150px", height: "auto" }}
+                  />
+                </div>
                 <div>
                   <Card.Title className="fw-bold">{news.title}</Card.Title>
                   <Card.Text>{news.content}</Card.Text>
