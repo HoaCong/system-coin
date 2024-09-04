@@ -1,11 +1,25 @@
 import logo from "assets/images/logo192.png";
-import { MENU_PUBLIC } from "constants/routerMenu";
+import { MENU_ADMIN } from "constants/routerMenu";
 import { ROUTES } from "constants/routerWeb";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import "./menu.scss";
 function Menu({ collapsed }) {
-  const [list, setList] = useState(MENU_PUBLIC);
+  const {
+    data: { user },
+  } = useSelector((state) => state.loginReducer);
+  const [list, setList] = useState([]);
+
+  useEffect(() => {
+    const adminMenu = MENU_ADMIN;
+    const EnumRoutes = {
+      ADMIN: adminMenu,
+      EMPLOYEE: adminMenu,
+    };
+    setList(EnumRoutes[user?.role_id] || []);
+  }, [user?.role_id]);
+
   const [prevIndex, setPrevIndex] = useState(0);
   const activeSubItem = useCallback(
     (index) => {
@@ -32,7 +46,7 @@ function Menu({ collapsed }) {
           <img className="logo-header-img" src={logo} alt="logo apple-icon" />
         </Link>
         <Link to={ROUTES.HOME_PAGE}>
-          <h4 className="brand-header mb-1 text-white">THỐNG KÊ SỐ HỌC</h4>
+          <h4 className="brand-header mb-1 text-white">ADMIN UI</h4>
         </Link>
       </div>
       <ul className="d-flex flex-column gap-2 list-unstyled box-menu pt-2">

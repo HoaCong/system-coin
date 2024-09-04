@@ -13,7 +13,7 @@
   }
 }
 .height-content {
-  min-height: 100vh;
+  min-height: calc(100vh - 60px);
 }
 .footer-bg {
   background-color: #212631;

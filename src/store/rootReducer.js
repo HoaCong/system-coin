@@ -1,14 +1,20 @@
 /* quy phạm khai báo rootReducer */
 import { combineReducers } from "redux";
 
+import changePasswordReducer from "./ChangePassword/reducer";
+import employeeReducer from "./Employee/reducer";
+import guireReducer from "./Guire/reducer";
 import loginReducer from "./Login/reducer";
-import managerDataReducer from "./ManagerData/reducer";
+import newsReducer from "./News/reducer";
 import toastReducer from "./Toast/reducer";
 
 const rootReducer = combineReducers({
   loginReducer,
   toastReducer,
-  managerDataReducer,
+  employeeReducer,
+  guireReducer,
+  newsReducer,
+  changePasswordReducer,
 });
 
 export default rootReducer;

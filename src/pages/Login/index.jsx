@@ -1,16 +1,30 @@
-import { ROUTES } from "constants/routerWeb";
 import _capitalize from "lodash/capitalize";
-import { useState } from "react";
-import { Alert, Button, Form, InputGroup } from "react-bootstrap";
+import { Button, Form, InputGroup } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import BackgroundImage from "../../assets/images/bg.jpg";
 import Logo from "../../assets/images/reactlogo.png";
 import "./index.scss";
 
-const Login = () => {
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { EnumHome } from "router";
+import { actionLogin } from "store/Login/action";
+
+function Login() {
+  // state store
+  const loginState = useSelector((state) => state.loginReducer);
+  // action store
+  const dispatch = useDispatch();
+  const onLogin = (body) => dispatch(actionLogin(body, true));
+  const {
+    loginStatus: { isLoading, isSuccess, isFailure },
+    data,
+  } = loginState;
+
+  const { user } = data;
+
   // state local
   const navigate = useNavigate();
-  const [noti, setNoti] = useState("");
   const [formdata, setData] = useState({
     username: "",
     password: "",
@@ -19,15 +33,31 @@ const Login = () => {
     username: "",
     password: "",
   });
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate(EnumHome[user.role_id]);
+    }
+  }, [navigate, isSuccess]);
+
+  useEffect(() => {
+    if (isFailure)
+      setError((prevError) => ({
+        ...prevError,
+        password: data?.error,
+      }));
+  }, [isFailure]);
+
   // function local
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData((prevData) => ({ ...prevData, [name]: value }));
     setError((prevError) => ({ ...prevError, [name]: "" }));
+    if (isFailure) setError((prevError) => ({ ...prevError, password: "" }));
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
     const tmpKey = Object.keys(formdata);
     let validates = true;
     tmpKey.forEach((key) => {
@@ -41,20 +71,7 @@ const Login = () => {
     });
     if (validates) {
       // dispatch
-      if (
-        process.env.REACT_APP_USERNAME === formdata.username &&
-        process.env.REACT_APP_PASSWORD === formdata.password
-      ) {
-        localStorage.setItem(
-          "exprired_1",
-          new Date().getTime() + 3 * 60 * 60 * 1000
-        ); // 3h
-        setTimeout(() => {
-          navigate(ROUTES.HOME_PAGE);
-        }, 1000);
-      } else {
-        setNoti("Tài khoản mật khẩu không đúng");
-      }
+      onLogin({ email: formdata.username, password: formdata.password });
     }
   };
 
@@ -73,12 +90,11 @@ const Login = () => {
       />
       {/* Form */}
       <Form className="shadow rounded text-white" onSubmit={handleSubmit}>
-        {/* ALert */}
-        {noti && (
+        {/* {noti && (
           <Alert variant="danger" onClose={() => setNoti("")} dismissible>
             <span>{noti}</span>
           </Alert>
-        )}
+        )} */}
 
         <Form.Group className="mb-2" controlId="username">
           <Form.Label>Email</Form.Label>
@@ -120,12 +136,19 @@ const Login = () => {
         )}
 
         <Button
-          // disabled={isLoading}
-          className="w-100 btn-fill mt-3"
+          className="w-100 btn-fill mt-4 d-flex justify-content-center align-items-center"
           variant="primary"
           type="submit"
+          disabled={isLoading}
         >
-          {false ? "Đang đăng nhập..." : "Đăng nhập"}
+          {isLoading && (
+            <div
+              className="spinner-border text-white me-2"
+              role="status"
+              style={{ width: 16, height: 16 }}
+            ></div>
+          )}
+          Đăng nhập
         </Button>
 
         <div className="d-flex justify-content-between mt-3">
@@ -138,6 +161,6 @@ const Login = () => {
       </Link>
     </div>
   );
-};
+}
 
 export default Login;

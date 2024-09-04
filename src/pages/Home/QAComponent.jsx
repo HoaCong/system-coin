@@ -38,7 +38,7 @@ const QAItem = ({ question, index }) => (
           <div xs="auto">
             <Image src={question.avatar} roundedCircle />
           </div>
-          <div xs className="px-0">
+          <div xs="true" className="px-0">
             <div>
               <strong>{question.username}</strong> -{" "}
               <span className="text-muted">{question.role}</span>

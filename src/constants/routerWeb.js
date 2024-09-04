@@ -2,10 +2,13 @@ export const ROUTES = {
   HOME_PAGE: "/",
   LOGIN: "/login",
   REGISTER: "/register",
-  CHANGE_PASSWORD: "/change_password",
-  // admin routes
-  ADMIN_HOME_PAGE: "/",
-  MANAGER_DATA: "/manager-data",
   NEWS: "/news",
   GUIRE: "/guire",
+  // admin routes
+  ADMIN_HOME_PAGE: "/admin",
+  ADMIN_DASHBOARD: "/admin/dashboard",
+  ADMIN_EMPLOYEE: "/admin/employee",
+  ADMIN_CHANGEPASSWORD: "/admin/change_password",
+  ADMIN_NEWS: "/admin/news",
+  ADMIN_GUIRE: "/admin/guire",
 };

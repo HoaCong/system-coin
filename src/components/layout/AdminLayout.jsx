@@ -3,6 +3,7 @@ import Menu from "components/menu";
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 // import styles
+import Header from "components/header";
 import "./layout.scss";
 function AdminLayout(props) {
   const [collapsed, setCollapsed] = useState(false);
@@ -10,7 +11,7 @@ function AdminLayout(props) {
     <div className="d-flex">
       <Menu collapsed={collapsed} />
       <main className="w-100">
-        {/* <Header
+        <Header
           menuIcon={
             <button
               className="btn-mobile px-2"
@@ -21,7 +22,7 @@ function AdminLayout(props) {
               <i className="fas fa-bars fs-3"></i>
             </button>
           }
-        ></Header> */}
+        ></Header>
         <div className="height-content p-2">
           <Outlet />
         </div>

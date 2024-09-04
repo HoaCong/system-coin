@@ -1,89 +1,72 @@
-import { Container, Nav, Navbar } from "react-bootstrap";
-import { Link, useLocation } from "react-router-dom";
-import Logo from "../../assets/images/reactlogo.png";
-import "./header.scss";
+import avatar from "assets/images/avatar.png";
+import { ROUTES } from "constants/routerWeb";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { actionLogout } from "store/Login/action";
+import "./index.scss";
 function Header({ menuIcon, children }) {
-  const location = useLocation();
+  const {
+    data: { user },
+  } = useSelector((state) => state.loginReducer);
+  console.log("Header  user:", user);
+
+  const dispatch = useDispatch();
+  const onLogout = () => dispatch(actionLogout());
+
+  const navigate = useNavigate();
+
+  const [isActive, setIsActive] = useState(false);
+  const handleLogout = () => {
+    onLogout();
+    navigate(ROUTES.LOGIN);
+  };
+
+  const handleChangePassword = () => {
+    navigate(ROUTES.ADMIN_CHANGEPASSWORD);
+  };
   return (
-    <div id="header">
-      <Navbar expand="lg" className="py-0 h-60px">
-        <Container>
-          <Navbar.Brand href="/">
-            <img src={Logo} width={70} height="auto" alt="logo" />
-          </Navbar.Brand>
-          <Navbar.Toggle
-            aria-controls="mobile-nav"
-            className="shadow-none bg-white"
-          />
-          <Navbar.Collapse id="mobile-nav">
-            <Nav className="ms-auto p-2 gap-2">
-              <Nav.Link
-                as={Link}
-                to="/"
-                className={`px-0 mx-2 text-uppercase text-white text-12 fw-bold ${
-                  location.pathname === "/" ? "active" : ""
-                }`}
+    <div className="header h-60px">
+      <div className="d-flex h-100 justify-content-between align-items-center px-2">
+        <div>{menuIcon}</div>
+        {children}
+        {/* Right header */}
+        {user?.email ? (
+          <div className=" d-flex justify-content-end align-items-center gap-4 mx-1 ms-auto">
+            <div
+              onClick={() => setIsActive((prev) => !prev)}
+              className="account-header d-flex gap-2 align-items-center"
+            >
+              <img
+                className="avatar-account"
+                src={user?.image || avatar}
+                alt="avatar"
+              />
+              <ul
+                className={`${
+                  !isActive ? "d-none" : ""
+                } sub-menu-account list-unstyled`}
               >
-                Trang chủ
-              </Nav.Link>
-              <Nav.Link
-                as={Link}
-                to="/link"
-                className={`px-0 mx-2 text-uppercase text-white text-12 fw-bold ${
-                  location.pathname === "/link" ? "active" : ""
-                }`}
-              >
-                Tra cứu giao dịch
-              </Nav.Link>
-              <Nav.Link
-                as={Link}
-                to="/news"
-                className={`px-0 mx-2 text-uppercase text-white text-12 fw-bold ${
-                  location.pathname === "/news" ? "active" : ""
-                }`}
-              >
-                Tin tức
-              </Nav.Link>
-              <Nav.Link
-                as={Link}
-                to="/guire"
-                className={`px-0 mx-2 text-uppercase text-white text-12 fw-bold ${
-                  location.pathname === "/guire" ? "active" : ""
-                }`}
-              >
-                Chỉ dẫn
-              </Nav.Link>
-              <Nav.Link
-                as={Link}
-                to="/contact"
-                className={`px-0 mx-2 text-uppercase text-white text-12 fw-bold ${
-                  location.pathname === "/contact" ? "active" : ""
-                }`}
-              >
-                Liên hệ
-              </Nav.Link>
-              <Nav.Link
-                as={Link}
-                to="/login"
-                className={`px-0 mx-2 text-uppercase text-white text-12 ${
-                  location.pathname === "/login" ? "active" : ""
-                }`}
-              >
-                <i className="fas fa-sign-in-alt me-1"></i>Đăng nhập
-              </Nav.Link>
-              <Nav.Link
-                as={Link}
-                to="/register"
-                className={`px-0 mx-2 text-uppercase text-white text-12 ${
-                  location.pathname === "/register" ? "active" : ""
-                }`}
-              >
-                <i className="fas fa-user-plus me-1"></i>Đăng ký
-              </Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+                <li onClick={handleChangePassword}>
+                  <Link className="text-dark">
+                    <i className="fas fa-unlock-alt me-2"></i>
+                    Đổi mật khẩu
+                  </Link>
+                </li>
+                <li onClick={handleLogout}>
+                  <Link className="text-dark">
+                    <i className="fas fa-sign-out-alt me-2"></i>Logout
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </div>
+        ) : (
+          <Link to={ROUTES.LOGIN}>
+            Login <i className="fas fa-sign-in-alt ms-1"></i>
+          </Link>
+        )}
+      </div>
     </div>
   );
 }

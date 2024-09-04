@@ -123,15 +123,6 @@ function Employee(props) {
             >
               Đặt lại
             </Button>
-
-            <Button variant="outline-primary" className="ms-auto">
-              <a
-                href={`${process.env.REACT_APP_BASE_URL}/api/as/download-excel/${user?.role_id}`}
-                download="file.xlsx"
-              >
-                Xuất file excel
-              </a>
-            </Button>
           </div>
         }
       >
@@ -146,28 +137,10 @@ function Employee(props) {
                   #
                 </th>
                 <th scope="col" className="align-middle">
-                  Tên tài khoản
-                </th>
-                <th scope="col" className="align-middle">
-                  CCCD
-                </th>
-                <th scope="col" className="align-middle">
                   Email
                 </th>
                 <th scope="col" className="align-middle">
-                  Số điện thoại
-                </th>
-                <th scope="col" className="align-middle">
                   Quyền
-                </th>
-                <th scope="col" className="align-middle">
-                  Số lượt check
-                </th>
-                <th scope="col" className="align-middle">
-                  Đã check
-                </th>
-                <th scope="col" className="align-middle">
-                  Trạng thái
                 </th>
                 <th scope="col" className="align-middle">
                   Hành động
@@ -194,14 +167,11 @@ function Employee(props) {
                   <th scope="row" className="align-middle">
                     {index + 1}
                   </th>
-                  <td className="align-middle">{item.username}</td>
-                  <td className="align-middle">{item.cccd}</td>
                   <td className="align-middle">{item.email}</td>
-                  <td className="align-middle">{item.phone}</td>
-                  <td className="align-middle">{roleEnum[item.role_id]}</td>
-                  <td className="align-middle">{item.count_check_current}</td>
-                  <td className="align-middle">{item.count_checked}</td>
                   <td className="align-middle">
+                    {roleEnum[item.role_id || "EMPLOYEE"]}
+                  </td>
+                  {/* <td className="align-middle">
                     <ToggleSwitch
                       status={item.active}
                       callback={(e) =>
@@ -218,7 +188,7 @@ function Employee(props) {
                         })
                       }
                     />
-                  </td>
+                  </td> */}
                   <td className="align-middle">
                     <ActionTable
                       onDetail={() =>

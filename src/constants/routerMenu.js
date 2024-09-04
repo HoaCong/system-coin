@@ -1,10 +1,28 @@
 import { ROUTES } from "./routerWeb";
 
-export const MENU_PUBLIC = [
+export const MENU_ADMIN = [
   {
-    label: "Nhập dữ liệu",
+    label: "Dashboard",
     active: false,
-    src: ROUTES.MANAGER_DATA,
-    icon: <i className="fas fa-clipboard-list"></i>,
+    src: ROUTES.ADMIN_DASHBOARD,
+    icon: <i className="fas fa-home"></i>,
+  },
+  {
+    label: "Nhân viên",
+    active: false,
+    src: ROUTES.ADMIN_EMPLOYEE,
+    icon: <i className="fas fa-users"></i>,
+  },
+  {
+    label: "Tin tức",
+    active: false,
+    src: ROUTES.ADMIN_NEWS,
+    icon: <i className="fas fa-users"></i>,
+  },
+  {
+    label: "Hướng dẫn",
+    active: false,
+    src: ROUTES.ADMIN_GUIRE,
+    icon: <i className="fas fa-users"></i>,
   },
 ];

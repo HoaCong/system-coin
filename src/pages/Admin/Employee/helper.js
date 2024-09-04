@@ -14,6 +14,6 @@ export const formatBirthday2 = (info) => {
 };
 
 export const roleEnum = {
-  MANAGER: "Manager",
+  ADMIN: "Admin",
   EMPLOYEE: "Employee",
 };
