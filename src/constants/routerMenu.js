@@ -25,4 +25,10 @@ export const MENU_ADMIN = [
     src: ROUTES.ADMIN_GUIRE,
     icon: <i className="fas fa-users"></i>,
   },
+  {
+    label: "Khách hàng",
+    active: false,
+    src: ROUTES.ADMIN_CUSTOMER,
+    icon: <i className="fas fa-users"></i>,
+  },
 ];

@@ -21,4 +21,11 @@ export const ENDPOINT = {
   ADD_GUIRE: "api/guidline/create",
   EDIT_GUIRE: "api/guidline/",
   DELETE_GUIRE: "api/guidline/",
+  // ======/api/customer======
+  LIST_CUSTOMER: "/api/customer/search",
+  ADD_CUSTOMER: "/api/customer/create",
+  EDIT_CUSTOMER: "/api/customer/",
+  ACTIVE_CUSTOMER: "/api/customer/active/",
+  DETAIL_CUSTOMER: "/api/customer/",
+  UPDATE_DETAIL_CUSTOMER: "/api/customer/detail/",
 };

@@ -11,4 +11,6 @@ export const ROUTES = {
   ADMIN_CHANGEPASSWORD: "/admin/change_password",
   ADMIN_NEWS: "/admin/news",
   ADMIN_GUIRE: "/admin/guire",
+  ADMIN_CUSTOMER: "/admin/customer",
+  ADMIN_CUSTOMER_DETAIL: "/admin/customer/detail",
 };

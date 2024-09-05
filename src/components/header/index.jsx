@@ -9,7 +9,6 @@ function Header({ menuIcon, children }) {
   const {
     data: { user },
   } = useSelector((state) => state.loginReducer);
-  console.log("Header  user:", user);
 
   const dispatch = useDispatch();
   const onLogout = () => dispatch(actionLogout());

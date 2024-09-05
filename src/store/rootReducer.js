@@ -2,6 +2,7 @@
 import { combineReducers } from "redux";
 
 import changePasswordReducer from "./ChangePassword/reducer";
+import customerReducer from "./Customer/reducer";
 import employeeReducer from "./Employee/reducer";
 import guireReducer from "./Guire/reducer";
 import loginReducer from "./Login/reducer";
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   guireReducer,
   newsReducer,
   changePasswordReducer,
+  customerReducer,
 });
 
 export default rootReducer;
