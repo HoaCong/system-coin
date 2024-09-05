@@ -2,6 +2,7 @@
 import { combineReducers } from "redux";
 
 import changePasswordReducer from "./ChangePassword/reducer";
+import coinReducer from "./Coin/reducer";
 import customerReducer from "./Customer/reducer";
 import employeeReducer from "./Employee/reducer";
 import guireReducer from "./Guire/reducer";
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   newsReducer,
   changePasswordReducer,
   customerReducer,
+  coinReducer,
 });
 
 export default rootReducer;

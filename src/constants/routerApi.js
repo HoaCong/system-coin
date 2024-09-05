@@ -9,6 +9,12 @@ export const ENDPOINT = {
   DETAIL_EMPLOYEE: "/api/employee/",
   DELETE_EMPLOYEE: "/api/employee/",
   UPDATE_DETAIL_EMPLOYEE: "/api/employee/detail/",
+  // ======coin======
+  DETAIL_COIN: "api/coins",
+  LIST_COIN: "api/coin",
+  ADD_COIN: "api/coin/create",
+  EDIT_COIN: "api/coin/",
+  DELETE_COIN: "api/coin/",
   // ======news======
   DETAIL_NEWS: "api/news",
   LIST_NEWS: "api/new",

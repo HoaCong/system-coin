@@ -8,6 +8,12 @@ export const MENU_ADMIN = [
     icon: <i className="fas fa-home"></i>,
   },
   {
+    label: "Coin",
+    active: false,
+    src: ROUTES.ADMIN_COIN,
+    icon: <i className="fas fa-users"></i>,
+  },
+  {
     label: "Nhân viên",
     active: false,
     src: ROUTES.ADMIN_EMPLOYEE,

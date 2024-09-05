@@ -2,6 +2,7 @@ import AdminLayout from "components/layout/AdminLayout";
 import DefaultLayout from "components/layout/DefaultLayout";
 import { ROUTES } from "constants/routerWeb";
 import AdminChangePassword from "pages/Admin/ChangePassword";
+import AdminCoin from "pages/Admin/Coin";
 import AdminCustomer from "pages/Admin/Customer";
 import AdminDashboard from "pages/Admin/Dashboard";
 import AdminEmployee from "pages/Admin/Employee";
@@ -40,6 +41,11 @@ export const adminRoutes = [
         path: ROUTES.ADMIN_CHANGEPASSWORD,
         name: "Change Password Page",
         element: <AdminChangePassword />,
+      },
+      {
+        path: ROUTES.ADMIN_COIN,
+        name: "Coin Page",
+        element: <AdminCoin />,
       },
       {
         path: ROUTES.ADMIN_NEWS,
