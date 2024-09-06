@@ -1,6 +1,6 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
-import Logo from "../../assets/images/reactlogo.png";
+import Logo from "../../assets/images/logo.jpg";
 import "./header.scss";
 function Header({ menuIcon, children }) {
   const location = useLocation();
@@ -9,7 +9,13 @@ function Header({ menuIcon, children }) {
       <Navbar expand="lg" className="py-0 h-60px">
         <Container>
           <Navbar.Brand href="/">
-            <img src={Logo} width={70} height="auto" alt="logo" />
+            <img
+              src={Logo}
+              width={50}
+              height="auto"
+              alt="logo"
+              className="rounded-circle"
+            />
           </Navbar.Brand>
           <Navbar.Toggle
             aria-controls="mobile-nav"

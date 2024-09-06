@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { actionLogin } from "store/Login/action";
 import BackgroundImage from "../../assets/images/bg.jpg";
-import Logo from "../../assets/images/reactlogo.png";
+import Logo from "../../assets/images/logo.jpg";
 import "./index.scss";
 
 function Login() {
@@ -81,7 +81,7 @@ function Login() {
     >
       {/* Header */}
       <img
-        className="mx-auto d-block mb-2"
+        className="mx-auto d-block mb-2 rounded-circle"
         src={Logo}
         width={70}
         height="auto"
