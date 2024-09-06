@@ -30,7 +30,7 @@ const loginReducer = (state = initialState, action) => {
       case ActionTypes.LOGIN_SUCCESS:
         draft.loginStatus.isLoading = false;
         draft.loginStatus.isSuccess = true;
-        draft.data = { ...action.payload, user: action.payload.employee };
+        draft.data = { ...action.payload, user: action.payload.customer };
         break;
 
       case ActionTypes.LOGIN_FAILED:

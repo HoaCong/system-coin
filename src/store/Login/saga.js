@@ -20,7 +20,7 @@ function* callApiLogin({ params, isRemember }) {
     if (response.status === 200) {
       if (isRemember) {
         localStorage.setItem("access_token", response.data.access_token);
-        localStorage.setItem("user", JSON.stringify(response.data.employee));
+        localStorage.setItem("user", JSON.stringify(response.data.customer));
         localStorage.setItem("time_expired", getTimeExpired());
       } else {
         localStorage.removeItem("access_token");

@@ -35,7 +35,15 @@
   }
 }
 
+@media screen and (min-width: 992px) {
+  #mobile-nav {
+    display: none !important;
+  }
+}
 @media screen and (max-width: 992px) {
+  .desktop_menu {
+    display: none !important;
+  }
   #mobile-nav {
     z-index: 3;
     border-radius: 0 0 16px 16px;

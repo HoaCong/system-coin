@@ -1,4 +1,4 @@
 export const ENDPOINT = {
-  LOGIN: "/api/login",
-  REGISTER: "/register",
+  LOGIN: "/api/customer/login",
+  REGISTER: "api/customer/register",
 };
