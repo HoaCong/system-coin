@@ -1,14 +1,13 @@
+import { ROUTES } from "constants/routerWeb";
 import _capitalize from "lodash/capitalize";
+import { useEffect, useState } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { actionLogin } from "store/Login/action";
 import BackgroundImage from "../../assets/images/bg.jpg";
 import Logo from "../../assets/images/reactlogo.png";
 import "./index.scss";
-
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { EnumHome } from "router";
-import { actionLogin } from "store/Login/action";
 
 function Login() {
   // state store
@@ -36,7 +35,7 @@ function Login() {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate(EnumHome[user.role_id]);
+      navigate(ROUTES.HOME_PAGE);
     }
   }, [navigate, isSuccess]);
 

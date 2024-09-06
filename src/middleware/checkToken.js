@@ -2,8 +2,7 @@
 import { ROUTES } from "constants/routerWeb";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { matchPath, useLocation, useNavigate } from "react-router-dom";
-import { EnumHome } from "router";
+import { useLocation, useNavigate } from "react-router-dom";
 const checkTimeExpired = (timeExpired) => {
   const now = new Date().getTime();
   return now > timeExpired;
@@ -17,16 +16,10 @@ const CheckTokenMiddleware = ({ children }) => {
   } = useSelector((state) => state.loginReducer);
 
   useEffect(() => {
-    // lofgic check token
+    // logic check token
     const isLoginPage = [ROUTES.LOGIN, ROUTES.REGISTER].includes(pathname);
-    if (
-      (!access_token || checkTimeExpired(timeExpired)) &&
-      pathname !== ROUTES.HOME_PAGE
-    ) {
-      if (isLoginPage) return;
-      return navigate(ROUTES.LOGIN);
-    } else if (isLoginPage) {
-      return navigate(EnumHome[user?.role_id]);
+    if (isLoginPage && access_token && !checkTimeExpired(timeExpired)) {
+      return navigate(ROUTES.HOME_PAGE);
     }
   }, [access_token, pathname]);
 
