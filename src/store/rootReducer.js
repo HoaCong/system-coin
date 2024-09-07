@@ -2,10 +2,12 @@
 import { combineReducers } from "redux";
 
 import changePasswordReducer from "./ChangePassword/reducer";
+import customerReducer from "./Customer/reducer";
 import loginReducer from "./Login/reducer";
 import toastReducer from "./Toast/reducer";
 
 const rootReducer = combineReducers({
+  customerReducer,
   loginReducer,
   toastReducer,
   changePasswordReducer,

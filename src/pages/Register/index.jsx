@@ -1,62 +1,74 @@
-import { ROUTES } from "constants/routerWeb";
-import _capitalize from "lodash/capitalize";
-import { useState } from "react";
-import { Alert, Button, Form, InputGroup } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { useFormik } from "formik";
+import _omit from "lodash/omit";
+import { useEffect } from "react";
+import { Button, Form, InputGroup } from "react-bootstrap";
+import { NumericFormat } from "react-number-format";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { actionAdd } from "store/Customer/action";
+import * as Yup from "yup";
 import BackgroundImage from "../../assets/images/bg.jpg";
 import Logo from "../../assets/images/logo.jpg";
 import "../Login/index.scss";
-
-const Login = () => {
+const Register = () => {
   // state local
-  const navigate = useNavigate();
-  const [noti, setNoti] = useState("");
-  const [formdata, setData] = useState({
-    username: "",
-    password: "",
-  });
-  const [error, setError] = useState({
-    username: "",
-    password: "",
-  });
-  // function local
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData((prevData) => ({ ...prevData, [name]: value }));
-    setError((prevError) => ({ ...prevError, [name]: "" }));
-  };
+  const {
+    actionStatus: { isLoading, isSuccess },
+  } = useSelector((state) => state.customerReducer);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const tmpKey = Object.keys(formdata);
-    let validates = true;
-    tmpKey.forEach((key) => {
-      if (formdata[key] === "") {
-        setError((prevError) => ({
-          ...prevError,
-          [key]: `${_capitalize(key)} required`,
-        }));
-        validates = false;
-      }
-    });
-    if (validates) {
-      // dispatch
-      if (
-        process.env.REACT_APP_USERNAME === formdata.username &&
-        process.env.REACT_APP_PASSWORD === formdata.password
-      ) {
-        localStorage.setItem(
-          "exprired_1",
-          new Date().getTime() + 3 * 60 * 60 * 1000
-        ); // 3h
-        setTimeout(() => {
-          navigate(ROUTES.HOME_PAGE);
-        }, 1000);
-      } else {
-        setNoti("Tài khoản mật khẩu không đúng");
-      }
+  const dispatch = useDispatch();
+  const onRegister = (body) => dispatch(actionAdd(body));
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      full_name: "",
+      phone: "",
+      ref_email: "",
+      password: "",
+      re_password: "",
+    },
+    validationSchema: Yup.object({
+      full_name: Yup.string().required("Vui lòng nhập tên"),
+      email: Yup.string()
+        .matches(
+          /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+          "Email không hợp lệ"
+        )
+        .required("Vui lòng nhập email"),
+      phone: Yup.string()
+        .matches(/^(0|84)([0-9]{9,10})$/, "Số điện thoại chưa hợp lệ")
+        .required("Vui lòng nhập số điện thoại"),
+      password: Yup.string()
+        .min(8, "Mật khẩu phải có ít nhất 8 ký tự")
+        .matches(
+          /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>])/,
+          "Mật khẩu phải chứa ít nhất 1 chữ hoa, 1 chữ thường, 1 chữ số và 1 ký tự đặc biệt"
+        )
+        .required("Vui lòng nhập mật khẩu"),
+      re_password: Yup.string()
+        .oneOf([Yup.ref("password"), null], "Mật khẩu nhập lại không khớp")
+        .required("Vui lòng nhập lại mật khẩu"),
+    }),
+    onSubmit: (values) => {
+      onRegister(_omit(values, "re_password"));
+    },
+  });
+
+  useEffect(() => {
+    if (isSuccess) {
+      formik.resetForm({
+        values: {
+          email: "",
+          full_name: "",
+          phone: "",
+          ref_email: "",
+          password: "",
+          re_password: "",
+        },
+      });
     }
-  };
+  }, [isSuccess]);
 
   return (
     <div
@@ -72,69 +84,37 @@ const Login = () => {
         alt="logo"
       />
       {/* Form */}
-      <Form className="shadow rounded text-white" onSubmit={handleSubmit}>
+      <Form
+        className="shadow rounded text-white"
+        onSubmit={formik.handleSubmit}
+      >
         {/* ALert */}
-        {noti && (
+        {/* { && (
           <Alert variant="danger" onClose={() => setNoti("")} dismissible>
             <span>{noti}</span>
           </Alert>
-        )}
+        )} */}
 
-        <Form.Group className="mb-2" controlId="username">
+        <Form.Group className="mb-2" controlId="full_name">
           <Form.Label>Họ tên</Form.Label>
           <InputGroup>
             <Form.Control
-              name="username"
+              className="shadow-none"
+              name="full_name"
               placeholder="Họ tên"
-              onChange={handleChange}
+              value={formik.values.full_name}
+              onChange={formik.handleChange}
             />
             <InputGroup.Text>
-              <i className="fas fa-envelope text-secondary"></i>
+              <i className="fas fa-user text-secondary"></i>
             </InputGroup.Text>
           </InputGroup>
         </Form.Group>
-
-        <Form.Group className="mb-2" controlId="password">
-          <Form.Label>Mật khẩu</Form.Label>
-          <InputGroup>
-            <Form.Control
-              name="password"
-              placeholder="Mật khẩu"
-              onChange={handleChange}
-            />
-            <InputGroup.Text>
-              <i className="fas fa-envelope text-secondary"></i>
-            </InputGroup.Text>
-          </InputGroup>
-        </Form.Group>
-
-        <Form.Group className="mb-2" controlId="re-password">
-          <Form.Label>Nhập lại mật khẩu</Form.Label>
-          <InputGroup>
-            <Form.Control
-              name="re-password"
-              placeholder="Nhập lại mật khẩu"
-              onChange={handleChange}
-            />
-            <InputGroup.Text>
-              <i className="fas fa-envelope text-secondary"></i>
-            </InputGroup.Text>
-          </InputGroup>
-        </Form.Group>
-
-        <Form.Group className="mb-2" controlId="phone">
-          <Form.Label>Điện thoại (EX: +84 909397989)</Form.Label>
-          <InputGroup>
-            <Form.Control
-              name="phone"
-              placeholder="Điện thoại"
-              onChange={handleChange}
-            />
-            <InputGroup.Text>
-              <i className="fas fa-envelope text-secondary"></i>
-            </InputGroup.Text>
-          </InputGroup>
-        </Form.Group>
+        {formik.touched.password && !!formik.errors.full_name && (
+          <small className="d-block text-danger -mt-1 mb-2">
+            {formik.errors.full_name}
+          </small>
+        )}
 
         <small className="d-block text-warning text-12">
           <i>
@@ -142,51 +122,106 @@ const Login = () => {
           </i>
         </small>
 
-        <Form.Group className="mb-2" controlId="username">
+        <Form.Group className="mb-2" controlId="email">
           <Form.Label>Email đăng nhập</Form.Label>
           <InputGroup>
             <Form.Control
+              className="shadow-none"
               name="email"
               placeholder="Email"
-              onChange={handleChange}
+              value={formik.values.email}
+              onChange={formik.handleChange}
             />
             <InputGroup.Text>
               <i className="fas fa-envelope text-secondary"></i>
             </InputGroup.Text>
           </InputGroup>
         </Form.Group>
-        {!!error.email && (
+        {formik.touched.password && !!formik.errors.email && (
           <small className="d-block text-danger -mt-1 mb-2">
-            {error.email}
+            {formik.errors.email}
           </small>
         )}
 
-        <Form.Group className="mb-2" controlId="re_email">
-          <Form.Label>Nhập lại Email</Form.Label>
+        <Form.Group className="mb-2" controlId="password">
+          <Form.Label>Mật khẩu</Form.Label>
           <InputGroup>
             <Form.Control
-              name="re_email"
-              placeholder="Nhập lại Email"
-              onChange={handleChange}
+              className="shadow-none"
+              name="password"
+              placeholder="Mật khẩu"
+              type="password"
+              value={formik.values.password}
+              onChange={formik.handleChange}
             />
             <InputGroup.Text>
-              <i className="fas fa-envelope text-secondary"></i>
+              <i className="fas fa-lock text-secondary"></i>
             </InputGroup.Text>
           </InputGroup>
         </Form.Group>
-        {!!error.re_email && (
+        {formik.touched.password && !!formik.errors.password && (
           <small className="d-block text-danger -mt-1 mb-2">
-            {error.re_email}
+            {formik.errors.password}
           </small>
         )}
 
-        <Form.Group className="mb-2" controlId="email_ref">
+        <Form.Group className="mb-2" controlId="re_password">
+          <Form.Label>Nhập lại mật khẩu</Form.Label>
+          <InputGroup>
+            <Form.Control
+              className="shadow-none"
+              name="re_password"
+              placeholder="Nhập lại mật khẩu"
+              type="password"
+              value={formik.values.re_password}
+              onChange={formik.handleChange}
+            />
+            <InputGroup.Text>
+              <i className="fas fa-lock text-secondary"></i>
+            </InputGroup.Text>
+          </InputGroup>
+        </Form.Group>
+        {formik.touched.password && !!formik.errors.re_password && (
+          <small className="d-block text-danger -mt-1 mb-2">
+            {formik.errors.re_password}
+          </small>
+        )}
+
+        <Form.Group className="mb-2" controlId="phone">
+          <Form.Label>Điện thoại (EX: +84 909397989)</Form.Label>
+
+          <InputGroup>
+            <NumericFormat
+              id="phone"
+              name="phone"
+              placeholder="Điện thoại"
+              displayType={"input"}
+              className="form-control shadow-none"
+              aria-describedby="helperNumberSession"
+              value={formik.values.phone}
+              onChange={formik.handleChange}
+              allowLeadingZeros
+            />
+            <InputGroup.Text>
+              <i className="fas fa-phone-alt text-secondary"></i>
+            </InputGroup.Text>
+          </InputGroup>
+        </Form.Group>
+        {formik.touched.password && !!formik.errors.phone && (
+          <small className="d-block text-danger -mt-1 mb-2">
+            {formik.errors.phone}
+          </small>
+        )}
+
+        <Form.Group className="mb-2" controlId="ref_email">
           <Form.Label>Email người giới thiệu</Form.Label>
           <InputGroup>
             <Form.Control
-              name="email_ref"
+              className="shadow-none"
+              name="ref_email"
               placeholder="Bạn có thể để trống"
-              onChange={handleChange}
+              value={formik.values.ref_email}
+              onChange={formik.handleChange}
             />
             <InputGroup.Text>
               <i className="fas fa-envelope text-secondary"></i>
@@ -195,12 +230,19 @@ const Login = () => {
         </Form.Group>
 
         <Button
-          // disabled={isLoading}
-          className="w-100 btn-fill mt-3"
+          disabled={isLoading}
+          className="w-100 btn-fill mt-4 d-flex justify-content-center align-items-center"
           variant="primary"
           type="submit"
         >
-          {false ? "Đang đăng ký..." : "Đăng ký"}
+          {isLoading && (
+            <div
+              className="spinner-border text-white me-2"
+              role="status"
+              style={{ width: 16, height: 16 }}
+            ></div>
+          )}
+          Đăng ký
         </Button>
 
         <div className="d-flex justify-content-between mt-3">
@@ -215,4 +257,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
