@@ -8,6 +8,7 @@ export const ROUTES = {
   GUIRE: "/guire",
   PROFILE: "/profile",
   INFO: "/profile/info",
+  BANK_ACCOUNT: "/profile/bank_account",
   WALLET: "/profile/wallet",
   HISTORIES: "/profile/histories",
   CHANGE_PASSWORD: "/profile/change_password",

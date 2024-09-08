@@ -77,7 +77,9 @@ const ChangePassword = () => {
 
   return (
     <div className="mx-auto w-100" style={{ maxWidth: 400 }}>
-      <h4 className="text-center">Đổi mật khẩu</h4>
+      <h5 className="text-center text-uppercase">
+        <b>Đổi mật khẩu</b>
+      </h5>
       <Form onSubmit={handleSubmit}>
         <Form.Group>
           <Form.Label htmlFor="password">Mật khẩu</Form.Label>

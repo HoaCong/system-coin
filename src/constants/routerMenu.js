@@ -8,6 +8,12 @@ export const MENU_PROFILE = [
     icon: <i className="fas fa-user"></i>,
   },
   {
+    label: "Tài khoản ngân hàng",
+    active: false,
+    src: ROUTES.BANK_ACCOUNT,
+    icon: <i className="fas fa-money-check-alt"></i>,
+  },
+  {
     label: "Ví của tôi",
     active: false,
     src: ROUTES.WALLET,

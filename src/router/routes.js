@@ -1,6 +1,7 @@
 import DefaultLayout from "components/layout/DefaultLayout";
 import AdminLayout from "components/layout/LayoutMenu";
 import { ROUTES } from "constants/routerWeb";
+import BankAccount from "pages/BankAccount";
 import ChangePassword from "pages/ChangePassword";
 import Contact from "pages/Contact";
 import GuireSection from "pages/Guire";
@@ -51,6 +52,11 @@ export const publicRoutes = [
             path: ROUTES.INFO,
             name: "ProfileInfo",
             element: <ProfileInfo />,
+          },
+          {
+            path: ROUTES.BANK_ACCOUNT,
+            name: "BankAccount",
+            element: <BankAccount />,
           },
           {
             path: ROUTES.WALLET,

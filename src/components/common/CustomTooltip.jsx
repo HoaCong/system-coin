@@ -1,6 +1,7 @@
-import PropTypes from "prop-types";
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from "react";
 import { Button, Overlay, Spinner, Tooltip } from "react-bootstrap";
+import useBodyScrollCheck from "./useBodyScrollCheck";
 
 function CustomTooltip({
   content,
@@ -11,6 +12,18 @@ function CustomTooltip({
   showAction = true,
   propsTooltip,
 }) {
+  const isCcrollBody = useBodyScrollCheck();
+
+  useEffect(() => {
+    if (tooltip.visible && !isCcrollBody) {
+      document.body.style.overflow = "hidden"; // Disable scrolling
+    } else {
+      setTimeout(() => {
+        document.body.style.overflow = "";
+      }, 500);
+    }
+  }, [tooltip]);
+
   return (
     <>
       <Overlay target={tooltip.target} show={tooltip.visible} placement="top">
@@ -55,15 +68,5 @@ function CustomTooltip({
     </>
   );
 }
-
-CustomTooltip.propTypes = {
-  loading: PropTypes.bool,
-  content: PropTypes.any,
-  tooltip: PropTypes.object,
-  onClose: PropTypes.func,
-  onDelete: PropTypes.func,
-  showAction: PropTypes.bool,
-  propsTooltip: PropTypes.object,
-};
 
 export default CustomTooltip;

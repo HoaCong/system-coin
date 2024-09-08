@@ -121,6 +121,12 @@ function Header({ menuIcon, children }) {
                         </Link>
                       </li>
                       <li>
+                        <Link to={ROUTES.BANK_ACCOUNT}>
+                          <i className="fas fa-money-check-alt me-2"></i>
+                          Tài khoản ngân hàng
+                        </Link>
+                      </li>
+                      <li>
                         <Link to={ROUTES.WALLET}>
                           <i className="fas fa-wallet me-2"></i>
                           Ví tiền
