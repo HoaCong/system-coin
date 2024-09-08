@@ -130,7 +130,7 @@ function Header({ menuIcon, children }) {
                       </li>
                       <li onClick={handleLogout}>
                         <Link>
-                          <i className="fas fa-sign-out-alt me-2"></i>Logout
+                          <i className="fas fa-sign-out-alt me-2"></i>Đăng xuất
                         </Link>
                       </li>
                     </ul>
