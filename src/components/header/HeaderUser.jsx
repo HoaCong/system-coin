@@ -51,7 +51,7 @@ function Header({ menuIcon, children }) {
             </Nav.Link>
             <Nav.Link
               as={Link}
-              to="/link"
+              to={ROUTES.SEARCH_TRANSACTION}
               className={`px-0 mx-2 text-uppercase text-white text-12 fw-bold ${
                 location.pathname === "/link" ? "active" : ""
               }`}
@@ -60,7 +60,7 @@ function Header({ menuIcon, children }) {
             </Nav.Link>
             <Nav.Link
               as={Link}
-              to="/news"
+              to={ROUTES.NEWS}
               className={`px-0 mx-2 text-uppercase text-white text-12 fw-bold ${
                 location.pathname === "/news" ? "active" : ""
               }`}
@@ -69,7 +69,7 @@ function Header({ menuIcon, children }) {
             </Nav.Link>
             <Nav.Link
               as={Link}
-              to="/guire"
+              to={ROUTES.GUIRE}
               className={`px-0 mx-2 text-uppercase text-white text-12 fw-bold ${
                 location.pathname === "/guire" ? "active" : ""
               }`}
@@ -78,7 +78,7 @@ function Header({ menuIcon, children }) {
             </Nav.Link>
             <Nav.Link
               as={Link}
-              to="/contact"
+              to={ROUTES.CONTACT}
               className={`px-0 mx-2 text-uppercase text-white text-12 fw-bold ${
                 location.pathname === "/contact" ? "active" : ""
               }`}

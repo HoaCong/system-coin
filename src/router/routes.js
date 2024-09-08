@@ -2,6 +2,7 @@ import DefaultLayout from "components/layout/DefaultLayout";
 import AdminLayout from "components/layout/LayoutMenu";
 import { ROUTES } from "constants/routerWeb";
 import ChangePassword from "pages/ChangePassword";
+import Contact from "pages/Contact";
 import GuireSection from "pages/Guire";
 import Histories from "pages/Histories";
 import Home from "pages/Home";
@@ -10,6 +11,7 @@ import NewsSection from "pages/News";
 import PageNotFound from "pages/NotFoundPage";
 import ProfileInfo from "pages/ProfileInfo";
 import Register from "pages/Register";
+import SearchTransaction from "pages/SearchTransaction";
 import Wallet from "pages/Wallet";
 
 export const publicRoutes = [
@@ -19,6 +21,16 @@ export const publicRoutes = [
     element: <DefaultLayout />,
     children: [
       { isRoot: true, name: "Home", element: <Home /> },
+      {
+        path: ROUTES.SEARCH_TRANSACTION,
+        name: "SearchTransaction",
+        element: <SearchTransaction />,
+      },
+      {
+        path: ROUTES.CONTACT,
+        name: "Contact",
+        element: <Contact />,
+      },
       {
         path: ROUTES.NEWS,
         name: "NewsSection",

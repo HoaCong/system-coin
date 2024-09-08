@@ -1,10 +1,10 @@
 import { ROUTES } from "constants/routerWeb";
 import _capitalize from "lodash/capitalize";
 import { useEffect, useState } from "react";
-import { Button, Form, InputGroup } from "react-bootstrap";
+import { Alert, Button, Form, InputGroup } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { actionLogin } from "store/Login/action";
+import { actionClearError, actionLogin } from "store/Login/action";
 import BackgroundImage from "../../assets/images/bg.jpg";
 import Logo from "../../assets/images/logo.jpg";
 import "./index.scss";
@@ -15,12 +15,13 @@ function Login() {
   // action store
   const dispatch = useDispatch();
   const onLogin = (body) => dispatch(actionLogin(body, true));
+  const onClearError = () => dispatch(actionClearError());
   const {
     loginStatus: { isLoading, isSuccess, isFailure },
     data,
   } = loginState;
 
-  const { user } = data;
+  const { user, error: errorLogin } = data;
 
   // state local
   const navigate = useNavigate();
@@ -35,17 +36,13 @@ function Login() {
 
   useEffect(() => {
     if (isSuccess) {
-      navigate(ROUTES.HOME_PAGE);
+      if (user.id && !user?.image) {
+        navigate(ROUTES.INFO);
+      } else {
+        navigate(ROUTES.HOME_PAGE);
+      }
     }
   }, [navigate, isSuccess]);
-
-  useEffect(() => {
-    if (isFailure)
-      setError((prevError) => ({
-        ...prevError,
-        password: data?.error,
-      }));
-  }, [isFailure]);
 
   // function local
   const handleChange = (e) => {
@@ -89,11 +86,11 @@ function Login() {
       />
       {/* Form */}
       <Form className="shadow rounded text-white" onSubmit={handleSubmit}>
-        {/* {noti && (
-          <Alert variant="danger" onClose={() => setNoti("")} dismissible>
-            <span>{noti}</span>
+        {errorLogin && (
+          <Alert variant="danger" onClose={onClearError} dismissible>
+            <span>{errorLogin}</span>
           </Alert>
-        )} */}
+        )}
 
         <Form.Group className="mb-2" controlId="username">
           <Form.Label>Email</Form.Label>

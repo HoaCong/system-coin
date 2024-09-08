@@ -40,12 +40,11 @@ const loginReducer = (state = initialState, action) => {
           access_token: "",
           timeExpired: 0,
           user: {},
-          error: "Email or password invalid",
+          error: "Tài khoản hoặc mật khẩu không đúng",
         };
         break;
 
       case ActionTypes.LOGOUT: {
-        localStorage.removeItem("access_token");
         draft.loginStatus = { ...status };
         draft.data = {
           access_token: "",
