@@ -133,7 +133,12 @@ const ChangePassword = () => {
             </Form.Control.Feedback>
           </InputGroup>
         </Form.Group>
-        <Button type="submit" className="mt-3" disabled={isLoading}>
+        <Button
+          type="submit"
+          variant="warning"
+          className="mt-3"
+          disabled={isLoading}
+        >
           {isLoading && (
             <Spinner
               as="span"

@@ -1,6 +1,7 @@
 import { ENDPOINT } from "constants/routerApi";
 import { POST, PUT } from "helper/ajax";
 import { all, call, put, takeLatest } from "redux-saga/effects";
+import { actionUpdateUserLogin } from "store/Login/action";
 import { addToast } from "store/Toast/action";
 import {
   actionAddFailed,
@@ -58,7 +59,9 @@ function* callApiEdit({ params }) {
     });
 
     if (response.status === 200) {
+      localStorage.setItem("user", JSON.stringify(response.data.data));
       yield put(actionEditSuccess(response.data.data));
+      yield put(actionUpdateUserLogin(response.data.data));
       yield put(
         addToast({
           text: response.data.message,

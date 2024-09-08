@@ -22,7 +22,7 @@
     }
   }
   .sub-menu-account {
-    width: 150px;
+    width: 200px;
     border-radius: 5px;
     position: absolute;
     z-index: 999;
@@ -34,10 +34,12 @@
       padding: 10px 0 10px 20px;
       &:last-child {
         border-top: 1px solid rgba(145, 158, 171, 0.8);
-        color: red;
       }
       &:hover {
         background-color: #ddd;
+        & a {
+          color: #f89c2e;
+        }
       }
     }
   }

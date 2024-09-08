@@ -1,3 +1,4 @@
+import { ROUTES } from "constants/routerWeb";
 import { useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -104,13 +105,31 @@ function Header({ menuIcon, children }) {
                       } sub-menu-account list-unstyled`}
                     >
                       <li>
-                        <Link className="text-dark">
+                        <Link to={ROUTES.INFO}>
+                          <i className="fas fa-user me-2"></i>
+                          Thông tin cá nhân
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to={ROUTES.WALLET}>
+                          <i className="fas fa-wallet me-2"></i>
+                          Ví tiền
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to={ROUTES.HISTORIES}>
+                          <i className="fas fa-clock me-2"></i>
+                          Lịch sử giao dịch
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to={ROUTES.CHANGE_PASSWORD}>
                           <i className="fas fa-unlock-alt me-2"></i>
                           Đổi mật khẩu
                         </Link>
                       </li>
                       <li onClick={handleLogout}>
-                        <Link className="text-dark">
+                        <Link>
                           <i className="fas fa-sign-out-alt me-2"></i>Logout
                         </Link>
                       </li>

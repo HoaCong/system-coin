@@ -24,70 +24,68 @@ function Menu() {
   );
 
   return (
-    <div>
-      <div className="menu pt-3">
-        <div className="px-3">
-          <div className="point_pi">
-            Point: <span className="text-success">0</span>
-          </div>
-          <div className="point_pi">
-            Pi: <span className="text-success">0</span>
-          </div>
+    <div className="menu pt-3">
+      <div className="px-3">
+        <div className="point_pi">
+          Point: <span className="text-success">0</span>
         </div>
-        <h5 className="px-3 mb-0 text-secondary">MENU</h5>
-        <ul className="d-flex flex-column gap-2 list-unstyled box-menu pt-2">
-          {list.map((item, idx) => {
-            if (item.sub) {
-              return (
-                <li className="px-3" key={idx}>
-                  <Link
-                    className="d-flex align-items-center"
-                    onClick={() => activeSubItem(idx)}
-                  >
-                    <div className="d-flex align-items-center gap-2">
-                      <span className="text-center" style={{ width: "24px" }}>
-                        {item.icon}
-                      </span>
-                      {item.label}
-                    </div>
-                    {item.isVisible ? (
-                      <i className="fas fa-chevron-up"></i>
-                    ) : (
-                      <i className="fas fa-chevron-down"></i>
-                    )}
-                  </Link>
-                  <ul
-                    className={`${
-                      !item.isVisible ? "d-none" : "sub-menu"
-                    } d-flex flex-column gap-2 list-unstyled mt-2 p-2`}
-                  >
-                    {item.sub.map((sub, index) => {
-                      return (
-                        <li className="sub-list" key={index}>
-                          <NavLink to={`${sub.src}`}>{sub.label}</NavLink>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </li>
-              );
-            }
-
+        <div className="point_pi">
+          Pi: <span className="text-success">0</span>
+        </div>
+      </div>
+      <h5 className="px-3 mb-0 text-secondary">MENU</h5>
+      <ul className="d-flex flex-column gap-2 list-unstyled box-menu pt-2">
+        {list.map((item, idx) => {
+          if (item.sub) {
             return (
               <li className="px-3" key={idx}>
-                <NavLink to={`${item.src}`}>
-                  <div className="d-flex align-items-center gap-2 ">
+                <Link
+                  className="d-flex align-items-center"
+                  onClick={() => activeSubItem(idx)}
+                >
+                  <div className="d-flex align-items-center gap-2">
                     <span className="text-center" style={{ width: "24px" }}>
                       {item.icon}
                     </span>
                     {item.label}
                   </div>
-                </NavLink>
+                  {item.isVisible ? (
+                    <i className="fas fa-chevron-up"></i>
+                  ) : (
+                    <i className="fas fa-chevron-down"></i>
+                  )}
+                </Link>
+                <ul
+                  className={`${
+                    !item.isVisible ? "d-none" : "sub-menu"
+                  } d-flex flex-column gap-2 list-unstyled mt-2 p-2`}
+                >
+                  {item.sub.map((sub, index) => {
+                    return (
+                      <li className="sub-list" key={index}>
+                        <NavLink to={`${sub.src}`}>{sub.label}</NavLink>
+                      </li>
+                    );
+                  })}
+                </ul>
               </li>
             );
-          })}
-        </ul>
-      </div>
+          }
+
+          return (
+            <li className="px-3" key={idx}>
+              <NavLink to={`${item.src}`}>
+                <div className="d-flex align-items-center gap-2 ">
+                  <span className="text-center" style={{ width: "24px" }}>
+                    {item.icon}
+                  </span>
+                  {item.label}
+                </div>
+              </NavLink>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }

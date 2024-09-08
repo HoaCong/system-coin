@@ -10,7 +10,7 @@
   margin-bottom: 10px;
 }
 .box-menu {
-  width: 280px;
+  // width: 280px;
   overflow-y: auto;
 
   li {
@@ -48,19 +48,5 @@
       // background-color: #2a303d;
       color: #f89c2e;
     }
-  }
-}
-
-// Media
-@media only screen and (max-width: 1024px) {
-  .menu {
-    width: 280px;
-    margin-left: -280px;
-    white-space: nowrap;
-  }
-  .menu.active {
-    flex-shrink: 0;
-    margin-left: 0;
-    overflow-y: auto;
   }
 }
