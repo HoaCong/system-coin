@@ -1,9 +1,11 @@
+import LazyLoadImage from "components/common/LazyLoadImage";
 import { ROUTES } from "constants/routerWeb";
 import { useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { actionLogout } from "store/Login/action";
+import AvatarDefault from "../../assets/images/avatar.png";
 import Logo from "../../assets/images/logo.jpg";
 import "./header.scss";
 import "./index.scss";
@@ -25,10 +27,10 @@ function Header({ menuIcon, children }) {
       <Navbar expand="lg" className="py-0 h-60px">
         <Container>
           <Navbar.Brand href="/">
-            <img
+            <LazyLoadImage
               src={Logo}
               width={50}
-              height="auto"
+              height={50}
               alt="logo"
               className="rounded-circle"
             />
@@ -91,8 +93,16 @@ function Header({ menuIcon, children }) {
                   className={`px-0 mx-2 text-uppercase text-white text-12`}
                   onClick={() => setIsActive((prev) => !prev)}
                 >
-                  <i className="fas fa-user me-1"></i>
-                  {user?.full_name}
+                  <div className="d-flex align-items-center gap-1">
+                    <LazyLoadImage
+                      src={user.image}
+                      width={25}
+                      height={25}
+                      imgDefault={AvatarDefault}
+                      className="rounded-3"
+                    />
+                    <span>{user?.full_name}</span>
+                  </div>
                 </Nav.Link>
                 <div className=" d-flex justify-content-end align-items-center gap-4 mx-1 ms-auto">
                   <div

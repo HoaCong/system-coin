@@ -136,7 +136,7 @@ const ChangePassword = () => {
         <Button
           type="submit"
           variant="warning"
-          className="mt-3"
+          className="mt-3 text-white"
           disabled={isLoading}
         >
           {isLoading && (
@@ -149,7 +149,9 @@ const ChangePassword = () => {
               className="me-2"
             />
           )}
-          Đổi mật khẩu
+          <small>
+            <b className="text-uppercase"> Đổi mật khẩu</b>
+          </small>
         </Button>
       </Form>
     </div>

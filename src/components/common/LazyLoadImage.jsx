@@ -26,8 +26,8 @@ function useLazyLoadImage(src, defaultImage) {
   return { imageSrc, isLoaded };
 }
 
-function LazyLoadImage({ src, alt, ...restProps }) {
-  const { imageSrc } = useLazyLoadImage(src, NoImage);
+function LazyLoadImage({ src, alt, imgDefault = null, ...restProps }) {
+  const { imageSrc } = useLazyLoadImage(src, imgDefault || NoImage);
   const { popup } = useSelector((state) => state.toastReducer);
   const dispatch = useDispatch();
   const onOpenPopup = (payload) => dispatch(openPopup(payload));

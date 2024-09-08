@@ -179,7 +179,9 @@ const PersonalInfoForm = () => {
               style={{ width: 16, height: 16 }}
             ></div>
           )}
-          <b>LƯU LẠI</b>
+          <small>
+            <b>LƯU LẠI</b>
+          </small>
         </Button>
       </Form>
     </div>
