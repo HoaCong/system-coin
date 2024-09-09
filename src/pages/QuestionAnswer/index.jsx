@@ -102,17 +102,12 @@ const QAItem = ({ data, index }) => (
   </div>
 );
 
-const QAList = () => {
+const QuestionAnswer = () => {
   return (
     <>
-      <div className="my-4">
-        <h3>Câu hỏi thường gặp</h3>
-      </div>
-      {/* <Nav variant="tabs" defaultActiveKey="all" className="mb-3">
-        <Nav.Item>
-          <Nav.Link eventKey="all">Tất cả</Nav.Link>
-        </Nav.Item>
-      </Nav> */}
+      <h5 className="mb-4">
+        <b>CÂU HỎI THƯỜNG GẶP</b>
+      </h5>
       {questions.map((question, index) => (
         <QAItem key={index} data={question} index={index} />
       ))}
@@ -120,4 +115,4 @@ const QAList = () => {
   );
 };
 
-export default QAList;
+export default QuestionAnswer;

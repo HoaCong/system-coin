@@ -1,9 +1,8 @@
-import { MENU_PROFILE } from "constants/routerMenu";
 import { useCallback, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import "./menu.scss";
-function Menu() {
-  const [list, setList] = useState(MENU_PROFILE);
+function Menu({ menu }) {
+  const [list, setList] = useState(menu);
 
   const [prevIndex, setPrevIndex] = useState(0);
   const activeSubItem = useCallback(

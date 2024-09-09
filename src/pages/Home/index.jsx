@@ -1,8 +1,8 @@
 import FooterPage from "components/footer/FooterPage";
 import { Button, Carousel, Container } from "react-bootstrap";
+import QuestionAnswer from "../QuestionAnswer";
 import "./index.scss";
 import CoinList from "./ListCoin";
-import QAList from "./QAComponent";
 
 export default function Home() {
   return (
@@ -69,7 +69,7 @@ export default function Home() {
       </div>
       <Container>
         <CoinList />
-        <QAList />
+        <QuestionAnswer />
       </Container>
       <FooterPage />
     </div>

@@ -32,3 +32,24 @@ export const MENU_PROFILE = [
     icon: <i className="fas fa-lock"></i>,
   },
 ];
+
+export const MENU_MANAGER = [
+  {
+    label: "Tin tức",
+    active: false,
+    src: ROUTES.NEWS,
+    icon: <i className="far fa-newspaper"></i>,
+  },
+  {
+    label: "Chỉ dẫn",
+    active: false,
+    src: ROUTES.GUIRE,
+    icon: <i className="far fa-file-alt"></i>,
+  },
+  {
+    label: "Câu hỏi",
+    active: "false",
+    src: ROUTES.QUESTION_ANSWER,
+    icon: <i className="far fa-question-circle"></i>,
+  },
+];

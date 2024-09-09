@@ -3,15 +3,15 @@ import Menu from "components/menu";
 import { Outlet } from "react-router-dom";
 // import styles
 import "./layout.scss";
-function LayoutMenu(props) {
+function LayoutMenu({ name, menu }) {
   return (
-    <div className="container">
+    <div className="container" key={name}>
       <div className="row">
         <div className="col-12 col-md-4 col-lg-3">
-          <Menu />
+          <Menu menu={menu} />
         </div>
         <main className="col-12 col-md-8 col-lg-9">
-          <div className="height-content p-2">
+          <div className="height-content py-3 px-2">
             <Outlet />
           </div>
         </main>

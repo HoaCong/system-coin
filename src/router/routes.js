@@ -1,5 +1,6 @@
 import DefaultLayout from "components/layout/DefaultLayout";
 import AdminLayout from "components/layout/LayoutMenu";
+import { MENU_MANAGER, MENU_PROFILE } from "constants/routerMenu";
 import { ROUTES } from "constants/routerWeb";
 import BankAccount from "pages/BankAccount";
 import ChangePassword from "pages/ChangePassword";
@@ -11,6 +12,7 @@ import Login from "pages/Login";
 import NewsSection from "pages/News";
 import PageNotFound from "pages/NotFoundPage";
 import ProfileInfo from "pages/ProfileInfo";
+import QuestionAnswer from "pages/QuestionAnswer";
 import Register from "pages/Register";
 import SearchTransaction from "pages/SearchTransaction";
 import Wallet from "pages/Wallet";
@@ -33,21 +35,11 @@ export const publicRoutes = [
         element: <Contact />,
       },
       {
-        path: ROUTES.NEWS,
-        name: "NewsSection",
-        element: <NewsSection />,
-      },
-      {
-        path: ROUTES.GUIRE,
-        name: "GuireSection",
-        element: <GuireSection />,
-      },
-      {
         path: ROUTES.PROFILE,
         name: "ProfileSection",
-        element: <AdminLayout />,
+        element: <AdminLayout menu={MENU_PROFILE} name="ProfileSection" />,
         children: [
-          { isRoot: true, name: "ChangePassword", element: <ChangePassword /> },
+          { isRoot: true, name: "ProfileInfo", element: <ProfileInfo /> },
           {
             path: ROUTES.INFO,
             name: "ProfileInfo",
@@ -72,6 +64,28 @@ export const publicRoutes = [
             path: ROUTES.CHANGE_PASSWORD,
             name: "ChangePassword",
             element: <ChangePassword />,
+          },
+        ],
+      },
+      {
+        path: ROUTES.MENU,
+        name: "Menu Section",
+        element: <AdminLayout menu={MENU_MANAGER} name="MenuSection" />,
+        children: [
+          {
+            path: ROUTES.NEWS,
+            name: "NewsSection",
+            element: <NewsSection />,
+          },
+          {
+            path: ROUTES.GUIRE,
+            name: "GuireSection",
+            element: <GuireSection />,
+          },
+          {
+            path: ROUTES.QUESTION_ANSWER,
+            name: "QuestionAnswer",
+            element: <QuestionAnswer />,
           },
         ],
       },

@@ -143,7 +143,9 @@ const NewsSection = () => {
 
   return (
     <Container>
-      <h1 className="text-start">TIN TỨC</h1>
+      <h5 className="mb-4">
+        <b>TIN TỨC</b>
+      </h5>
       <Row>
         {currentNews.map((news, index) => (
           <Col xs={12} lg={6} className="mb-4" key={index}>
