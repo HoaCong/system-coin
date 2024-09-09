@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import "./menu.scss";
-function Menu({ menu }) {
+function Menu({ menu, type }) {
   const [list, setList] = useState(menu);
 
   const [prevIndex, setPrevIndex] = useState(0);
@@ -24,20 +24,45 @@ function Menu({ menu }) {
 
   return (
     <div className="menu pt-3">
-      <div className="px-3">
-        <div className="point_pi">
-          Point: <span className="text-success">0</span>
+      {type === "profile" ? (
+        <div className="px-3">
+          <div className="point_pi">
+            Point: <span className="text-success">0</span>
+          </div>
+          <div className="point_pi">
+            Pi: <span className="text-success">0</span>
+          </div>
         </div>
-        <div className="point_pi">
-          Pi: <span className="text-success">0</span>
+      ) : (
+        <div className="mb-3">
+          <div className="tt_sb">
+            <strong className="t_tt_sb">Mua bán ℼ tại Tiệm</strong>
+            <ul className="ul_tt_sb p-0 mb-0">
+              <li>
+                Giá bạn mua
+                <div className="fs-6">
+                  <strong>10 530đ </strong>
+                </div>
+              </li>
+              <li>
+                Giá bạn bán
+                <div className="fs-6">
+                  <strong>10 419đ </strong>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <Link className="click_gd" to="/">
+            Đến giao dịch
+          </Link>
         </div>
-      </div>
-      <h5 className="px-3 mb-0 text-secondary">MENU</h5>
+      )}
+      <h5 className="mb-0 text-secondary">MENU</h5>
       <ul className="d-flex flex-column gap-2 list-unstyled box-menu pt-2">
         {list.map((item, idx) => {
           if (item.sub) {
             return (
-              <li className="px-3" key={idx}>
+              <li key={idx}>
                 <Link
                   className="d-flex align-items-center"
                   onClick={() => activeSubItem(idx)}
@@ -72,9 +97,9 @@ function Menu({ menu }) {
           }
 
           return (
-            <li className="px-3" key={idx}>
+            <li key={idx}>
               <NavLink to={`${item.src}`}>
-                <div className="d-flex align-items-center gap-2 ">
+                <div className="d-flex align-items-center gap-2">
                   <span className="text-center" style={{ width: "24px" }}>
                     {item.icon}
                   </span>

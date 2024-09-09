@@ -37,7 +37,7 @@ export const publicRoutes = [
       {
         path: ROUTES.PROFILE,
         name: "ProfileSection",
-        element: <AdminLayout menu={MENU_PROFILE} name="ProfileSection" />,
+        element: <AdminLayout menu={MENU_PROFILE} name="profile" />,
         children: [
           { isRoot: true, name: "ProfileInfo", element: <ProfileInfo /> },
           {
@@ -70,7 +70,7 @@ export const publicRoutes = [
       {
         path: ROUTES.MENU,
         name: "Menu Section",
-        element: <AdminLayout menu={MENU_MANAGER} name="MenuSection" />,
+        element: <AdminLayout menu={MENU_MANAGER} name="menu" />,
         children: [
           {
             path: ROUTES.NEWS,
