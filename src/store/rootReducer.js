@@ -4,7 +4,9 @@ import { combineReducers } from "redux";
 import bankAccountReducer from "./BankAccount/reducer";
 import changePasswordReducer from "./ChangePassword/reducer";
 import customerReducer from "./Customer/reducer";
+import guireReducer from "./Guire/reducer";
 import loginReducer from "./Login/reducer";
+import newsReducer from "./News/reducer";
 import toastReducer from "./Toast/reducer";
 
 const rootReducer = combineReducers({
@@ -13,7 +15,8 @@ const rootReducer = combineReducers({
   loginReducer,
   toastReducer,
   changePasswordReducer,
-  //
+  guireReducer,
+  newsReducer,
 });
 
 export default rootReducer;

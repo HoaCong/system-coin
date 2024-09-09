@@ -164,6 +164,11 @@ span.required {
   width: 100%;
   &.ratio-169 {
     padding-top: calc(100% * 9 / 16);
+    border-radius: 12px;
+  }
+  &.ratio-43 {
+    padding-top: calc(100% * 3 / 4);
+    border-radius: 12px;
   }
 }
 #image_lazyload {

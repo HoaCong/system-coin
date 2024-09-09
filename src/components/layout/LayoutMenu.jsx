@@ -11,7 +11,7 @@ function LayoutMenu({ name, menu }) {
           <Menu menu={menu} />
         </div>
         <main className="col-12 col-md-8 col-lg-9">
-          <div className="height-content py-3 px-2">
+          <div className="height-content py-3">
             <Outlet />
           </div>
         </main>
