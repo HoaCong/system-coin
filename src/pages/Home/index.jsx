@@ -1,8 +1,8 @@
+import ImgCover from "components/common/ImgCover";
 import FooterPage from "components/footer/FooterPage";
-import { Button, Carousel, Container } from "react-bootstrap";
-import QuestionAnswer from "../QuestionAnswer";
+import { Button, Carousel, Col, Container, Row } from "react-bootstrap";
 import "./index.scss";
-import CoinList from "./ListCoin";
+import TransactionForm from "./TransactionForm";
 
 export default function Home() {
   return (
@@ -67,9 +67,34 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <Container>
-        <CoinList />
-        <QuestionAnswer />
+      <Container className="mt-3">
+        <Row>
+          <Col md={3} lg={4}>
+            <div>
+              <ImgCover image="https://sanpinetwork.com/uploads/quangcao/mua-sam-02-min-png-20230915091705aswLoTARQ.png" />
+            </div>
+            <div>
+              <ImgCover image="https://sanpinetwork.com/uploads/quangcao/dich-vu-2-min-png-20230915091754ww5ZAN4I6G.png" />
+            </div>
+            <div>
+              <ImgCover image="https://sanpinetwork.com/uploads/quangcao/nguon-hang-03a-png-20230915091609Vv25Oc1nul.png" />
+            </div>
+          </Col>
+          <Col md={6} lg={4}>
+            <TransactionForm />
+          </Col>
+          <Col md={3} lg={4}>
+            <div>
+              <ImgCover image="https://sanpinetwork.com/uploads/noidung/images/tb-cho-6.PNG" />
+            </div>
+            <div>
+              <ImgCover image="https://sanpinetwork.com/uploads/quangcao/nguon-hang-03a-png-20230915091609Vv25Oc1nul.png" />
+            </div>
+            <div>
+              <ImgCover image="https://sanpinetwork.com/uploads/quangcao/dich-vu-2-min-png-20230915091754ww5ZAN4I6G.png" />
+            </div>
+          </Col>
+        </Row>
       </Container>
       <FooterPage />
     </div>
