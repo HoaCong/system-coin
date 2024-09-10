@@ -11,4 +11,5 @@ export const ENDPOINT = {
   LIST_NEWS: "api/new",
   // ======guires======
   LIST_GUIRE: "api/guidline",
+  LIST_COIN: "api/coin",
 };

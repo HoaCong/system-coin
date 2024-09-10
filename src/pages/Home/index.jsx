@@ -1,10 +1,29 @@
 import ImgCover from "components/common/ImgCover";
 import FooterPage from "components/footer/FooterPage";
+import { formatCurrency } from "helper/functions";
+import { useEffect } from "react";
 import { Button, Carousel, Col, Container, Row } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { actionGetList, resetData } from "store/Coin/action";
 import "./index.scss";
 import TransactionForm from "./TransactionForm";
 
 export default function Home() {
+  const {
+    listStatus: { isLoading, isSuccess, isFailure },
+    list,
+  } = useSelector((state) => state.coinReducer);
+
+  const dispatch = useDispatch();
+  const onGetListCategory = (body) => dispatch(actionGetList(body));
+  const onResetData = () => dispatch(resetData());
+
+  useEffect(() => {
+    if (!isLoading) onGetListCategory({ limit: 2, page: 1 });
+    return () => {
+      onResetData();
+    };
+  }, []);
   return (
     <div>
       <div className="banner">
@@ -26,7 +45,30 @@ export default function Home() {
         </Carousel>
         <div className="box-banner">
           <div className="d-flex gap-3 flex-wrap justify-content-center">
-            <div className="content-banner">
+            {list?.map((item) => (
+              <div key={item?.id} className="content-banner">
+                <h3 className="text-uppercase fw-bold mb-3">{item.name}</h3>
+                <div className="d-flex justify-content-center gap-3">
+                  <div>
+                    <div className="text-uppercase text-12 mb-3">
+                      Giá bạn mua
+                    </div>
+                    <Button variant="success" className="py-2 px-3 fw-bolder">
+                      {formatCurrency(item.giaban)}
+                    </Button>
+                  </div>
+                  <div>
+                    <div className="text-uppercase text-12 mb-3">
+                      Giá bạn bán
+                    </div>
+                    <Button variant="danger" className="py-2 px-3 fw-bolder">
+                      {formatCurrency(item.giamua)}
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            ))}
+            {/* <div className="content-banner">
               <h2 className="text-uppercase fw-bold mb-3">
                 Sàn Phi Tập Trung <span className="fw-normal">ℼ</span>
               </h2>
@@ -63,7 +105,7 @@ export default function Home() {
                   </Button>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

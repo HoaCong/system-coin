@@ -3,6 +3,7 @@ import { combineReducers } from "redux";
 
 import bankAccountReducer from "./BankAccount/reducer";
 import changePasswordReducer from "./ChangePassword/reducer";
+import coinReducer from "./Coin/reducer";
 import customerReducer from "./Customer/reducer";
 import guireReducer from "./Guire/reducer";
 import loginReducer from "./Login/reducer";
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   changePasswordReducer,
   guireReducer,
   newsReducer,
+  coinReducer,
 });
 
 export default rootReducer;
