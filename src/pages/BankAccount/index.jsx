@@ -1,170 +1,150 @@
-import ActionTable from "components/common/ActionTable";
-import CustomTooltip from "components/common/CustomTooltip";
-import _size from "lodash/size";
-import { useEffect, useState } from "react";
-import { Button, Spinner } from "react-bootstrap";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useFormik } from "formik";
+import { useEffect } from "react";
+import { Button, Col, Row } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
+import { NumericFormat } from "react-number-format";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  actionDelete,
-  actionGetList,
-  resetData,
-} from "store/BankAccount/action";
-import FormBankAccount from "./FormBankAccount";
-
-export default function BankAccount() {
+import { actionAdd } from "store/BankAccount/action";
+import { actionEditBank } from "store/Customer/action";
+import * as Yup from "yup";
+function FormBankAccount() {
   const {
     data: { user },
   } = useSelector((state) => state.loginReducer);
+  console.log("FormBankAccount  user:", user);
   const {
-    listStatus: { isLoading, isSuccess, isFailure },
-    actionStatus: { isLoading: actionLoading, isSuccess: actionSuccess },
-    list,
-  } = useSelector((state) => state.bankAccountReducer);
+    actionStatus: { isLoading, isSuccess },
+  } = useSelector((state) => state.customerReducer);
 
   const dispatch = useDispatch();
-  const onGetList = (body) => dispatch(actionGetList(body));
-  const onDelete = (body) => dispatch(actionDelete(body));
-  const onResetData = () => dispatch(resetData());
+  const onUpdateBank = (body) => dispatch(actionEditBank(body));
 
-  const [detail, setDetail] = useState({
-    topic: {},
-    visible: false,
-    type: "",
-  });
-  const [tooltip, setTooltip] = useState({
-    target: null,
-    visible: false,
-    id: null,
+  const formik = useFormik({
+    initialValues: {
+      name_bank: user?.name_bank || "",
+      stk: user?.stk || "",
+      full_name_bank: user?.full_name_bank || "",
+    },
+    validationSchema: Yup.object({
+      name_bank: Yup.string().required("Vui lòng nhập tên ngân hàng"),
+      stk: Yup.string()
+        .required("Vui lòng nhập số tài khoản")
+        .max(16, "Số tài khoản tối đa 16 chữ số"),
+      full_name_bank: Yup.string().required("Vui lòng nhập họ tên chủ sở hữu"),
+    }),
+    onSubmit: (values) => {
+      onUpdateBank({
+        id: user?.id,
+        name_bank: values.name_bank,
+        stk: values.stk,
+        full_name_bank: values.full_name_bank,
+      });
+    },
   });
 
   useEffect(() => {
-    if (!isLoading) onGetList(user?.id);
-    return () => {
-      onResetData();
-    };
-  }, []);
+    if (isSuccess) {
+      formik.resetForm({ values: formik.values });
+    }
+  }, [isSuccess]);
 
-  useEffect(() => {
-    if (actionSuccess) onCloseTooltip();
-  }, [actionSuccess]);
-
-  const onCloseTooltip = () => {
-    setTooltip({
-      visible: false,
-      target: null,
-      id: null,
-    });
-  };
   return (
     <div>
-      <div className="mb-4 d-flex align-items-center">
-        <h5 className="text-uppercase mb-0">
-          <b>Tài khoản ngân hàng</b>
-        </h5>
+      <h5 className="mb-4">
+        <b>THÔNG TIN TÀI KHOẢN</b>
+      </h5>
+      <Form onSubmit={formik.handleSubmit}>
+        <Row className="mb-3">
+          <Col md={3} className="d-flex align-items-center">
+            <Form.Label>
+              1) Tên ngân hàng <span className="required">*</span>
+            </Form.Label>
+          </Col>
+          <Col md={9}>
+            <Form.Control
+              type="text"
+              id="name_bank"
+              name="name_bank"
+              placeholder="Tên ngân hàng"
+              value={formik.values.name_bank}
+              aria-describedby="helpername_bank"
+              onChange={formik.handleChange}
+              isInvalid={formik.touched.name_bank && formik.errors.name_bank}
+            />
+            <Form.Control.Feedback type="invalid">
+              {formik.errors.name_bank}
+            </Form.Control.Feedback>
+          </Col>
+        </Row>
+        <Row className="mb-3">
+          <Col md={3} className="d-flex align-items-center">
+            <Form.Label>
+              2) Số tài khoản <span className="required">*</span>
+            </Form.Label>
+          </Col>
+          <Col md={9}>
+            <Form.Control
+              as={NumericFormat}
+              id="stk"
+              name="stk"
+              className="shadow-none"
+              placeholder="Số tài khoản"
+              value={formik.values.stk}
+              aria-describedby="helperstk"
+              onChange={formik.handleChange}
+              allowLeadingZeros
+              isInvalid={formik.touched.stk && formik.errors.stk}
+            />
+            <Form.Control.Feedback type="invalid">
+              {formik.errors.stk}
+            </Form.Control.Feedback>
+          </Col>
+        </Row>
+        <Row className="mb-3">
+          <Col md={3} className="d-flex align-items-center">
+            <Form.Label>
+              3) Tên chủ sở hữu <span className="required">*</span>
+            </Form.Label>
+          </Col>
+          <Col md={9}>
+            <Form.Control
+              id="full_name_bank"
+              name="full_name_bank"
+              placeholder="Chủ sở hữu"
+              aria-describedby="helperfull_name_bank"
+              value={formik.values.full_name_bank}
+              onChange={formik.handleChange}
+              isInvalid={
+                formik.touched.full_name_bank && formik.errors.full_name_bank
+              }
+            />
+            <Form.Control.Feedback type="invalid">
+              {formik.errors.full_name_bank}
+            </Form.Control.Feedback>
+          </Col>
+        </Row>
+
         <Button
+          variant="warning"
+          className="text-white mt-3"
           type="submit"
-          className="text-white ms-auto"
-          onClick={() =>
-            setDetail((prev) => ({ ...prev, visible: true, type: "create" }))
-          }
+          disabled={isLoading || !formik.dirty}
         >
+          {isLoading && (
+            <div
+              className="spinner-border text-white me-2"
+              role="status"
+              style={{ width: 16, height: 16 }}
+            ></div>
+          )}
           <small>
-            <b className="text-uppercase">Thêm tài khoản</b>
+            <b>LƯU LẠI</b>
           </small>
         </Button>
-      </div>
-      <h6 className="text-uppercase">Danh sách tài khoản</h6>
-      <table className="table table-hover table-striped">
-        <thead className="sticky-top">
-          <tr>
-            <th scope="col" className="align-middle">
-              #
-            </th>
-            <th scope="col" className="align-middle">
-              Tên ngân hàng
-            </th>
-            <th scope="col" className="align-middle">
-              Số tài khoản
-            </th>
-            <th scope="col" className="align-middle">
-              Chủ sở hữu
-            </th>
-            <th scope="col" className="align-middle">
-              Hành động
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {isLoading && _size(list) === 0 && (
-            <tr>
-              <td colSpan={10}>
-                <div
-                  className="d-flex justify-content-center align-items-center w-100"
-                  style={{ height: 400 }}
-                >
-                  <Spinner animation="border" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </Spinner>
-                </div>
-              </td>
-            </tr>
-          )}
-          {list.map((item, index) => (
-            <tr key={item.updatedAt + index}>
-              <th scope="row" className="align-middle">
-                {index + 1}
-              </th>
-              <td className="align-middle">{item.name_bank}</td>
-              <td className="align-middle">{item.stk}</td>
-              <td className="align-middle">{item.full_name}</td>
-              <td className="align-middle">
-                <ActionTable
-                  // onDetail={() =>
-                  //   setDetail({ info: item, visible: true, type: "detail" })
-                  // }
-                  // onEdit={(e) =>
-                  //   setDetail({
-                  //     info: item,
-                  //     visible: true,
-                  //     type: "edit",
-                  //   })
-                  // }
-                  onDelete={(e) =>
-                    setTooltip((prev) => {
-                      return {
-                        visible:
-                          prev.target === e.target ? !tooltip.visible : true,
-                        target: e.target,
-                        id: item.id,
-                        type: "delete",
-                      };
-                    })
-                  }
-                />
-              </td>
-            </tr>
-          ))}
-          {!list?.length && (isSuccess || isFailure) && (
-            <tr>
-              <td colSpan={8} align="center">
-                Không tìm thấy tài khoản ngân hàng nào
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-      <FormBankAccount
-        user={user}
-        data={detail}
-        onClear={() => setDetail({ info: {}, visible: false, type: "" })}
-      />
-      <CustomTooltip
-        content="Bạn có chắc muốn tài khoản ngân hàng này không?"
-        tooltip={tooltip}
-        loading={actionLoading}
-        onClose={onCloseTooltip}
-        onDelete={() => onDelete(tooltip.id)}
-      />
+      </Form>
     </div>
   );
 }
+
+export default FormBankAccount;

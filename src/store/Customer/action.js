@@ -30,6 +30,21 @@ export const actionEditFailed = (error) => ({
   error,
 });
 
+export const actionEditBank = (params) => ({
+  type: ActionTypes.EDIT_BANK,
+  params,
+});
+
+export const actionEditBankSuccess = (payload) => ({
+  type: ActionTypes.EDIT_BANK_SUCCESS,
+  payload,
+});
+
+export const actionEditBankFailed = (error) => ({
+  type: ActionTypes.EDIT_BANK_FAILED,
+  error,
+});
+
 export const resetData = () => ({
   type: ActionTypes.RESET_DATA,
 });

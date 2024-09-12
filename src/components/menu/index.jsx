@@ -1,7 +1,11 @@
 import { useCallback, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import "./menu.scss";
 function Menu({ menu, type }) {
+  const {
+    data: { user },
+  } = useSelector((state) => state.loginReducer);
   const [list, setList] = useState(menu);
 
   const [prevIndex, setPrevIndex] = useState(0);
@@ -25,12 +29,12 @@ function Menu({ menu, type }) {
   return (
     <div className="menu pt-3">
       {type === "profile" ? (
-        <div className="px-3">
+        <div className="">
           <div className="point_pi">
-            Point: <span className="text-success">0</span>
+            Picoin: <span className="text-success">{user?.picoin || 0}</span>
           </div>
           <div className="point_pi">
-            Pi: <span className="text-success">0</span>
+            Sidracoin: <span className="text-success">{user?.picoin || 0}</span>
           </div>
         </div>
       ) : (
@@ -57,7 +61,7 @@ function Menu({ menu, type }) {
           </Link>
         </div>
       )}
-      <h5 className="mb-0 text-secondary">MENU</h5>
+      <h5 className="mt-4 mb-0 text-secondary">MENU</h5>
       <ul className="d-flex flex-column gap-2 list-unstyled box-menu pt-2">
         {list.map((item, idx) => {
           if (item.sub) {

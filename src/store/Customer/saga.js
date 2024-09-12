@@ -91,9 +91,48 @@ function* callApiEdit({ params }) {
   }
 }
 
+function* callApiEditBank({ params }) {
+  try {
+    const { id, ...resParams } = params;
+    const response = yield call(PUT, ENDPOINT.UPDATE_BANKING(id), resParams);
+
+    if (response.status === 200) {
+      localStorage.setItem("user", JSON.stringify(response.data.data));
+      yield put(actionEditSuccess(response.data.data));
+      yield put(actionUpdateUserLogin(response.data.data));
+      yield put(
+        addToast({
+          text: response.data.message,
+          type: "success",
+          title: "",
+        })
+      );
+    } else {
+      yield put(actionEditFailed());
+      yield put(
+        addToast({
+          text: "Update bank failed",
+          type: "danger",
+          title: "",
+        })
+      );
+    }
+  } catch (error) {
+    yield put(actionEditFailed(error.response.data.error));
+    yield put(
+      addToast({
+        text: "Update bank failed",
+        type: "danger",
+        title: "",
+      })
+    );
+  }
+}
+
 export default function* customerSaga() {
   yield all([
     yield takeLatest(ActionTypes.ADD, callApiAdd),
     yield takeLatest(ActionTypes.EDIT, callApiEdit),
+    yield takeLatest(ActionTypes.EDIT_BANK, callApiEditBank),
   ]);
 }

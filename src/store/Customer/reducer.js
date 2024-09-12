@@ -43,6 +43,22 @@ const customerReducer = (state = initialState, action) => {
         draft.actionStatus.isFailure = true;
         break;
 
+      case ActionTypes.EDIT_BANK:
+        draft.actionStatus.isLoading = true;
+        draft.actionStatus.isSuccess = false;
+        draft.actionStatus.isFailure = false;
+        break;
+
+      case ActionTypes.EDIT_BANK_SUCCESS:
+        draft.actionStatus.isLoading = false;
+        draft.actionStatus.isSuccess = true;
+        break;
+
+      case ActionTypes.EDIT_BANK_FAILED:
+        draft.actionStatus.isLoading = false;
+        draft.actionStatus.isFailure = true;
+        break;
+
       case ActionTypes.RESET_DATA:
         return initialState;
 
