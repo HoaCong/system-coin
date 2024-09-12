@@ -2,7 +2,15 @@ import ImgCover from "components/common/ImgCover";
 import FooterPage from "components/footer/FooterPage";
 import { formatCurrency } from "helper/functions";
 import { useEffect } from "react";
-import { Button, Carousel, Col, Container, Row } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Carousel,
+  Col,
+  Container,
+  Placeholder,
+  Row,
+} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { actionGetList, resetData } from "store/Coin/action";
 import "./index.scss";
@@ -45,8 +53,46 @@ export default function Home() {
         </Carousel>
         <div className="box-banner">
           <div className="d-flex gap-3 flex-wrap justify-content-center">
-            {list?.map((item) => (
-              <div key={item?.id} className="content-banner">
+            <div className="content-banner">
+              <h3 className="text-uppercase fw-bold mb-3">
+                Sàn Phi Tập Trung <span className="fw-normal">ℼ</span>
+              </h3>
+              <div className="d-flex justify-content-center gap-3">
+                <div>
+                  <div className="text-uppercase text-12 mb-3">Giá bạn mua</div>
+                  <Button variant="success" className="py-2 px-3 fw-bolder">
+                    {isLoading ? "Loading..." : formatCurrency(list[0]?.giaban)}
+                  </Button>
+                </div>
+                <div>
+                  <div className="text-uppercase text-12 mb-3">Giá bạn bán</div>
+                  <Button variant="danger" className="py-2 px-3 fw-bolder">
+                    {isLoading ? "Loading..." : formatCurrency(list[0]?.giamua)}
+                  </Button>
+                </div>
+              </div>
+            </div>
+            <div className="content-banner">
+              <h3 className="text-uppercase fw-bold mb-3">
+                SÀN PHI TẬP TRUNG SIDRA
+              </h3>
+              <div className="d-flex justify-content-center gap-3">
+                <div>
+                  <div className="text-uppercase text-12 mb-3">Giá bạn mua</div>
+                  <Button variant="success" className="py-2 px-3 fw-bolder">
+                    {isLoading ? "Loading..." : formatCurrency(list[1]?.giaban)}
+                  </Button>
+                </div>
+                <div>
+                  <div className="text-uppercase text-12 mb-3">Giá bạn bán</div>
+                  <Button variant="danger" className="py-2 px-3 fw-bolder">
+                    {isLoading ? "Loading..." : formatCurrency(list[1]?.giamua)}
+                  </Button>
+                </div>
+              </div>
+            </div>
+            {/* {list?.map((item) => (
+              <div className="content-banner">
                 <h3 className="text-uppercase fw-bold mb-3">{item.name}</h3>
                 <div className="d-flex justify-content-center gap-3">
                   <div>
@@ -67,51 +113,13 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            ))}
-            {/* <div className="content-banner">
-              <h2 className="text-uppercase fw-bold mb-3">
-                Sàn Phi Tập Trung <span className="fw-normal">ℼ</span>
-              </h2>
-              <div className="d-flex justify-content-center gap-3">
-                <div>
-                  <div className="text-uppercase text-12 mb-3">Giá bạn mua</div>
-                  <Button variant="success" className="py-2 px-3 fw-bolder">
-                    10000Đ
-                  </Button>
-                </div>
-                <div>
-                  <div className="text-uppercase text-12 mb-3">Giá bạn bán</div>
-                  <Button variant="danger" className="py-2 px-3 fw-bolder">
-                    10000Đ
-                  </Button>
-                </div>
-              </div>
-            </div>
-            <div className="content-banner">
-              <h2 className="text-uppercase fw-bold mb-3">
-                Sàn Phi Tập Trung <span className="fw-normal">ℼ</span>
-              </h2>
-              <div className="d-flex justify-content-center gap-3">
-                <div>
-                  <div className="text-uppercase text-12 mb-3">Giá bạn mua</div>
-                  <Button variant="success" className="py-2 px-3 fw-bolder">
-                    10000Đ
-                  </Button>
-                </div>
-                <div>
-                  <div className="text-uppercase text-12 mb-3">Giá bạn bán</div>
-                  <Button variant="danger" className="py-2 px-3 fw-bolder">
-                    10000Đ
-                  </Button>
-                </div>
-              </div>
-            </div> */}
+            ))} */}
           </div>
         </div>
       </div>
       <Container className="mt-3">
         <Row>
-          <Col md={3} lg={4}>
+          <Col md={3} lg={4} className="hideMobile">
             <div>
               <ImgCover image="https://sanpinetwork.com/uploads/quangcao/mua-sam-02-min-png-20230915091705aswLoTARQ.png" />
             </div>

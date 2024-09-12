@@ -43,8 +43,8 @@ function LazyLoadImage({ src, alt, imgDefault = null, ...restProps }) {
       id="image_lazyload"
       src={imageSrc}
       alt={alt}
-      {...restProps}
       onClick={() => onOpenPopup({ visible: "true", src: imageSrc, alt })}
+      {...restProps}
     />
   );
 }

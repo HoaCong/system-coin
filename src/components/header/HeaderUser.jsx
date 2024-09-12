@@ -124,6 +124,7 @@ function Header({ menuIcon, children }) {
               height={50}
               alt="logo"
               className="rounded-circle"
+              onClick={() => {}}
             />
           </Navbar.Brand>
           <Navbar.Toggle
