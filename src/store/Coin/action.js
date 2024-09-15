@@ -15,48 +15,18 @@ export const actionGetListFailed = (error) => ({
   error,
 });
 
-export const actionAdd = (params) => ({
-  type: ActionTypes.ADD,
+export const actionCreateOrder = (params) => ({
+  type: ActionTypes.CREATE_ORDER,
   params,
 });
 
-export const actionAddSuccess = (payload) => ({
-  type: ActionTypes.ADD_SUCCESS,
+export const actionCreateOrderSuccess = (payload) => ({
+  type: ActionTypes.CREATE_ORDER_SUCCESS,
   payload,
 });
 
-export const actionAddFailed = (error) => ({
-  type: ActionTypes.ADD_FAILED,
-  error,
-});
-
-export const actionEdit = (params) => ({
-  type: ActionTypes.EDIT,
-  params,
-});
-
-export const actionEditSuccess = (payload) => ({
-  type: ActionTypes.EDIT_SUCCESS,
-  payload,
-});
-
-export const actionEditFailed = (error) => ({
-  type: ActionTypes.EDIT_FAILED,
-  error,
-});
-
-export const actionDelete = (id) => ({
-  type: ActionTypes.DELETE,
-  id,
-});
-
-export const actionDeleteSuccess = (id) => ({
-  type: ActionTypes.DELETE_SUCCESS,
-  id,
-});
-
-export const actionDeleteFailed = (error) => ({
-  type: ActionTypes.DELETE_FAILED,
+export const actionCreateOrderFailed = (error) => ({
+  type: ActionTypes.CREATE_ORDER_FAILED,
   error,
 });
 

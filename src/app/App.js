@@ -2,10 +2,11 @@
 import ImagePopup from "components/common/ImagePopup";
 import ToastSnackbar from "components/common/ToastSnackbar";
 import CheckTokenMiddleware from "middleware/checkToken";
-import { useCallback } from "react";
-import { useSelector } from "react-redux";
+import { useCallback, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { publicRoutes } from "router";
+import { actionGetList } from "store/Coin/action";
 import "./index.scss";
 
 function App() {
@@ -13,6 +14,17 @@ function App() {
     data: { user },
   } = useSelector((state) => state.loginReducer);
   const { popup } = useSelector((state) => state.toastReducer);
+  const {
+    listStatus: { isLoading },
+    list,
+  } = useSelector((state) => state.coinReducer);
+
+  const dispatch = useDispatch();
+  const onGetListCategory = (body) => dispatch(actionGetList(body));
+
+  useEffect(() => {
+    if (!isLoading && !list?.length) onGetListCategory({ limit: 2, page: 1 });
+  }, []);
 
   const renderRoutes = useCallback((routes) => {
     return routes?.map((route, index) => {

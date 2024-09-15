@@ -1,18 +1,8 @@
 import ImgCover from "components/common/ImgCover";
 import FooterPage from "components/footer/FooterPage";
 import { formatCurrency } from "helper/functions";
-import { useEffect } from "react";
-import {
-  Button,
-  Card,
-  Carousel,
-  Col,
-  Container,
-  Placeholder,
-  Row,
-} from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { actionGetList, resetData } from "store/Coin/action";
+import { Button, Carousel, Col, Container, Row } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import "./index.scss";
 import TransactionForm from "./TransactionForm";
 
@@ -22,16 +12,6 @@ export default function Home() {
     list,
   } = useSelector((state) => state.coinReducer);
 
-  const dispatch = useDispatch();
-  const onGetListCategory = (body) => dispatch(actionGetList(body));
-  const onResetData = () => dispatch(resetData());
-
-  useEffect(() => {
-    if (!isLoading) onGetListCategory({ limit: 2, page: 1 });
-    return () => {
-      onResetData();
-    };
-  }, []);
   return (
     <div>
       <div className="banner">
@@ -61,13 +41,17 @@ export default function Home() {
                 <div>
                   <div className="text-uppercase text-12 mb-3">Giá bạn mua</div>
                   <Button variant="success" className="py-2 px-3 fw-bolder">
-                    {isLoading ? "Loading..." : formatCurrency(list[0]?.giaban)}
+                    {isLoading
+                      ? "Loading..."
+                      : formatCurrency(list[0]?.giaban || 0)}
                   </Button>
                 </div>
                 <div>
                   <div className="text-uppercase text-12 mb-3">Giá bạn bán</div>
                   <Button variant="danger" className="py-2 px-3 fw-bolder">
-                    {isLoading ? "Loading..." : formatCurrency(list[0]?.giamua)}
+                    {isLoading
+                      ? "Loading..."
+                      : formatCurrency(list[0]?.giamua || 0)}
                   </Button>
                 </div>
               </div>
@@ -80,13 +64,17 @@ export default function Home() {
                 <div>
                   <div className="text-uppercase text-12 mb-3">Giá bạn mua</div>
                   <Button variant="success" className="py-2 px-3 fw-bolder">
-                    {isLoading ? "Loading..." : formatCurrency(list[1]?.giaban)}
+                    {isLoading
+                      ? "Loading..."
+                      : formatCurrency(list[1]?.giaban || 0)}
                   </Button>
                 </div>
                 <div>
                   <div className="text-uppercase text-12 mb-3">Giá bạn bán</div>
                   <Button variant="danger" className="py-2 px-3 fw-bolder">
-                    {isLoading ? "Loading..." : formatCurrency(list[1]?.giamua)}
+                    {isLoading
+                      ? "Loading..."
+                      : formatCurrency(list[1]?.giamua || 0)}
                   </Button>
                 </div>
               </div>

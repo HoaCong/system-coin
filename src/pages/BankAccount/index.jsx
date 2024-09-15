@@ -11,7 +11,7 @@ function FormBankAccount() {
   const {
     data: { user },
   } = useSelector((state) => state.loginReducer);
-  console.log("FormBankAccount  user:", user);
+
   const {
     actionStatus: { isLoading, isSuccess },
   } = useSelector((state) => state.customerReducer);

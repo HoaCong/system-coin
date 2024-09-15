@@ -32,6 +32,16 @@ body {
   }
 }
 
+.hide-scrollbar {
+  overflow: auto; /* Vẫn cho phép cuộn nếu cần */
+  scrollbar-width: none; /* Dành cho Firefox */
+  -ms-overflow-style: none; /* Dành cho Internet Explorer và Edge */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Dành cho Chrome, Safari và Opera */
+}
+
 .ff-title {
   font-family: "Public Sans", sans-serif;
   color: #ab0033;

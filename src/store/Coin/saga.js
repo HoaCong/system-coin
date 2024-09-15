@@ -1,14 +1,10 @@
 import { ENDPOINT } from "constants/routerApi";
-import { DELETE, GET, POST, PUT } from "helper/ajax";
+import { GET, POST } from "helper/ajax";
 import { all, call, put, takeLatest, takeLeading } from "redux-saga/effects";
 import { addToast } from "store/Toast/action";
 import {
-  actionAddFailed,
-  actionAddSuccess,
-  actionDeleteFailed,
-  actionDeleteSuccess,
-  actionEditFailed,
-  actionEditSuccess,
+  actionCreateOrderFailed,
+  actionCreateOrderSuccess,
   actionGetListFailed,
   actionGetListSuccess,
 } from "./action";
@@ -26,12 +22,12 @@ function* callApiList({ params }) {
   }
 }
 
-function* callApiAdd({ params }) {
+function* callApiCreateOrder({ params }) {
   try {
-    const response = yield call(POST, ENDPOINT.ADD_COIN, params);
+    const response = yield call(POST, ENDPOINT.CREATE_ORDER, params);
 
     if (response.status === 200) {
-      yield put(actionAddSuccess(response.data.data));
+      yield put(actionCreateOrderSuccess(response.data.data));
       yield put(
         addToast({
           text: response.data.message,
@@ -40,94 +36,20 @@ function* callApiAdd({ params }) {
         })
       );
     } else {
-      yield put(actionAddFailed());
+      yield put(actionCreateOrderFailed());
       yield put(
         addToast({
-          text: "Add coin failed",
+          text: "Tạo hóa đơn thất bại",
           type: "danger",
           title: "",
         })
       );
     }
   } catch (error) {
-    yield put(actionAddFailed(error.response.data.error));
+    yield put(actionCreateOrderFailed(error.response.data.error));
     yield put(
       addToast({
-        text: "Add coin failed",
-        type: "danger",
-        title: "",
-      })
-    );
-  }
-}
-
-function* callApiEdit({ params }) {
-  try {
-    const { id, name, sodu, address_pay } = params;
-    const response = yield call(PUT, ENDPOINT.EDIT_COIN + id, {
-      name,
-      sodu,
-      address_pay,
-    });
-
-    if (response.status === 200) {
-      yield put(actionEditSuccess(response.data.data));
-      yield put(
-        addToast({
-          text: response.data.message,
-          type: "success",
-          title: "",
-        })
-      );
-    } else {
-      yield put(actionEditFailed());
-      yield put(
-        addToast({
-          text: "Update news failed",
-          type: "danger",
-          title: "",
-        })
-      );
-    }
-  } catch (error) {
-    yield put(actionEditFailed(error.response.data.error));
-    yield put(
-      addToast({
-        text: "Update news failed",
-        type: "danger",
-        title: "",
-      })
-    );
-  }
-}
-
-function* callApiDelete({ id }) {
-  try {
-    const response = yield call(DELETE, ENDPOINT.DELETE_COIN + id);
-    if (response.status === 200) {
-      yield put(actionDeleteSuccess(id));
-      yield put(
-        addToast({
-          text: response.data.message,
-          type: "success",
-          title: "",
-        })
-      );
-    } else {
-      yield put(actionDeleteFailed());
-      yield put(
-        addToast({
-          text: "Update news failed",
-          type: "danger",
-          title: "",
-        })
-      );
-    }
-  } catch (error) {
-    yield put(actionDeleteFailed(error.response.data.error));
-    yield put(
-      addToast({
-        text: "Update news failed",
+        text: "Tạo hóa đơn thất bại",
         type: "danger",
         title: "",
       })
@@ -138,8 +60,6 @@ function* callApiDelete({ id }) {
 export default function* coinSaga() {
   yield all([
     yield takeLeading(ActionTypes.LIST, callApiList),
-    yield takeLatest(ActionTypes.ADD, callApiAdd),
-    yield takeLatest(ActionTypes.EDIT, callApiEdit),
-    yield takeLatest(ActionTypes.DELETE, callApiDelete),
+    yield takeLatest(ActionTypes.CREATE_ORDER, callApiCreateOrder),
   ]);
 }

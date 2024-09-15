@@ -1,3 +1,4 @@
+import { formatCurrency } from "helper/functions";
 import { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
@@ -7,6 +8,10 @@ function Menu({ menu, type }) {
     data: { user },
   } = useSelector((state) => state.loginReducer);
   const [list, setList] = useState(menu);
+  const {
+    listStatus: { isLoading, isSuccess, isFailure },
+    list: listCoin,
+  } = useSelector((state) => state.coinReducer);
 
   const [prevIndex, setPrevIndex] = useState(0);
   const activeSubItem = useCallback(
@@ -34,7 +39,7 @@ function Menu({ menu, type }) {
             Picoin: <span className="text-success">{user?.picoin || 0}</span>
           </div>
           <div className="point_pi">
-            Sidracoin: <span className="text-success">{user?.picoin || 0}</span>
+            Sidracoin: <span className="text-success">{user?.sidracoin || 0}</span>
           </div>
         </div>
       ) : (
@@ -45,13 +50,46 @@ function Menu({ menu, type }) {
               <li>
                 Giá bạn mua
                 <div className="fs-6">
-                  <strong>10 530đ </strong>
+                  <strong>
+                    {isLoading
+                      ? "Loading..."
+                      : formatCurrency(listCoin[0]?.giaban || 0)}
+                  </strong>
                 </div>
               </li>
               <li>
                 Giá bạn bán
                 <div className="fs-6">
-                  <strong>10 419đ </strong>
+                  <strong>
+                    {isLoading
+                      ? "Loading..."
+                      : formatCurrency(listCoin[0]?.giamua || 0)}
+                  </strong>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div className="tt_sb">
+            <strong className="t_tt_sb">Mua bán $ tại Tiệm</strong>
+            <ul className="ul_tt_sb p-0 mb-0">
+              <li>
+                Giá bạn mua
+                <div className="fs-6">
+                  <strong>
+                    {isLoading
+                      ? "Loading..."
+                      : formatCurrency(listCoin[1]?.giaban || 0)}
+                  </strong>
+                </div>
+              </li>
+              <li>
+                Giá bạn bán
+                <div className="fs-6">
+                  <strong>
+                    {isLoading
+                      ? "Loading..."
+                      : formatCurrency(listCoin[1]?.giamua || 0)}
+                  </strong>
                 </div>
               </li>
             </ul>

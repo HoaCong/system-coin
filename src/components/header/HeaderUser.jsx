@@ -50,6 +50,23 @@ function Header({ menuIcon, children }) {
                 !isActive ? "d-none" : ""
               } sub-menu-account list-unstyled`}
             >
+              <div className="d-flex">
+                {["PI_NETWORD", "SIDRA"].map((coinType, index) => (
+                  <div
+                    key={coinType}
+                    className={`px-2 text-center  cursor-pointer fw-bold w-50 ${
+                      index === 0
+                        ? "bg-warning text-white"
+                        : "bg-light text-warning"
+                    }`}
+                  >
+                    <div> {index === 0 ? "π PI" : "$ SIDRA"}</div>
+                    <div className="overflow-auto hide-scrollbar">
+                      {index === 0 ? user?.picoin || 0 : user?.sidracoin || 0}
+                    </div>
+                  </div>
+                ))}
+              </div>
               <li>
                 <Link to={ROUTES.INFO}>
                   <i className="fas fa-user me-2"></i>
@@ -114,7 +131,7 @@ function Header({ menuIcon, children }) {
   );
 
   return (
-    <div id="header">
+    <div id="header" className="position-sticky top-0" style={{ zIndex: 3 }}>
       <Navbar expand="lg" className="py-0 h-60px">
         <Container>
           <Navbar.Brand href="/">
