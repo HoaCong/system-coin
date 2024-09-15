@@ -53,13 +53,17 @@ const GuireSection = () => {
           <Col xs={12} lg={6} className="mb-4" key={index}>
             <Card className="border-0">
               <div className="row g-3">
-                <div className="col-4 ps-0">
+                <div className="ps-0" style={{ width: 210 }}>
                   <ImgCover image={news.image} ratio="43" />
                 </div>
-                <div className="col-8">
-                  <Card.Title className="fw-bold">{news.title}</Card.Title>
+                <div className="col">
+                  <Card.Title className="fw-bold text-14">
+                    {news.title}
+                  </Card.Title>
                   <Card.Text>
-                    <TextLineClamp line={5}>{news.content}</TextLineClamp>
+                    <TextLineClamp line={5}>
+                      <span className="text-12">{news.content}</span>
+                    </TextLineClamp>
                   </Card.Text>
                 </div>
               </div>
