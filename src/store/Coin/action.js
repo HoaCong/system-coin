@@ -30,6 +30,21 @@ export const actionCreateOrderFailed = (error) => ({
   error,
 });
 
+export const getHistoriesOrder = (params) => ({
+  type: ActionTypes.HISTORIES_ORDER,
+  params,
+});
+
+export const getHistoriesOrderSuccess = (payload) => ({
+  type: ActionTypes.HISTORIES_ORDER_SUCCESS,
+  payload,
+});
+
+export const getHistoriesOrderFailed = (error) => ({
+  type: ActionTypes.HISTORIES_ORDER_FAILED,
+  error,
+});
+
 export const resetData = () => ({
   type: ActionTypes.RESET_DATA,
 });

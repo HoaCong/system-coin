@@ -7,12 +7,11 @@ const initialState = {
   listStatus: { ...status },
   actionStatus: { ...status },
   list: [],
-  order: {
+  histories: {
     list: [],
+    status,
     params: { limit: 10, page: 1 },
-    meta: {
-      total: 0,
-    },
+    total: 0,
   },
 };
 
@@ -51,6 +50,26 @@ const coinReducer = (state = initialState, action) => {
       case ActionTypes.CREATE_ORDER_FAILED:
         draft.actionStatus.isLoading = false;
         draft.actionStatus.isFailure = true;
+        break;
+
+      case ActionTypes.HISTORIES_ORDER:
+        draft.histories.status.isLoading = true;
+        draft.histories.status.isSuccess = false;
+        draft.histories.status.isFailure = false;
+        draft.histories.params = action.params;
+        break;
+
+      case ActionTypes.HISTORIES_ORDER_SUCCESS:
+        draft.histories.status.isLoading = false;
+        draft.histories.status.isSuccess = true;
+        draft.histories.list = action.payload.data;
+        draft.histories.total = action.payload.total;
+        break;
+
+      case ActionTypes.HISTORIES_ORDER_FAILED:
+        draft.histories.status.isLoading = false;
+        draft.histories.status.isFailure = true;
+        draft.histories.total = 0;
         break;
 
       case ActionTypes.RESET_DATA:

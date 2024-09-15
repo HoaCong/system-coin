@@ -1,6 +1,9 @@
+import CustomPagination from "components/common/CustomPagination";
 import _size from "lodash/size";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Badge, Spinner } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { getHistoriesOrder } from "store/Coin/action";
 import "./index.scss";
 
 const statusStyles = {
@@ -15,6 +18,28 @@ const transactionTypes = {
 };
 
 export default function TransactionHistories() {
+  const {
+    list: listHis,
+    status: { isLoading, isSuccess, isFailure },
+    params,
+    total,
+  } = useSelector((state) => state.coinReducer.histories);
+
+  const dispatch = useDispatch();
+  const onGetList = (body) => dispatch(getHistoriesOrder(body));
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    onGetList({ ...params, page });
+  };
+
+  useEffect(() => {
+    if (!isLoading) {
+      onGetList({ limit: 10, page: 1 });
+    }
+  }, []);
+
   // Dữ liệu giả
   const list = [
     {
@@ -99,8 +124,6 @@ export default function TransactionHistories() {
     },
   ];
 
-  const isLoading = false; // Thay thế bằng trạng thái loading thực tế của bạn
-
   return (
     <div className="table-container">
       <div className="mb-4 d-flex align-items-center">
@@ -165,14 +188,14 @@ export default function TransactionHistories() {
                 </td>
               </tr>
             )}
-            {list.length === 0 && !isLoading && (
+            {list?.length === 0 && !isLoading && (
               <tr>
                 <td colSpan={6} align="center">
                   Không tìm thấy giao dịch nào
                 </td>
               </tr>
             )}
-            {list.map((item, index) => (
+            {list?.map((item, index) => (
               <tr key={item.id}>
                 <td className="align-middle" style={{ minWidth: "150px" }}>
                   <b className="text-uppercase">{item.id}</b>
@@ -215,6 +238,14 @@ export default function TransactionHistories() {
             ))}
           </tbody>
         </table>
+
+        <CustomPagination
+          loading={isLoading}
+          totalItems={total}
+          perPage={params.limit}
+          onPageChange={handlePageChange}
+          currentPage={currentPage}
+        />
       </div>
     </div>
   );

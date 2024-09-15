@@ -12,5 +12,7 @@ export const ENDPOINT = {
   // ======guires======
   LIST_GUIRE: "api/guidline",
   LIST_COIN: "api/coin",
+  // =======orders=======
   CREATE_ORDER: "api/order/create",
+  HISTORY_ORDER: "api/order-coins",
 };
