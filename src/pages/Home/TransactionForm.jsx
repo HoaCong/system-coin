@@ -3,12 +3,11 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 
 const TransactionForm = () => {
   const [tab, setTab] = useState(1);
+  const [mode, setMode] = useState(1);
 
   const handleChangeTab = (idx) => {
     setTab(idx);
   };
-
-  const [mode, setMode] = useState(1);
 
   const handleChangeMode = (idx) => {
     setMode(idx);
@@ -56,7 +55,7 @@ const TransactionForm = () => {
       </div>
 
       <Form className="px-3">
-        <Form.Group as={Row} className="mb-3">
+        {/* <Form.Group as={Row} className="mb-3">
           <Form.Label column xs={5} className="text-end text-14">
             Chúng tôi còn:
           </Form.Label>
@@ -68,7 +67,7 @@ const TransactionForm = () => {
               defaultValue="14 852 400 000 ₫"
             />
           </Col>
-        </Form.Group>
+        </Form.Group> */}
 
         <Form.Group as={Row} className="mb-3">
           <Form.Label column xs={5} className="text-end text-14">
@@ -76,7 +75,11 @@ const TransactionForm = () => {
             muốn bán:
           </Form.Label>
           <Col xs={7}>
-            <Form.Control type="number" placeholder={tab === 1 ? "π" : "$"} />
+            <Form.Control
+              min={0}
+              type="number"
+              placeholder={tab === 1 ? "π" : "$"}
+            />
             <Form.Text muted>(Min 50 - Max 20000)</Form.Text>
           </Col>
         </Form.Group>
@@ -121,7 +124,7 @@ const TransactionForm = () => {
           </Col>
         </Form.Group>
 
-        <Form.Group as={Row} className="mb-3">
+        {/* <Form.Group as={Row} className="mb-3">
           <Form.Label column xs={5} className="text-end text-14">
             <span className="text-danger">*</span> Địa chỉ ví{" "}
             {tab === 1 ? "π" : "$"}:
@@ -129,7 +132,7 @@ const TransactionForm = () => {
           <Col xs={7}>
             <Form.Control type="text" placeholder="Địa chỉ ví" />
           </Col>
-        </Form.Group>
+        </Form.Group> */}
 
         <Form.Group as={Row} className="mb-3">
           <Col xs={12} className="text-center">

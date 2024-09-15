@@ -45,6 +45,21 @@ export const actionEditBankFailed = (error) => ({
   error,
 });
 
+export const actionEditWallet = (params) => ({
+  type: ActionTypes.EDIT_WALLET,
+  params,
+});
+
+export const actionEditWalletSuccess = (payload) => ({
+  type: ActionTypes.EDIT_WALLET_SUCCESS,
+  payload,
+});
+
+export const actionEditWalletFailed = (error) => ({
+  type: ActionTypes.EDIT_WALLET_FAILED,
+  error,
+});
+
 export const resetData = () => ({
   type: ActionTypes.RESET_DATA,
 });

@@ -5,7 +5,6 @@ import { Button, Col, Row } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { NumericFormat } from "react-number-format";
 import { useDispatch, useSelector } from "react-redux";
-import { actionAdd } from "store/BankAccount/action";
 import { actionEditBank } from "store/Customer/action";
 import * as Yup from "yup";
 function FormBankAccount() {

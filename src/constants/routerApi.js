@@ -5,6 +5,8 @@ export const ENDPOINT = {
   CHANGE_PASSWORD: "api/customer/changepassword/",
   // BANK ACCOUNT
   UPDATE_BANKING: (id) => `api/customer/banking/${id}`,
+  UPDATE_WALLET_PI: (id) => `api/customer/walletpi/${id}`,
+  UPDATE_WALLET_SIDRA: (id) => `api/customer/walletsidra/${id}`,
   // ======news======
   LIST_NEWS: "api/new",
   // ======guires======
