@@ -52,4 +52,10 @@ export const MENU_MANAGER = [
     src: ROUTES.QUESTION_ANSWER,
     icon: <i className="far fa-question-circle"></i>,
   },
+  {
+    label: "Liên hệ",
+    active: "false",
+    src: ROUTES.CONTACT,
+    icon: <i className="fas fa-file-contract"></i>,
+  },
 ];

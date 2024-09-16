@@ -30,11 +30,6 @@ export const publicRoutes = [
         element: <SearchTransaction />,
       },
       {
-        path: ROUTES.CONTACT,
-        name: "Contact",
-        element: <Contact />,
-      },
-      {
         path: ROUTES.PROFILE,
         name: "ProfileSection",
         element: <AdminLayout menu={MENU_PROFILE} name="profile" />,
@@ -86,6 +81,11 @@ export const publicRoutes = [
             path: ROUTES.QUESTION_ANSWER,
             name: "QuestionAnswer",
             element: <QuestionAnswer />,
+          },
+          {
+            path: ROUTES.CONTACT,
+            name: "Contact",
+            element: <Contact />,
           },
         ],
       },

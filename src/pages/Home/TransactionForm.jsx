@@ -80,7 +80,7 @@ const TransactionForm = () => {
         total_money: values.total_money,
         ...(mode === "BUY" && { image_bill: values.image_bill }),
         ...(mode === "SELL" && {
-          stk: values.stk.toString(),
+          stk: values.stk,
           stk_name: values.stk_name,
           stk_bank: values.stk_bank,
         }),
