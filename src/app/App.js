@@ -20,10 +20,10 @@ function App() {
   } = useSelector((state) => state.coinReducer);
 
   const dispatch = useDispatch();
-  const onGetListCategory = (body) => dispatch(actionGetList(body));
+  const onGetListCoin = (body) => dispatch(actionGetList(body));
 
   useEffect(() => {
-    if (!isLoading && !list?.length) onGetListCategory({ limit: 2, page: 1 });
+    if (!isLoading && !list?.length) onGetListCoin({ limit: 2, page: 1 });
   }, []);
 
   const renderRoutes = useCallback((routes) => {

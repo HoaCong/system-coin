@@ -55,116 +55,121 @@ function Histories(props) {
         <Tab eventKey="SELL" title="Bán"></Tab>
       </Tabs>
 
-      <table className="table table-hover table-striped">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Loại coin</th>
-            {tabKey === "BUY" && <th scope="col">Ảnh bill</th>}
-            <th scope="col">Mã SKU</th>
-            <th scope="col">Số lượng coin</th>
-            <th scope="col">Giá coin</th>
-            <th scope="col">Tổng tiền</th>
-            {tabKey === "BUY" ? (
-              <th scope="col">Ví thanh toán</th>
-            ) : (
-              <th scope="col">Thông tin</th>
-            )}
-            <th scope="col">Trạng thái</th>
-          </tr>
-        </thead>
-        <tbody>
-          {isLoading && _size(list) === 0 && (
+      <div className="overflow-x-auto">
+        <table
+          className="table table-hover table-striped"
+          style={{ maxWidth: 800 }}
+        >
+          <thead>
             <tr>
-              <td colSpan={13}>
-                <div
-                  className="d-flex justify-content-center align-items-center w-full"
-                  style={{ height: 400 }}
-                >
-                  <Spinner animation="border" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </Spinner>
-                </div>
-              </td>
+              <th scope="col">#</th>
+              <th scope="col">Loại coin</th>
+              {tabKey === "BUY" && <th scope="col">Ảnh bill</th>}
+              <th scope="col">Mã SKU</th>
+              <th scope="col">Số lượng coin</th>
+              <th scope="col">Giá coin</th>
+              <th scope="col">Tổng tiền</th>
+              {tabKey === "BUY" ? (
+                <th scope="col">Ví thanh toán</th>
+              ) : (
+                <th scope="col">Thông tin</th>
+              )}
+              <th scope="col">Trạng thái</th>
             </tr>
-          )}
-          {list?.map((item, index) => (
-            <tr key={item.updatedAt + index}>
-              <th scope="row" className="align-middle">
-                {index + 1}
-              </th>
-              <td className="align-middle">
-                <LazyLoadImage
-                  src={item.type_coint === "PI_NETWORD" ? piImg : sidraImg}
-                  alt={item.sku}
-                  width={50}
-                  height={50}
-                />
-              </td>
-              {tabKey === "BUY" && (
+          </thead>
+          <tbody>
+            {isLoading && _size(list) === 0 && (
+              <tr>
+                <td colSpan={13}>
+                  <div
+                    className="d-flex justify-content-center align-items-center w-full"
+                    style={{ height: 400 }}
+                  >
+                    <Spinner animation="border" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                  </div>
+                </td>
+              </tr>
+            )}
+            {list?.map((item, index) => (
+              <tr key={item.updatedAt + index}>
+                <th scope="row" className="align-middle">
+                  {index + 1}
+                </th>
                 <td className="align-middle">
                   <LazyLoadImage
-                    src={item.image_bill}
+                    src={item.type_coint === "PI_NETWORD" ? piImg : sidraImg}
                     alt={item.sku}
                     width={50}
                     height={50}
                   />
                 </td>
-              )}
-              <td className="align-middle">
-                <b>{item?.sku}</b>
-                <div>{format(item?.createdAt, "MM:ss dd-MM-yyyy")}</div>
-              </td>
-              <td className="align-middle">
-                {tabKey === "BUY" ? (
-                  <span className="text-danger"> -{item?.count_coin}</span>
-                ) : (
-                  <span className="text-success"> +{item?.count_coin}</span>
+                {tabKey === "BUY" && (
+                  <td className="align-middle">
+                    <LazyLoadImage
+                      src={item.image_bill}
+                      alt={item.sku}
+                      width={50}
+                      height={50}
+                    />
+                  </td>
                 )}
-              </td>
-              <td className="align-middle">
-                {formatCurrency(item?.price_coin_current)}
-              </td>
-              <td className="align-middle">
-                {tabKey === "BUY" ? (
-                  <span className="text-success">
-                    +{formatCurrency(item?.total_money)}
-                  </span> // Add minus sign for BUY
-                ) : (
-                  <span className="text-danger">
-                    -{formatCurrency(item?.total_money)}
-                  </span>
-                )}
-              </td>
-              {tabKey === "BUY" ? (
-                <td className="align-middle">{item?.wallet_coin}</td>
-              ) : (
                 <td className="align-middle">
-                  <div>{item?.stk_bank}</div>
-                  <div>{item?.stk}</div>
-                  <div>{item?.stk_name}</div>
+                  <b>{item?.sku}</b>
+                  <div>{format(item?.createdAt, "MM:ss dd-MM-yyyy")}</div>
                 </td>
-              )}
-              <td className="align-middle">
-                <Badge
-                  className="py-2 px-3"
-                  pill
-                  bg={STATUS_LABEL[item.status_order]?.bg}
-                >
-                  {STATUS_LABEL[item.status_order]?.name}
-                </Badge>
-              </td>
-            </tr>
-          ))}
-          {!list?.length && (isSuccess || isFailure) && (
-            <tr>
-              <td colSpan={15} align="center">
-                Không tìm thấy dữ liệu
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+                <td className="align-middle">
+                  {tabKey === "BUY" ? (
+                    <span className="text-danger"> -{item?.count_coin}</span>
+                  ) : (
+                    <span className="text-success"> +{item?.count_coin}</span>
+                  )}
+                </td>
+                <td className="align-middle">
+                  {formatCurrency(item?.price_coin_current)}
+                </td>
+                <td className="align-middle">
+                  {tabKey === "BUY" ? (
+                    <span className="text-success">
+                      +{formatCurrency(item?.total_money)}
+                    </span> // Add minus sign for BUY
+                  ) : (
+                    <span className="text-danger">
+                      -{formatCurrency(item?.total_money)}
+                    </span>
+                  )}
+                </td>
+                {tabKey === "BUY" ? (
+                  <td className="align-middle">{item?.wallet_coin}</td>
+                ) : (
+                  <td className="align-middle">
+                    <div>{item?.stk_bank}</div>
+                    <div>{item?.stk}</div>
+                    <div>{item?.stk_name}</div>
+                  </td>
+                )}
+                <td className="align-middle">
+                  <Badge
+                    className="py-2 px-3"
+                    pill
+                    bg={STATUS_LABEL[item.status_order]?.bg}
+                  >
+                    {STATUS_LABEL[item.status_order]?.name}
+                  </Badge>
+                </td>
+              </tr>
+            ))}
+            {!list?.length && (isSuccess || isFailure) && (
+              <tr>
+                <td colSpan={15} align="center">
+                  Không tìm thấy dữ liệu
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
       {isLoading && _size(list) > 0 && (
         <div className="mb-2">
           <LinearProgress />
