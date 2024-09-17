@@ -63,7 +63,7 @@ function* callApiHistoriesOrder({ params }) {
     const response = yield call(GET, ENDPOINT.HISTORY_ORDER, params);
 
     if (response.status === 200) {
-      yield put(getHistoriesOrderSuccess(response.data.data));
+      yield put(getHistoriesOrderSuccess(response.data));
     } else {
       yield put(getHistoriesOrderFailed());
     }

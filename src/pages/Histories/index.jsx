@@ -1,252 +1,184 @@
 import CustomPagination from "components/common/CustomPagination";
+import LazyLoadImage from "components/common/LazyLoadImage";
+import LinearProgress from "components/common/LinearProgress";
+import TemplateContent from "components/layout/TemplateContent";
+import { STATUS_LABEL } from "constants";
+import { format } from "date-fns";
+import { formatCurrency } from "helper/functions";
 import _size from "lodash/size";
-import React, { useEffect, useState } from "react";
-import { Badge, Spinner } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Badge, Spinner, Tab, Tabs } from "react-bootstrap"; // Import Tabs and Tab from react-bootstrap
 import { useDispatch, useSelector } from "react-redux";
-import { getHistoriesOrder } from "store/Coin/action";
-import "./index.scss";
-
-const statusStyles = {
-  inProgress: { color: "secondary", label: "Đang xử lý" },
-  success: { color: "success", label: "Hoàn thành" },
-  failed: { color: "danger", label: "Thất bại" },
-};
-
-const transactionTypes = {
-  send_money: { color: "danger", label: "Chuyển tiền", operator: "- " },
-  receive_money: { color: "success", label: "Nhận tiền", operator: "+ " },
-};
-
-export default function TransactionHistories() {
+import { getHistoriesOrder, resetData } from "store/Coin/action";
+import piImg from "../../assets/images/pi.jpg";
+import sidraImg from "../../assets/images/sidra.png";
+function Histories(props) {
   const {
-    list: listHis,
-    status: { isLoading, isSuccess, isFailure },
-    params,
-    total,
-  } = useSelector((state) => state.coinReducer.histories);
+    histories: {
+      list,
+      params,
+      total,
+      status: { isLoading, isSuccess, isFailure },
+    },
+  } = useSelector((state) => state.coinReducer);
 
   const dispatch = useDispatch();
   const onGetList = (body) => dispatch(getHistoriesOrder(body));
+  const onResetData = () => dispatch(resetData());
+
   const [currentPage, setCurrentPage] = useState(1);
+  const [tabKey, setTabKey] = useState("BUY"); // State for the active tab
+  useEffect(() => {
+    if (!isLoading) onGetList({ ...params, limit: 10, page: 1, type: tabKey }); // Include the selected tab type in the query
+    return () => {
+      onResetData();
+    };
+  }, [tabKey]); // Fetch data when tab changes
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    onGetList({ ...params, page });
+    onGetList({ ...params, page, type: tabKey });
   };
 
-  useEffect(() => {
-    if (!isLoading) {
-      onGetList({ limit: 10, page: 1 });
-    }
-  }, []);
-
-  // Dữ liệu giả
-  const list = [
-    {
-      id: "MGD001",
-      transactionDate: "2024-09-01",
-      amount: "1.000.000 VND",
-      transactionType: "send_money",
-      status: "success",
-      description: "Thanh toán hóa đơn #123",
-    },
-    {
-      id: "MGD002",
-      transactionDate: "2024-09-02",
-      amount: "500.000 VND",
-      transactionType: "receive_money",
-      status: "success",
-      description: "Thanh toán lương",
-    },
-    {
-      id: "MGD003",
-      transactionDate: "2024-09-03",
-      amount: "2.000.000 VND",
-      transactionType: "send_money",
-      status: "inProgress",
-      description: "Thanh toán dịch vụ",
-    },
-    {
-      id: "MGD004",
-      transactionDate: "2024-09-04",
-      amount: "750.000 VND",
-      transactionType: "receive_money",
-      status: "success",
-      description: "Hoàn tiền từ mua hàng",
-    },
-    {
-      id: "MGD005",
-      transactionDate: "2024-09-05",
-      amount: "300.000 VND",
-      transactionType: "send_money",
-      status: "failed",
-      description: "Thanh toán đăng ký",
-    },
-    {
-      id: "MGD006",
-      transactionDate: "2024-09-06",
-      amount: "1.200.000 VND",
-      transactionType: "receive_money",
-      status: "success",
-      description: "Trả nợ vay",
-    },
-    {
-      id: "MGD007",
-      transactionDate: "2024-09-07",
-      amount: "1.500.000 VND",
-      transactionType: "send_money",
-      status: "inProgress",
-      description: "Thanh toán dự án",
-    },
-    {
-      id: "MGD008",
-      transactionDate: "2024-09-08",
-      amount: "600.000 VND",
-      transactionType: "receive_money",
-      status: "success",
-      description: "Tiền thưởng",
-    },
-    {
-      id: "MGD009",
-      transactionDate: "2024-09-09",
-      amount: "400.000 VND",
-      transactionType: "send_money",
-      status: "failed",
-      description: "Thanh toán tiện ích",
-    },
-    {
-      id: "MGD010",
-      transactionDate: "2024-09-10",
-      amount: "900.000 VND",
-      transactionType: "receive_money",
-      status: "success",
-      description: "Doanh thu bán hàng",
-    },
-  ];
-
   return (
-    <div className="table-container">
-      <div className="mb-4 d-flex align-items-center">
-        <h5 className="text-uppercase mb-0">
-          <b>Lịch sử giao dịch</b>
-        </h5>
-      </div>
-      <h6 className="text-uppercase">Danh sách giao dịch</h6>
-      <div className="table-wrapper">
-        <table className="table table-hover table-striped">
-          <thead className="sticky-top">
-            <tr>
-              <th
-                scope="col"
-                className="align-middle"
-                style={{ minWidth: "120px" }}
-              >
-                Mã giao dịch
-              </th>
-              <th
-                scope="col"
-                className="align-middle"
-                style={{ minWidth: "150px" }}
-              >
-                Số tiền
-              </th>
-              <th
-                scope="col"
-                className="align-middle"
-                style={{ minWidth: "150px" }}
-              >
-                Loại giao dịch
-              </th>
-              <th
-                scope="col"
-                className="align-middle"
-                style={{ minWidth: "150px" }}
-              >
-                Trạng thái
-              </th>
-              <th
-                scope="col"
-                className="align-middle"
-                style={{ minWidth: "200px" }}
-              >
-                Mô tả
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {isLoading && _size(list) === 0 && (
-              <tr>
-                <td colSpan={6}>
-                  <div
-                    className="d-flex justify-content-center align-items-center w-100"
-                    style={{ height: 400 }}
-                  >
-                    <Spinner animation="border" role="status">
-                      <span className="visually-hidden">Loading...</span>
-                    </Spinner>
-                  </div>
-                </td>
-              </tr>
-            )}
-            {list?.length === 0 && !isLoading && (
-              <tr>
-                <td colSpan={6} align="center">
-                  Không tìm thấy giao dịch nào
-                </td>
-              </tr>
-            )}
-            {list?.map((item, index) => (
-              <tr key={item.id}>
-                <td className="align-middle" style={{ minWidth: "150px" }}>
-                  <b className="text-uppercase">{item.id}</b>
-                  <br />
-                  {item.transactionDate}
-                </td>
-                <td
-                  className={`align-middle text-${
-                    transactionTypes[item.transactionType].color
-                  }`}
-                  style={{ minWidth: "150px" }}
-                >
-                  <b>
-                    {transactionTypes[item.transactionType].operator}
-                    {item.amount}
-                  </b>
-                </td>
-                <td className="align-middle" style={{ minWidth: "200px" }}>
-                  <Badge
-                    className="py-2 px-3"
-                    pill
-                    bg={transactionTypes[item.transactionType].color}
-                  >
-                    {transactionTypes[item.transactionType].label}
-                  </Badge>
-                </td>
-                <td className="align-middle" style={{ minWidth: "150px" }}>
-                  <Badge
-                    className="py-2 px-3"
-                    pill
-                    bg={statusStyles[item.status].color}
-                  >
-                    {statusStyles[item.status].label}
-                  </Badge>
-                </td>
-                <td className="align-middle" style={{ minWidth: "200px" }}>
-                  {item.description}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <div>
+      <h5 className="mb-4">
+        <b>LỊCH SỬ GIAO DỊCH</b>
+      </h5>
+      <Tabs
+        id="controlled-tab"
+        activeKey={tabKey}
+        onSelect={(k) => setTabKey(k)}
+        className="mb-3"
+      >
+        <Tab eventKey="BUY" title="Mua"></Tab>
+        <Tab eventKey="SELL" title="Bán"></Tab>
+      </Tabs>
 
-        <CustomPagination
-          loading={isLoading}
-          totalItems={total}
-          perPage={params.limit}
-          onPageChange={handlePageChange}
-          currentPage={currentPage}
-        />
-      </div>
+      <table className="table table-hover table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Loại coin</th>
+            {tabKey === "BUY" && <th scope="col">Ảnh bill</th>}
+            <th scope="col">Mã SKU</th>
+            <th scope="col">Số lượng coin</th>
+            <th scope="col">Giá coin</th>
+            <th scope="col">Tổng tiền</th>
+            {tabKey === "BUY" ? (
+              <th scope="col">Ví thanh toán</th>
+            ) : (
+              <th scope="col">Thông tin</th>
+            )}
+            <th scope="col">Trạng thái</th>
+          </tr>
+        </thead>
+        <tbody>
+          {isLoading && _size(list) === 0 && (
+            <tr>
+              <td colSpan={13}>
+                <div
+                  className="d-flex justify-content-center align-items-center w-full"
+                  style={{ height: 400 }}
+                >
+                  <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </Spinner>
+                </div>
+              </td>
+            </tr>
+          )}
+          {list?.map((item, index) => (
+            <tr key={item.updatedAt + index}>
+              <th scope="row" className="align-middle">
+                {index + 1}
+              </th>
+              <td className="align-middle">
+                <LazyLoadImage
+                  src={item.type_coint === "PI_NETWORD" ? piImg : sidraImg}
+                  alt={item.sku}
+                  width={50}
+                  height={50}
+                />
+              </td>
+              {tabKey === "BUY" && (
+                <td className="align-middle">
+                  <LazyLoadImage
+                    src={item.image_bill}
+                    alt={item.sku}
+                    width={50}
+                    height={50}
+                  />
+                </td>
+              )}
+              <td className="align-middle">
+                <b>{item?.sku}</b>
+                <div>{format(item?.createdAt, "MM:ss dd-MM-yyyy")}</div>
+              </td>
+              <td className="align-middle">
+                {tabKey === "BUY" ? (
+                  <span className="text-danger"> -{item?.count_coin}</span>
+                ) : (
+                  <span className="text-success"> +{item?.count_coin}</span>
+                )}
+              </td>
+              <td className="align-middle">
+                {formatCurrency(item?.price_coin_current)}
+              </td>
+              <td className="align-middle">
+                {tabKey === "BUY" ? (
+                  <span className="text-success">
+                    +{formatCurrency(item?.total_money)}
+                  </span> // Add minus sign for BUY
+                ) : (
+                  <span className="text-danger">
+                    -{formatCurrency(item?.total_money)}
+                  </span>
+                )}
+              </td>
+              {tabKey === "BUY" ? (
+                <td className="align-middle">{item?.wallet_coin}</td>
+              ) : (
+                <td className="align-middle">
+                  <div>{item?.stk_bank}</div>
+                  <div>{item?.stk}</div>
+                  <div>{item?.stk_name}</div>
+                </td>
+              )}
+              <td className="align-middle">
+                <Badge
+                  className="py-2 px-3"
+                  pill
+                  bg={STATUS_LABEL[item.status_order]?.bg}
+                >
+                  {STATUS_LABEL[item.status_order]?.name}
+                </Badge>
+              </td>
+            </tr>
+          ))}
+          {!list?.length && (isSuccess || isFailure) && (
+            <tr>
+              <td colSpan={15} align="center">
+                Không tìm thấy dữ liệu
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+      {isLoading && _size(list) > 0 && (
+        <div className="mb-2">
+          <LinearProgress />
+        </div>
+      )}
+      <CustomPagination
+        loading={isLoading}
+        totalItems={total}
+        perPage={params.limit}
+        onPageChange={handlePageChange}
+        currentPage={currentPage}
+      />
     </div>
   );
 }
+
+export default Histories;
