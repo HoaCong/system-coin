@@ -60,6 +60,21 @@ export const actionEditWalletFailed = (error) => ({
   error,
 });
 
+export const actionSendContact = (params) => ({
+  type: ActionTypes.SEND_CONTACT,
+  params,
+});
+
+export const actionSendContactSuccess = (payload) => ({
+  type: ActionTypes.SEND_CONTACT_SUCCESS,
+  payload,
+});
+
+export const actionSendContactFailed = (error) => ({
+  type: ActionTypes.SEND_CONTACT_FAILED,
+  error,
+});
+
 export const resetData = () => ({
   type: ActionTypes.RESET_DATA,
 });

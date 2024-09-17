@@ -12,6 +12,8 @@ import {
   actionEditSuccess,
   actionEditWalletFailed,
   actionEditWalletSuccess,
+  actionSendContactFailed,
+  actionSendContactSuccess,
 } from "./action";
 import * as ActionTypes from "./constant";
 
@@ -176,11 +178,47 @@ function* callApiEditWallet({ params }) {
   }
 }
 
+function* callApiSendContact({ params }) {
+  try {
+    const response = yield call(POST, ENDPOINT.SEND_CONTACT, params);
+    if (response.status === 200) {
+      yield put(actionSendContactSuccess(response.data.data));
+      yield put(
+        addToast({
+          text: "Gửi liên hệ thành công",
+          type: "success",
+          title: "",
+          life: 10000,
+        })
+      );
+    } else {
+      yield put(actionSendContactFailed());
+      yield put(
+        addToast({
+          text: "Gửi liên hệ thất bại",
+          type: "danger",
+          title: "",
+        })
+      );
+    }
+  } catch (error) {
+    yield put(actionSendContactFailed(error.response.data.error));
+    yield put(
+      addToast({
+        text: "Gửi liên hệ thất bại",
+        type: "danger",
+        title: "",
+      })
+    );
+  }
+}
+
 export default function* customerSaga() {
   yield all([
     yield takeLatest(ActionTypes.ADD, callApiAdd),
     yield takeLatest(ActionTypes.EDIT, callApiEdit),
     yield takeLatest(ActionTypes.EDIT_BANK, callApiEditBank),
     yield takeLatest(ActionTypes.EDIT_WALLET, callApiEditWallet),
+    yield takeLatest(ActionTypes.SEND_CONTACT, callApiSendContact),
   ]);
 }
