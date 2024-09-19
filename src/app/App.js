@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import BtnSocials from "components/BtnSocials";
 import ImagePopup from "components/common/ImagePopup";
 import ToastSnackbar from "components/common/ToastSnackbar";
 import { checkTimeExpired } from "helper/functions";
@@ -56,6 +57,7 @@ function App() {
       </CheckTokenMiddleware>
       <ToastSnackbar />
       {popup?.visible && <ImagePopup />}
+      <BtnSocials />
     </>
   );
 }
