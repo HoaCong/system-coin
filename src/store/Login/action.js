@@ -35,6 +35,21 @@ export const actionRegisterFailed = (error) => ({
   error,
 });
 
+export const getInfo = (params) => ({
+  type: ActionTypes.GET_INFO,
+  params,
+});
+
+export const getInfoSuccess = (payload) => ({
+  type: ActionTypes.GET_INFO_SUCCESS,
+  payload,
+});
+
+export const getInfoFailed = (error) => ({
+  type: ActionTypes.GET_INFO_FAILED,
+  error,
+});
+
 export const actionUpdateUserLogin = (data) => ({
   type: ActionTypes.UPDATE_USER_LOGIN,
   data,

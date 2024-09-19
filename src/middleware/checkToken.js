@@ -1,13 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { ROUTES } from "constants/routerWeb";
+import { checkTimeExpired } from "helper/functions";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { actionLogout } from "store/Login/action";
-const checkTimeExpired = (timeExpired) => {
-  const now = new Date().getTime();
-  return now > timeExpired;
-};
 
 const CheckTokenMiddleware = ({ children }) => {
   const navigate = useNavigate();

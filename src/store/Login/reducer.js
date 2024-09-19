@@ -96,6 +96,29 @@ const loginReducer = (state = initialState, action) => {
           state.data.user.count_check_current - 1;
         break;
 
+      case ActionTypes.GET_INFO:
+        draft.loginStatus.isLoading = true;
+        draft.loginStatus.isSuccess = false;
+        draft.loginStatus.isFailure = false;
+        break;
+
+      case ActionTypes.GET_INFO_SUCCESS:
+        draft.loginStatus.isLoading = false;
+        draft.loginStatus.isSuccess = true;
+        draft.data.user = action.payload.data;
+        break;
+
+      case ActionTypes.GET_INFO_FAILED:
+        draft.loginStatus.isLoading = false;
+        draft.loginStatus.isFailure = true;
+        draft.data = {
+          access_token: "",
+          timeExpired: 0,
+          user: {},
+          error: "",
+        };
+        break;
+
       default:
         return state;
     }

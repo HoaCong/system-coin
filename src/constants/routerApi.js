@@ -1,6 +1,7 @@
 export const ENDPOINT = {
   LOGIN: "/api/customer/login",
   REGISTER: "api/customer/create",
+  GET_INFO: (id) => `api/customer/${id}`,
   UPDATE_USER: "api/customer/",
   CHANGE_PASSWORD: "api/customer/changepassword/",
   // BANK ACCOUNT

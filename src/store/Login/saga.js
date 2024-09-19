@@ -1,5 +1,5 @@
 import { ENDPOINT } from "constants/routerApi";
-import { POST } from "helper/ajax";
+import { GET, POST } from "helper/ajax";
 import { all, call, put, takeLeading } from "redux-saga/effects";
 import { addToast } from "store/Toast/action";
 import {
@@ -7,6 +7,8 @@ import {
   actionLoginSuccess,
   actionRegisterFailed,
   actionRegisterSuccess,
+  getInfoFailed,
+  getInfoSuccess,
 } from "./action";
 import * as ActionTypes from "./constant";
 
@@ -73,9 +75,23 @@ function* callApiRegister({ params }) {
   }
 }
 
+function* callApiGetInfo({ params }) {
+  try {
+    const response = yield call(GET, ENDPOINT.GET_INFO(params));
+    if (response.status === 200) {
+      yield put(getInfoSuccess({ ...response.data }));
+    } else {
+      yield put(getInfoFailed());
+    }
+  } catch (error) {
+    yield put(getInfoFailed(error.response.data.message));
+  }
+}
+
 export default function* loginSaga() {
   yield all([
     yield takeLeading(ActionTypes.LOGIN, callApiLogin),
     yield takeLeading(ActionTypes.REGISTER, callApiRegister),
+    yield takeLeading(ActionTypes.GET_INFO, callApiGetInfo),
   ]);
 }

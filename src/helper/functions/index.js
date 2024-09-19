@@ -66,7 +66,7 @@ export const download = async (data, format) => {
   document.body.removeChild(file);
 };
 
-const checkTimeExpired = (timeExpired) => {
+export const checkTimeExpired = (timeExpired) => {
   const now = new Date().getTime();
   return now > timeExpired;
 };
