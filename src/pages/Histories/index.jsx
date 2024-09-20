@@ -99,10 +99,11 @@ function Histories(props) {
                 </th>
                 <td className="align-middle">
                   <LazyLoadImage
-                    src={item.type_coint === "PI_NETWORD" ? piImg : sidraImg}
+                    src={item.type_coin === "PI_NETWORD" ? piImg : sidraImg}
                     alt={item.sku}
                     width={50}
                     height={50}
+                    className="rounded-circle"
                   />
                 </td>
                 {tabKey === "BUY" && (

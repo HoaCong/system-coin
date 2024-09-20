@@ -1,3 +1,4 @@
+import BtnBanks from "components/common/BtnBanks";
 import UploadImage from "components/common/UploadImage";
 import { ROUTES } from "constants/routerWeb";
 import { useFormik } from "formik";
@@ -217,6 +218,19 @@ const TransactionForm = () => {
 
         {mode === "SELL" ? (
           <>
+            <Form.Group as={Row} className="mb-3">
+              <Form.Label column xs={5} className="text-end text-14">
+                Ví người bán:
+              </Form.Label>
+              <Col xs={7}>
+                <Form.Control
+                  className="shadow-none"
+                  placeholder="Ví người bán"
+                  value={enumCoinCurrent[type]["wallet"]}
+                  readOnly
+                />
+              </Col>
+            </Form.Group>
             <div className="text-center mb-1">
               <small>KIỂM TRA KỸ THÔNG TIN CỦA BẠN TRƯỚC KHI TẠO ĐƠN</small>
             </div>
@@ -241,45 +255,37 @@ const TransactionForm = () => {
             ))}
           </>
         ) : (
-          <>
-            <Form.Group as={Row} className="mb-3">
-              <Form.Label column xs={5} className="text-end text-14">
-                Ví người bán:
-              </Form.Label>
-              <Col xs={7}>
-                <Form.Control
-                  className="shadow-none"
-                  placeholder="Ví người bán"
-                  value={enumCoinCurrent[type]["address_pay"]}
-                  readOnly
+          <Row>
+            <Col xs={12} md={6}>
+              <Form.Group as={Row} className="mb-3 text-center">
+                <Form.Label htmlFor="Image">
+                  <span className="required">*</span> Ảnh bill
+                </Form.Label>
+                <UploadImage
+                  image={formik.values.image_bill || ""}
+                  callback={(url) =>
+                    formik.handleChange({
+                      target: {
+                        name: "image_bill",
+                        value: url,
+                      },
+                    })
+                  }
+                  geometry="radius"
+                  showUpload={true}
+                  classImage="mx-auto"
                 />
-              </Col>
-            </Form.Group>
-            <Form.Group as={Row} className="mb-3 text-center">
-              <Form.Label htmlFor="Image">
-                <span className="required">*</span> Ảnh bill
-              </Form.Label>
-              <UploadImage
-                image={formik.values.image_bill || ""}
-                callback={(url) =>
-                  formik.handleChange({
-                    target: {
-                      name: "image_bill",
-                      value: url,
-                    },
-                  })
-                }
-                geometry="radius"
-                showUpload={true}
-                classImage="mx-auto"
-              />
-              {formik.touched.image_bill && formik.errors.image_bill ? (
-                <Form.Text className="text-danger">
-                  {formik.errors.image_bill}
-                </Form.Text>
-              ) : null}
-            </Form.Group>
-          </>
+                {formik.touched.image_bill && formik.errors.image_bill ? (
+                  <Form.Text className="text-danger">
+                    {formik.errors.image_bill}
+                  </Form.Text>
+                ) : null}
+              </Form.Group>
+            </Col>
+            <Col xs={12} md={6}>
+              <BtnBanks />
+            </Col>
+          </Row>
         )}
 
         <Form.Group as={Row} className="mb-3">
