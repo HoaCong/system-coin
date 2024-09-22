@@ -1,10 +1,16 @@
 import LazyLoadImage from "components/common/LazyLoadImage";
 import { ROUTES } from "constants/routerWeb";
 import { useState } from "react";
-import { Container, Nav, Navbar } from "react-bootstrap";
+import {
+  Container,
+  Nav,
+  Navbar,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { actionLogout } from "store/Login/action";
+import { actionLogout, getInfo } from "store/Login/action";
 import AvatarDefault from "../../assets/images/avatar.png";
 import Logo from "../../assets/images/logo.jpg";
 import "./header.scss";
@@ -13,8 +19,10 @@ function Header({ menuIcon, children }) {
   const location = useLocation();
   const {
     data: { user },
+    loginStatus: { isLoading },
   } = useSelector((state) => state.loginReducer);
   const dispatch = useDispatch();
+  const onGetInfo = (body) => dispatch(getInfo(body));
   const onLogout = () => dispatch(actionLogout());
 
   const [isActive, setIsActive] = useState(false);
@@ -22,25 +30,54 @@ function Header({ menuIcon, children }) {
     onLogout();
   };
 
+  const handleLoadUser = () => {
+    onGetInfo(user?.id);
+  };
+
   const InfoLogin = (
     <>
       {user?.id ? (
         <>
-          <Nav.Link
-            className={`px-0 mx-2 text-uppercase text-white text-12`}
-            onClick={() => setIsActive((prev) => !prev)}
+          <div
+            className="d-flex align-items-center gap-1"
+            style={{ caretColor: "transparent" }}
           >
-            <div className="d-flex align-items-center gap-1">
-              <LazyLoadImage
-                src={user.image}
-                width={25}
-                height={25}
-                imgDefault={AvatarDefault}
-                className="rounded-3"
-              />
-              <span>{user?.full_name}</span>
-            </div>
-          </Nav.Link>
+            <OverlayTrigger
+              placement="bottom"
+              overlay={
+                <Tooltip id="tooltip-refresh">Làm mới số dư coin</Tooltip>
+              }
+            >
+              {isLoading ? (
+                <div
+                  className="spinner-border text-white"
+                  role="status"
+                  style={{ width: 16, height: 16 }}
+                ></div>
+              ) : (
+                <i
+                  className="fas fa-sync-alt fw-bold text-white cursor-pointer"
+                  onClick={handleLoadUser}
+                ></i>
+              )}
+            </OverlayTrigger>
+
+            <Nav.Link
+              className={`px-0 mx-2 text-uppercase text-white text-12`}
+              onClick={() => setIsActive((prev) => !prev)}
+            >
+              <div className="d-flex align-items-center gap-1">
+                <LazyLoadImage
+                  src={user.image}
+                  width={25}
+                  height={25}
+                  imgDefault={AvatarDefault}
+                  className="rounded-3"
+                />
+                <span>{user?.full_name}</span>
+              </div>
+            </Nav.Link>
+          </div>
           <div
             onClick={() => setIsActive((prev) => !prev)}
             className="account-header d-flex gap-2 align-items-center"

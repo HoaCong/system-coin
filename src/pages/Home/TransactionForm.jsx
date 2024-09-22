@@ -2,6 +2,7 @@ import BtnBanks from "components/common/BtnBanks";
 import UploadImage from "components/common/UploadImage";
 import { ROUTES } from "constants/routerWeb";
 import { useFormik } from "formik";
+import { formatCurrency } from "helper/functions";
 import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { NumericFormat } from "react-number-format";
@@ -119,9 +120,16 @@ const TransactionForm = () => {
   }, [isSuccess]);
 
   const handleChangeCoin = (value, modeValue) => {
-    formik.setFieldValue("count_coin", value);
-    const newTotal = value * enumCoinCurrent[type][modeValue];
-    formik.setFieldValue("total_money", newTotal);
+    const coinPrice = enumCoinCurrent[type][modeValue];
+    const feeOrder = payment?.fee_order || 0;
+    const newTotal = value * coinPrice;
+    const fee = (newTotal * feeOrder) / 100;
+    const totalMoney = mode === "SELL" ? newTotal - fee : newTotal + fee;
+    formik.setValues({
+      ...formik.values,
+      count_coin: value,
+      total_money: totalMoney,
+    });
   };
 
   return (
@@ -213,6 +221,17 @@ const TransactionForm = () => {
               aria-describedby="helpertotal_money"
               readOnly
             />
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} className="mb-3">
+          <Form.Label column xs={5} className="text-end text-14">
+            Phí giao dịch:
+          </Form.Label>
+          <Col xs={7} className="align-middle">
+            <Form.Label column xs={12} className="text-14 ">
+              {payment?.fee_order || 0}%
+            </Form.Label>
           </Col>
         </Form.Group>
 
