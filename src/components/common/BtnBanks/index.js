@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { openPopup } from "store/Toast/action";
@@ -14,40 +14,25 @@ const BtnBanks = ({ payment }) => {
     };
   }, []);
 
-  const ListBankQR = [
-    {
-      icon: payment?.icon_banking1,
-      qr: payment?.banking1,
-    },
-    {
-      icon: payment?.icon_banking2,
-      qr: payment?.banking2,
-    },
-    {
-      icon: payment?.icon_momo,
-      qr: payment?.momo_pay,
-    },
-  ];
-
   return (
     <div className="d-flex flex-column gap-2 align-items-center">
       <span>QR Ngân hàng</span>
       {/* Zalo Button */}
-      {ListBankQR.map((item, index) => (
+      {(payment?.payments || []).map((item, index) => (
         <Button
           key={index}
           variant="light"
           onClick={() =>
             onOpenPopup({
               visible: "true",
-              src: item.qr,
-              alt: item.qr || "qr bank",
+              src: item.qrcode,
+              alt: item.name || "qr bank",
             })
           }
           className="mb-3"
         >
           <img
-            src={item.icon}
+            src={item.logo_bank}
             alt="icon bank"
             srcset=""
             width={20}

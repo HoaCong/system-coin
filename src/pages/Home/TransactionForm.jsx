@@ -2,7 +2,6 @@ import BtnBanks from "components/common/BtnBanks";
 import UploadImage from "components/common/UploadImage";
 import { ROUTES } from "constants/routerWeb";
 import { useFormik } from "formik";
-import { formatCurrency } from "helper/functions";
 import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { NumericFormat } from "react-number-format";
