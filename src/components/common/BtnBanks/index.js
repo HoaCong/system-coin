@@ -1,15 +1,9 @@
-import mbbank from "assets/images/mbbank.png";
-import qr_mb from "assets/images/qr_mb.jpg";
-import qr_vietin from "assets/images/qr_vietin.png";
-import qr_vp from "assets/images/qr_vp.jpg";
-import vietinbank from "assets/images/vietinbank.png";
-import vpbank from "assets/images/vpbank.png";
 import React, { useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { openPopup } from "store/Toast/action";
 import "../BtnSocials/index.css"; // Import CSS
-const BtnBanks = () => {
+const BtnBanks = ({ payment }) => {
   const { popup } = useSelector((state) => state.toastReducer);
   const dispatch = useDispatch();
   const onOpenPopup = (payload) => dispatch(openPopup(payload));
@@ -20,62 +14,48 @@ const BtnBanks = () => {
     };
   }, []);
 
+  const ListBankQR = [
+    {
+      icon: payment?.icon_banking1,
+      qr: payment?.banking1,
+    },
+    {
+      icon: payment?.icon_banking2,
+      qr: payment?.banking2,
+    },
+    {
+      icon: payment?.icon_momo,
+      qr: payment?.momo_pay,
+    },
+  ];
+
   return (
     <div className="d-flex flex-column gap-2 align-items-center">
       <span>QR Ngân hàng</span>
       {/* Zalo Button */}
-      <Button
-        variant="light"
-        onClick={() =>
-          onOpenPopup({ visible: "true", src: qr_vietin, alt: "vietinbank" })
-        }
-        className="mb-3"
-      >
-        <img
-          src={vietinbank}
-          alt="vietinbank img"
-          srcset=""
-          width={20}
-          height={20}
-          className="rounded-circle"
-        />
-      </Button>
-
-      {/* Facebook Button */}
-      <Button
-        variant="light"
-        onClick={() =>
-          onOpenPopup({ visible: "true", src: qr_mb, alt: "mbbank" })
-        }
-        className=" mb-3"
-      >
-        <img
-          src={mbbank}
-          alt="mbbank img"
-          srcset=""
-          width={20}
-          height={20}
-          className="rounded-circle"
-        />
-      </Button>
-
-      {/* Telegram Button */}
-      <Button
-        variant="light"
-        onClick={() =>
-          onOpenPopup({ visible: "true", src: qr_vp, alt: "vpbank" })
-        }
-        className=""
-      >
-        <img
-          src={vpbank}
-          alt="vpbank img"
-          srcset=""
-          width={20}
-          height={20}
-          className="rounded-circle"
-        />
-      </Button>
+      {ListBankQR.map((item, index) => (
+        <Button
+          key={index}
+          variant="light"
+          onClick={() =>
+            onOpenPopup({
+              visible: "true",
+              src: item.qr,
+              alt: item.qr || "qr bank",
+            })
+          }
+          className="mb-3"
+        >
+          <img
+            src={item.icon}
+            alt="icon bank"
+            srcset=""
+            width={20}
+            height={20}
+            className="rounded-circle"
+          />
+        </Button>
+      ))}
     </div>
   );
 };

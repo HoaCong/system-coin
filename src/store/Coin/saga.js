@@ -9,6 +9,8 @@ import {
   actionGetListSuccess,
   getHistoriesOrderFailed,
   getHistoriesOrderSuccess,
+  getMethodPaymentFailed,
+  getMethodPaymentSuccess,
 } from "./action";
 import * as ActionTypes from "./constant";
 function* callApiList({ params }) {
@@ -71,11 +73,25 @@ function* callApiHistoriesOrder({ params }) {
     yield put(getHistoriesOrderFailed(error.response.data.error));
   }
 }
+function* callApiMethodPayment({ params }) {
+  try {
+    const response = yield call(GET, ENDPOINT.PAYMENT, params);
+
+    if (response.status === 200) {
+      yield put(getMethodPaymentSuccess(response.data));
+    } else {
+      yield put(getMethodPaymentFailed());
+    }
+  } catch (error) {
+    yield put(getMethodPaymentFailed(error.response.data.error));
+  }
+}
 
 export default function* coinSaga() {
   yield all([
     yield takeLeading(ActionTypes.LIST, callApiList),
     yield takeLatest(ActionTypes.CREATE_ORDER, callApiCreateOrder),
     yield takeLatest(ActionTypes.HISTORIES_ORDER, callApiHistoriesOrder),
+    yield takeLatest(ActionTypes.METHOD_PAYMENT, callApiMethodPayment),
   ]);
 }

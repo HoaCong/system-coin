@@ -45,6 +45,21 @@ export const getHistoriesOrderFailed = (error) => ({
   error,
 });
 
+export const getMethodPayment = (params) => ({
+  type: ActionTypes.METHOD_PAYMENT,
+  params,
+});
+
+export const getMethodPaymentSuccess = (payload) => ({
+  type: ActionTypes.METHOD_PAYMENT_SUCCESS,
+  payload,
+});
+
+export const getMethodPaymentFailed = (error) => ({
+  type: ActionTypes.METHOD_PAYMENT_FAILED,
+  error,
+});
+
 export const resetData = () => ({
   type: ActionTypes.RESET_DATA,
 });

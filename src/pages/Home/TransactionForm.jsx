@@ -14,10 +14,10 @@ const TransactionForm = () => {
   const {
     data: { user },
   } = useSelector((state) => state.loginReducer);
-  console.log("TransactionForm  user:", user);
   const {
     list,
     actionStatus: { isLoading, isSuccess },
+    payment,
   } = useSelector((state) => state.coinReducer);
   const dispatch = useDispatch();
   const onCreateOrder = (body) => dispatch(actionCreateOrder(body));
@@ -283,7 +283,7 @@ const TransactionForm = () => {
               </Form.Group>
             </Col>
             <Col xs={12} md={6}>
-              <BtnBanks />
+              <BtnBanks payment={payment} />
             </Col>
           </Row>
         )}

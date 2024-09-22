@@ -17,4 +17,5 @@ export const ENDPOINT = {
   CREATE_ORDER: "api/order/create",
   HISTORY_ORDER: "api/order-coins",
   SEND_CONTACT: "api/contact/create",
+  PAYMENT: "api/setting",
 };

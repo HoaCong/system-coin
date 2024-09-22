@@ -7,7 +7,7 @@ import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { publicRoutes } from "router";
-import { actionGetList } from "store/Coin/action";
+import { actionGetList, getMethodPayment } from "store/Coin/action";
 import { getInfo } from "store/Login/action";
 import "./index.scss";
 
@@ -24,9 +24,13 @@ function App() {
   const dispatch = useDispatch();
   const onGetListCoin = (body) => dispatch(actionGetList(body));
   const onGetInfo = (body) => dispatch(getInfo(body));
+  const onGetPayment = () => dispatch(getMethodPayment());
 
   useEffect(() => {
-    if (!isLoading && !list?.length) onGetListCoin({ limit: 2, page: 1 });
+    if (!isLoading && !list?.length) {
+      onGetListCoin({ limit: 2, page: 1 });
+      onGetPayment();
+    }
     if (access_token && !checkTimeExpired(timeExpired) && user?.id) {
       onGetInfo(user?.id);
     }

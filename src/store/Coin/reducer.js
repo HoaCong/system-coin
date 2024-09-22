@@ -13,6 +13,8 @@ const initialState = {
     params: { limit: 10, page: 1 },
     total: 0,
   },
+  payment: {},
+  paymentStatus: status,
 };
 
 const coinReducer = (state = initialState, action) => {
@@ -70,6 +72,24 @@ const coinReducer = (state = initialState, action) => {
         draft.histories.status.isLoading = false;
         draft.histories.status.isFailure = true;
         draft.histories.total = 0;
+        break;
+
+      case ActionTypes.METHOD_PAYMENT:
+        draft.paymentStatus.isLoading = true;
+        draft.paymentStatus.isSuccess = false;
+        draft.paymentStatus.isFailure = false;
+        break;
+
+      case ActionTypes.METHOD_PAYMENT_SUCCESS:
+        draft.paymentStatus.isLoading = false;
+        draft.paymentStatus.isSuccess = true;
+        draft.payment = action.payload.data;
+        break;
+
+      case ActionTypes.METHOD_PAYMENT_FAILED:
+        draft.paymentStatus.isLoading = false;
+        draft.paymentStatus.isFailure = true;
+        draft.payment = {};
         break;
 
       case ActionTypes.RESET_DATA:
