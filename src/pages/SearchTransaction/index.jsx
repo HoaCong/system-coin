@@ -88,14 +88,17 @@ const SearchTransaction = () => {
                 <thead>
                   <tr>
                     <th scope="col">Loại coin</th>
-                    {data.type_order === "BUY" && <th scope="col">Ảnh bill</th>}
+                    {["BUY", "SELL_HOT"].includes(data.type_order) && (
+                      <th scope="col">Ảnh bill</th>
+                    )}
                     <th scope="col">Mã SKU</th>
                     <th scope="col">Số lượng coin</th>
                     <th scope="col">Giá coin</th>
                     <th scope="col">Tổng tiền</th>
-                    {data.type_order === "BUY" ? (
-                      <th scope="col">Ví thanh toán</th>
-                    ) : (
+                    {["BUY", "SELL_HOT"].includes(data.type_order) && (
+                      <th scope="col">Ví chủ shop</th>
+                    )}
+                    {["SELL", "SELL_HOT"].includes(data.type_order) && (
                       <th scope="col">Thông tin</th>
                     )}
                     <th scope="col">Trạng thái</th>
@@ -112,7 +115,7 @@ const SearchTransaction = () => {
                         className="rounded-circle"
                       />
                     </td>
-                    {data.type_order === "BUY" && (
+                    {["BUY", "SELL_HOT"].includes(data.type_order) && (
                       <td className="align-middle">
                         <LazyLoadImage
                           src={data.image_bill}
@@ -149,9 +152,10 @@ const SearchTransaction = () => {
                         </span>
                       )}
                     </td>
-                    {data.type_order === "BUY" ? (
+                    {["BUY", "SELL_HOT"].includes(data.type_order) && (
                       <td className="align-middle">{data?.wallet_coin}</td>
-                    ) : (
+                    )}
+                    {["SELL", "SELL_HOT"].includes(data.type_order) && (
                       <td className="align-middle">
                         <div>{data?.stk_bank}</div>
                         <div>{data?.stk}</div>

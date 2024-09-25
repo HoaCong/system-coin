@@ -53,6 +53,7 @@ function Histories(props) {
       >
         <Tab eventKey="BUY" title="Mua"></Tab>
         <Tab eventKey="SELL" title="Bán"></Tab>
+        <Tab eventKey="SELL_HOT" title="Bán nóng"></Tab>
       </Tabs>
 
       <div className="overflow-x-auto">
@@ -64,14 +65,17 @@ function Histories(props) {
             <tr>
               <th scope="col">#</th>
               <th scope="col">Loại coin</th>
-              {tabKey === "BUY" && <th scope="col">Ảnh bill</th>}
+              {["BUY", "SELL_HOT"].includes(tabKey) && (
+                <th scope="col">Ảnh bill</th>
+              )}
               <th scope="col">Mã SKU</th>
               <th scope="col">Số lượng coin</th>
               <th scope="col">Giá coin</th>
               <th scope="col">Tổng tiền</th>
-              {tabKey === "BUY" ? (
-                <th scope="col">Ví thanh toán</th>
-              ) : (
+              {["BUY", "SELL_HOT"].includes(tabKey) && (
+                <th scope="col">Ví chủ shop</th>
+              )}
+              {["SELL", "SELL_HOT"].includes(tabKey) && (
                 <th scope="col">Thông tin</th>
               )}
               <th scope="col">Trạng thái</th>
@@ -106,7 +110,7 @@ function Histories(props) {
                     className="rounded-circle"
                   />
                 </td>
-                {tabKey === "BUY" && (
+                {["BUY", "SELL_HOT"].includes(tabKey) && (
                   <td className="align-middle">
                     <LazyLoadImage
                       src={item.image_bill}
@@ -122,9 +126,9 @@ function Histories(props) {
                 </td>
                 <td className="align-middle">
                   {tabKey === "BUY" ? (
-                    <span className="text-danger"> -{item?.count_coin}</span>
-                  ) : (
                     <span className="text-success"> +{item?.count_coin}</span>
+                  ) : (
+                    <span className="text-danger"> -{item?.count_coin}</span>
                   )}
                 </td>
                 <td className="align-middle">
@@ -132,18 +136,19 @@ function Histories(props) {
                 </td>
                 <td className="align-middle">
                   {tabKey === "BUY" ? (
-                    <span className="text-success">
-                      +{formatCurrency(item?.total_money)}
-                    </span> // Add minus sign for BUY
-                  ) : (
                     <span className="text-danger">
                       -{formatCurrency(item?.total_money)}
+                    </span> // Add minus sign for BUY
+                  ) : (
+                    <span className="text-success">
+                      +{formatCurrency(item?.total_money)}
                     </span>
                   )}
                 </td>
-                {tabKey === "BUY" ? (
+                {["BUY", "SELL_HOT"].includes(tabKey) && (
                   <td className="align-middle">{item?.wallet_coin}</td>
-                ) : (
+                )}
+                {["SELL", "SELL_HOT"].includes(tabKey) && (
                   <td className="align-middle">
                     <div>{item?.stk_bank}</div>
                     <div>{item?.stk}</div>
