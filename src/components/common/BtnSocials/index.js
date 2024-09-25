@@ -12,7 +12,7 @@ const BtnSocials = () => {
         href="https://zalo.me/0332986587"
         target="_blank"
       >
-        <img src={zalo} alt="zalo img" srcset="" width={20} height={20} />
+        <img src={zalo} alt="zalo img" width={20} height={20} />
       </Button>
 
       {/* Facebook Button */}

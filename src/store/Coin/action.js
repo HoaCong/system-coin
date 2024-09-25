@@ -60,6 +60,21 @@ export const getMethodPaymentFailed = (error) => ({
   error,
 });
 
+export const getDetailOrder = (params) => ({
+  type: ActionTypes.DETAIL_ORDER,
+  params,
+});
+
+export const getDetailOrderSuccess = (payload) => ({
+  type: ActionTypes.DETAIL_ORDER_SUCCESS,
+  payload,
+});
+
+export const getDetailOrderFailed = (error) => ({
+  type: ActionTypes.DETAIL_ORDER_FAILED,
+  error,
+});
+
 export const resetData = () => ({
   type: ActionTypes.RESET_DATA,
 });

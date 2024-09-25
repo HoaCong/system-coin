@@ -35,7 +35,6 @@ const BtnBanks = ({ payment }) => {
               <img
                 src={item.logo_bank}
                 alt="icon bank"
-                srcset=""
                 width={20}
                 height={20}
                 className="rounded-circle"

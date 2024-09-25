@@ -7,6 +7,8 @@ import {
   actionCreateOrderSuccess,
   actionGetListFailed,
   actionGetListSuccess,
+  getDetailOrderFailed,
+  getDetailOrderSuccess,
   getHistoriesOrderFailed,
   getHistoriesOrderSuccess,
   getMethodPaymentFailed,
@@ -86,6 +88,19 @@ function* callApiMethodPayment({ params }) {
     yield put(getMethodPaymentFailed(error.response.data.error));
   }
 }
+function* callApiDetailOrder({ params }) {
+  try {
+    const response = yield call(GET, ENDPOINT.DETAIL_ORDER, params);
+
+    if (response.status === 200) {
+      yield put(getDetailOrderSuccess(response.data));
+    } else {
+      yield put(getDetailOrderFailed());
+    }
+  } catch (error) {
+    yield put(getDetailOrderFailed(error.response.data.error));
+  }
+}
 
 export default function* coinSaga() {
   yield all([
@@ -93,5 +108,6 @@ export default function* coinSaga() {
     yield takeLatest(ActionTypes.CREATE_ORDER, callApiCreateOrder),
     yield takeLatest(ActionTypes.HISTORIES_ORDER, callApiHistoriesOrder),
     yield takeLatest(ActionTypes.METHOD_PAYMENT, callApiMethodPayment),
+    yield takeLatest(ActionTypes.DETAIL_ORDER, callApiDetailOrder),
   ]);
 }

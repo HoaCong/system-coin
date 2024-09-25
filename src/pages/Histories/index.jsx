@@ -58,7 +58,7 @@ function Histories(props) {
       <div className="overflow-x-auto">
         <table
           className="table table-hover table-striped"
-          style={{ maxWidth: 800 }}
+          style={{ minWidth: 800 }}
         >
           <thead>
             <tr>
