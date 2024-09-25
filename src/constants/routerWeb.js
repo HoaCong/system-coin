@@ -8,6 +8,7 @@ export const ROUTES = {
   QUESTION_ANSWER: "/menu/question_answer",
   GUIRE: "/menu/guire",
   CONTACT: "/menu/contact",
+  HOLD_PI: "/menu/holding_pi",
   PROFILE: "/profile",
   INFO: "/profile/info",
   BANK_ACCOUNT: "/profile/bank_account",

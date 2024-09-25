@@ -7,6 +7,7 @@ import ChangePassword from "pages/ChangePassword";
 import Contact from "pages/Contact";
 import GuireSection from "pages/Guire";
 import Histories from "pages/Histories";
+import HoldPi from "pages/HoldPi";
 import Home from "pages/Home";
 import Login from "pages/Login";
 import NewsSection from "pages/News";
@@ -86,6 +87,11 @@ export const publicRoutes = [
             path: ROUTES.CONTACT,
             name: "Contact",
             element: <Contact />,
+          },
+          {
+            path: ROUTES.HOLD_PI,
+            name: "HoldPi",
+            element: <HoldPi />,
           },
         ],
       },

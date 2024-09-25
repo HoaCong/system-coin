@@ -58,4 +58,10 @@ export const MENU_MANAGER = [
     src: ROUTES.CONTACT,
     icon: <i className="fas fa-file-contract"></i>,
   },
+  {
+    label: "Cầm pi",
+    active: "false",
+    src: ROUTES.HOLD_PI,
+    icon: <i className="fas fa-file-contract"></i>,
+  },
 ];
