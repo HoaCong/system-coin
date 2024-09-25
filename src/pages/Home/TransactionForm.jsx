@@ -8,6 +8,7 @@ import { NumericFormat } from "react-number-format";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { actionCreateOrder } from "store/Coin/action";
+import { addToast } from "store/Toast/action";
 import * as Yup from "yup";
 
 const TransactionForm = () => {
@@ -21,10 +22,13 @@ const TransactionForm = () => {
   } = useSelector((state) => state.coinReducer);
   const dispatch = useDispatch();
   const onCreateOrder = (body) => dispatch(actionCreateOrder(body));
+  const onAddToast = (data) => dispatch(addToast(data));
+
   const navigate = useNavigate();
 
   const [type, setType] = useState("PI_NETWORD");
   const [mode, setMode] = useState("SELL");
+  const [isSellHot, setIsSellHot] = useState(false);
 
   const enumCoinCurrent = {
     PI_NETWORD: {
@@ -48,6 +52,7 @@ const TransactionForm = () => {
     }
     if (newMode === "SELL" && formik.values.image_bill === "") {
       formik.setFieldValue("image_bill", "a");
+      setIsSellHot(false);
     } else if (formik.values.image_bill === "a" && newMode === "BUY") {
       formik.setFieldValue("image_bill", "");
     }
@@ -73,9 +78,8 @@ const TransactionForm = () => {
         return navigate(ROUTES.BANK_ACCOUNT);
       }
       const payload = {
-        type_order: mode,
+        type_order: isSellHot && mode === "SELL" ? "SELL_HOT" : mode,
         type_coin: type,
-        wallet_coin: user?.[enumCoinCurrent[type]["wallet"]],
         price_coin_current: enumCoinCurrent[type][mode],
         count_coin: values.count_coin,
         total_money: values.total_money,
@@ -84,6 +88,8 @@ const TransactionForm = () => {
           stk: values.stk,
           stk_name: values.stk_name,
           stk_bank: values.stk_bank,
+          image_bill: isSellHot ? values.image_bill : null,
+          wallet_coin: isSellHot ? enumCoinCurrent[type]["address_pay"] : null,
         }),
       };
       onCreateOrder(payload);
@@ -107,6 +113,7 @@ const TransactionForm = () => {
     if (isSuccess) {
       setType("PI_NETWORD");
       setMode("SELL");
+      setIsSellHot(false);
       formik.resetForm({
         count_coin: "",
         total_money: "",
@@ -129,6 +136,27 @@ const TransactionForm = () => {
       count_coin: value,
       total_money: totalMoney,
     });
+  };
+
+  const handleCopy = (data) => {
+    navigator.clipboard
+      .writeText(data)
+      .then(() => {
+        onAddToast({
+          text: "Copy thông tin ví chủ shop thành công",
+          type: "success",
+          title: "",
+        });
+        // Thực hiện các hành động khác nếu cần sau khi sao chép thành công
+      })
+      .catch((err) => {
+        console.error("Error: ", err);
+        onAddToast({
+          text: "Copy thông tin ví chủ shop thất bại",
+          type: "danger",
+          title: "",
+        });
+      });
   };
 
   return (
@@ -237,18 +265,78 @@ const TransactionForm = () => {
         {mode === "SELL" ? (
           <>
             <Form.Group as={Row} className="mb-3">
-              <Form.Label column xs={5} className="text-end text-14">
-                Ví người bán:
+              <Form.Label
+                column
+                xs={5}
+                htmlFor="sell_hot"
+                className="text-end text-14"
+              >
+                Bán nóng coin:
               </Form.Label>
-              <Col xs={7}>
-                <Form.Control
-                  className="shadow-none"
-                  placeholder="Ví người bán"
-                  value={enumCoinCurrent[type]["wallet"]}
-                  readOnly
+              <Col xs={7} className="d-flex align-items-center">
+                <Form.Check
+                  type="checkbox"
+                  checked={isSellHot}
+                  id="sell_hot"
+                  onChange={(e) => {
+                    setIsSellHot(e.target.checked);
+                    if (e.target.checked) {
+                      formik.setFieldValue("image_bill", "");
+                    } else {
+                      formik.setFieldValue("image_bill", "a");
+                    }
+                  }}
                 />
               </Col>
             </Form.Group>
+            {isSellHot && (
+              <>
+                <Form.Group as={Row} className="mb-3">
+                  <Form.Label column xs={5} className="text-end text-14">
+                    Ví chủ shop:
+                  </Form.Label>
+                  <Col xs={7}>
+                    <Form.Control
+                      className="shadow-none"
+                      placeholder="Ví chủ shop"
+                      value={enumCoinCurrent[type]["address_pay"]}
+                      readOnly
+                      onClick={() =>
+                        handleCopy(enumCoinCurrent[type]["address_pay"])
+                      }
+                    />
+                  </Col>
+                </Form.Group>
+                <Row>
+                  <Col xs={12}>
+                    <Form.Group as={Row} className="mb-3 text-center">
+                      <Form.Label htmlFor="Image">
+                        <span className="required">*</span> Ảnh bill
+                      </Form.Label>
+                      <UploadImage
+                        image={formik.values.image_bill || ""}
+                        callback={(url) =>
+                          formik.handleChange({
+                            target: {
+                              name: "image_bill",
+                              value: url,
+                            },
+                          })
+                        }
+                        geometry="radius"
+                        showUpload={true}
+                        classImage="mx-auto"
+                      />
+                      {formik.touched.image_bill && formik.errors.image_bill ? (
+                        <Form.Text className="text-danger">
+                          {formik.errors.image_bill}
+                        </Form.Text>
+                      ) : null}
+                    </Form.Group>
+                  </Col>
+                </Row>
+              </>
+            )}
             <div className="text-center mb-1">
               <small>KIỂM TRA KỸ THÔNG TIN CỦA BẠN TRƯỚC KHI TẠO ĐƠN</small>
             </div>
