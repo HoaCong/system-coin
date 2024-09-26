@@ -62,7 +62,7 @@ const SearchTransaction = () => {
     <Container className="mt-4">
       <Row className="justify-content-center">
         <Col md={5} lg={4}>
-          <h4 className="text-center fw-bold">TRA CỨU GIAO DỊCH</h4>
+          <h4 className="text-center fw-bold">ĐƠN HÀNG CỦA TÔI</h4>
           <p className="text-center text-14">
             Nhập mã đơn hàng hay mã tin P2P của bạn (VD: dh7777 hay t2222)
           </p>
@@ -98,7 +98,7 @@ const SearchTransaction = () => {
                     className="me-2"
                   />
                 )} */}
-                TRA CỨU GIAO DỊCH
+                TÌM KIẾM ĐƠN HÀNG
               </Button>
             </div>
           </Form>
