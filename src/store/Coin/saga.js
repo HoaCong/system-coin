@@ -92,7 +92,7 @@ function* callApiDetailOrder({ params }) {
   try {
     const response = yield call(GET, ENDPOINT.DETAIL_ORDER, params);
 
-    if (response.status === 200) {
+    if (response.status === 200 && response.data.order) {
       yield put(getDetailOrderSuccess(response.data));
     } else {
       yield put(getDetailOrderFailed());
