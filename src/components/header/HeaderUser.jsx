@@ -202,7 +202,7 @@ function Header({ menuIcon, children }) {
                 location.pathname === "/link" ? "active" : ""
               }`}
             >
-              Tra cứu giao dịch
+              Đơn hàng của tôi
             </Nav.Link>
             <Nav.Link
               as={Link}
@@ -260,7 +260,7 @@ function Header({ menuIcon, children }) {
                   location.pathname === "/link" ? "active" : ""
                 }`}
               >
-                Tra cứu giao dịch
+                Đơn hàng của tôi
               </Nav.Link>
               <Nav.Link
                 as={Link}

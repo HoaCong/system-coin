@@ -271,7 +271,7 @@ const TransactionForm = () => {
                 htmlFor="sell_hot"
                 className="text-end text-14"
               >
-                Bán nóng coin:
+                Bán {type === "PI_NETWORD" ? "π" : "$"} trên ví sàn:
               </Form.Label>
               <Col xs={7} className="d-flex align-items-center">
                 <Form.Check
@@ -291,22 +291,17 @@ const TransactionForm = () => {
             </Form.Group>
             {isSellHot && (
               <>
-                <Form.Group as={Row} className="mb-3">
-                  <Form.Label column xs={5} className="text-end text-14">
-                    Ví chủ shop:
-                  </Form.Label>
-                  <Col xs={7}>
-                    <Form.Control
-                      className="shadow-none"
-                      placeholder="Ví chủ shop"
-                      value={enumCoinCurrent[type]["address_pay"]}
-                      readOnly
-                      onClick={() =>
-                        handleCopy(enumCoinCurrent[type]["address_pay"])
-                      }
-                    />
-                  </Col>
-                </Form.Group>
+                <div className="text-center mb-1">
+                  <p>Ví chủ shop:</p>
+                  <small
+                    className="text-uppercase"
+                    onClick={() =>
+                      handleCopy(enumCoinCurrent[type]["address_pay"])
+                    }
+                  >
+                    {enumCoinCurrent[type]["address_pay"]}
+                  </small>
+                </div>
                 <Row>
                   <Col xs={12}>
                     <Form.Group as={Row} className="mb-3 text-center">
