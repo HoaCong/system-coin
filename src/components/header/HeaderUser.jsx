@@ -220,7 +220,7 @@ function Header({ menuIcon, children }) {
                 location.pathname === "/guire" ? "active" : ""
               }`}
             >
-              Chỉ dẫn
+              Hướng dẫn
             </Nav.Link>
             <Nav.Link
               as={Link}
@@ -278,7 +278,7 @@ function Header({ menuIcon, children }) {
                   location.pathname === "/guire" ? "active" : ""
                 }`}
               >
-                Chỉ dẫn
+                Hướng dẫn
               </Nav.Link>
               <Nav.Link
                 as={Link}
