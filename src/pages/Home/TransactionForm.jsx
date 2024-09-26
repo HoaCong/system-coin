@@ -130,7 +130,7 @@ const TransactionForm = () => {
     const feeOrder = payment?.fee_order || 0;
     const newTotal = value * coinPrice;
     const fee = (newTotal * feeOrder) / 100;
-    const totalMoney = mode === "SELL" ? newTotal - fee : newTotal + fee;
+    const totalMoney = modeValue === "SELL" ? newTotal - fee : newTotal + fee;
     formik.setValues({
       ...formik.values,
       count_coin: value,
