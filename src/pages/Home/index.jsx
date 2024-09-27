@@ -1,3 +1,4 @@
+import CommentList from "components/common/Comments";
 import ImgCover from "components/common/ImgCover";
 import FooterPage from "components/footer/FooterPage";
 import { formatCurrency } from "helper/functions";
@@ -133,6 +134,7 @@ export default function Home() {
             </div>
           </Col>
         </Row>
+        <CommentList />
       </Container>
       <FooterPage />
     </div>
