@@ -41,7 +41,7 @@ export const MENU_MANAGER = [
     icon: <i className="far fa-newspaper"></i>,
   },
   {
-    label: "Chỉ dẫn",
+    label: "Hướng dẫn",
     active: false,
     src: ROUTES.GUIRE,
     icon: <i className="far fa-file-alt"></i>,

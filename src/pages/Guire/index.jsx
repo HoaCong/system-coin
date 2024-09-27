@@ -36,7 +36,7 @@ const GuireSection = () => {
   return (
     <Container>
       <h5 className="mb-4">
-        <b>CHỈ DẪN</b>
+        <b>HƯỚNG DẪN</b>
       </h5>
       <Row>
         {isLoading && _size(list) === 0 && (

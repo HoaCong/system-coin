@@ -29,6 +29,7 @@ const TransactionForm = () => {
   const [type, setType] = useState("PI_NETWORD");
   const [mode, setMode] = useState("SELL");
   const [isSellHot, setIsSellHot] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
 
   const enumCoinCurrent = {
     PI_NETWORD: {
@@ -130,7 +131,7 @@ const TransactionForm = () => {
     const feeOrder = payment?.fee_order || 0;
     const newTotal = value * coinPrice;
     const fee = (newTotal * feeOrder) / 100;
-    const totalMoney = mode === "SELL" ? newTotal - fee : newTotal + fee;
+    const totalMoney = modeValue === "SELL" ? newTotal - fee : newTotal + fee;
     formik.setValues({
       ...formik.values,
       count_coin: value,
@@ -147,7 +148,10 @@ const TransactionForm = () => {
           type: "success",
           title: "",
         });
-        // Thực hiện các hành động khác nếu cần sau khi sao chép thành công
+        setIsCopied(true); // Cập nhật trạng thái để thay đổi icon
+        setTimeout(() => {
+          setIsCopied(false); // Reset lại icon sau 2 giây
+        }, 2000);
       })
       .catch((err) => {
         console.error("Error: ", err);
@@ -292,15 +296,25 @@ const TransactionForm = () => {
             {isSellHot && (
               <>
                 <div className="text-center mb-1">
-                  <p>Ví chủ shop:</p>
-                  <small
-                    className="text-uppercase"
-                    onClick={() =>
-                      handleCopy(enumCoinCurrent[type]["address_pay"])
-                    }
-                  >
-                    {enumCoinCurrent[type]["address_pay"]}
-                  </small>
+                  <p className="mb-0">Ví chủ shop:</p>
+                  <span className="d-flex justify-content-center align-items-center gap-2">
+                    <small
+                      className="text-uppercase"
+                      onClick={() =>
+                        handleCopy(enumCoinCurrent[type]["address_pay"])
+                      }
+                    >
+                      {enumCoinCurrent[type]["address_pay"]}
+                    </small>
+                    <i
+                      className={`${
+                        isCopied ? "fas fa-check text-success" : "far fa-copy"
+                      }`}
+                      onClick={() =>
+                        handleCopy(enumCoinCurrent[type]["address_pay"])
+                      }
+                    ></i>
+                  </span>
                 </div>
                 <Row>
                   <Col xs={12}>

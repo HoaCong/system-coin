@@ -45,7 +45,7 @@ function* callApiCreateOrder({ params }) {
       yield put(actionCreateOrderFailed());
       yield put(
         addToast({
-          text: "Tạo hóa đơn thất bại",
+          text: response.data?.message || "Tạo hóa đơn thất bại",
           type: "danger",
           title: "",
         })
@@ -55,7 +55,7 @@ function* callApiCreateOrder({ params }) {
     yield put(actionCreateOrderFailed(error.response.data.error));
     yield put(
       addToast({
-        text: "Tạo hóa đơn thất bại",
+        text: error?.response?.data?.message || "Tạo hóa đơn thất bại",
         type: "danger",
         title: "",
       })
