@@ -41,6 +41,7 @@ const BtnBanks = ({ payment }) => {
               />
               <div>
                 <div>{item.bank_name}</div>
+                <div>{item.bank_owner}</div>
                 <div>{item.bank_number}</div>
               </div>
             </div>
