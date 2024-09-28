@@ -179,11 +179,11 @@ const ContactPage = () => {
         <Col xs={12} md={6}>
           <div className="content-info text-14">
             <h6>SYSTEM-COIN.VERCEL.APP</h6>
-            <p>Địa chỉ: 03 - RSAF helipad - Singapore</p>
-            <p>Điện thoại: @sanpimod (Telegram)</p>
-            <p>Hotline: @sanpimod (Telegram)</p>
-            <p>Email: support@sanpinetwork.com</p>
-            <p>Website: www.sanpinetwork.com</p>
+            <p>Địa chỉ: 99 BlueStar - Galaxy - Mitsubixy</p>
+            <p>Điện thoại: 0332.986.587</p>
+            <p>Telegram: t.me/+84332986587</p>
+            <p>Facebook: www.facebook.com/profile.php?id=100079449032579</p>
+            <p>Zalo: zalo.me/0332986587</p>
           </div>
         </Col>
       </Row>
