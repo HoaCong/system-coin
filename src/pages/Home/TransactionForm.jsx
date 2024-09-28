@@ -275,7 +275,7 @@ const TransactionForm = () => {
                 htmlFor="sell_hot"
                 className="text-end text-14"
               >
-                Bán {type === "PI_NETWORD" ? "π" : "$"} trên ví sàn:
+                Bán coin trên ví
               </Form.Label>
               <Col xs={7} className="d-flex align-items-center">
                 <Form.Check

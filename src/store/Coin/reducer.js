@@ -115,7 +115,21 @@ const coinReducer = (state = initialState, action) => {
         break;
 
       case ActionTypes.RESET_DATA:
-        return initialState;
+        draft.listStatus = { ...status };
+        draft.actionStatus = { ...status };
+        draft.histories = {
+          list: [],
+          status,
+          params: { limit: 10, page: 1 },
+          total: 0,
+        };
+        draft.detailOrder = {
+          data: {},
+          status,
+        };
+        draft.payment = {};
+        draft.paymentStatus = status;
+        break;
 
       default:
         return state;

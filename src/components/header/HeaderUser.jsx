@@ -104,41 +104,41 @@ function Header({ menuIcon, children }) {
                   </div>
                 ))}
               </div>
-              <li>
-                <Link to={ROUTES.INFO}>
+              <Link to={ROUTES.INFO}>
+                <li>
                   <i className="fas fa-user me-2"></i>
                   Thông tin cá nhân
-                </Link>
-              </li>
-              <li>
-                <Link to={ROUTES.BANK_ACCOUNT}>
+                </li>
+              </Link>
+              <Link to={ROUTES.BANK_ACCOUNT}>
+                <li>
                   <i className="fas fa-money-check-alt me-2"></i>
                   Tài khoản ngân hàng
-                </Link>
-              </li>
-              <li>
-                <Link to={ROUTES.WALLET}>
+                </li>
+              </Link>
+              <Link to={ROUTES.WALLET}>
+                <li>
                   <i className="fas fa-wallet me-2"></i>
                   Ví tiền
-                </Link>
-              </li>
-              <li>
-                <Link to={ROUTES.HISTORIES}>
+                </li>
+              </Link>
+              <Link to={ROUTES.HISTORIES}>
+                <li>
                   <i className="fas fa-clock me-2"></i>
                   Lịch sử giao dịch
-                </Link>
-              </li>
-              <li>
-                <Link to={ROUTES.CHANGE_PASSWORD}>
+                </li>
+              </Link>
+              <Link to={ROUTES.CHANGE_PASSWORD}>
+                <li>
                   <i className="fas fa-unlock-alt me-2"></i>
                   Đổi mật khẩu
-                </Link>
-              </li>
-              <li onClick={handleLogout}>
-                <Link>
+                </li>
+              </Link>
+              <Link>
+                <li onClick={handleLogout} className="last_item">
                   <i className="fas fa-sign-out-alt me-2"></i>Đăng xuất
-                </Link>
-              </li>
+                </li>
+              </Link>
             </ul>
           </div>
         </>

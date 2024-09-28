@@ -105,24 +105,6 @@ const CommentList = () => {
   return (
     <div className="mt-4">
       <h5>BÌNH LUẬN</h5>
-      <Form onSubmit={(e) => e.preventDefault()}>
-        <Form.Group className="mb-3 position-relative">
-          <Form.Control
-            as="textarea"
-            rows={3}
-            min={3}
-            placeholder="Hãy chia sẻ suy nghĩ của bạn ..."
-            style={{ minHeight: 100 }}
-          />
-          <Button
-            variant="secondary"
-            type="submit"
-            className="position-absolute end-0 bottom-0 m-2 px-4 py-1"
-          >
-            Gửi
-          </Button>
-        </Form.Group>
-      </Form>
       {commentsData.map((comment) => (
         <Comment key={comment.id} {...comment} />
       ))}
