@@ -26,6 +26,12 @@ export const MENU_PROFILE = [
     icon: <i className="fas fa-clock"></i>,
   },
   {
+    label: "Lịch sử rút coin",
+    active: false,
+    src: ROUTES.HISTORIES_WITHDRAW,
+    icon: <i className="fas fa-clock"></i>,
+  },
+  {
     label: "Đổi mật khẩu",
     active: false,
     src: ROUTES.CHANGE_PASSWORD,
@@ -59,9 +65,15 @@ export const MENU_MANAGER = [
     icon: <i className="fas fa-file-contract"></i>,
   },
   {
-    label: "Cầm pi",
+    label: "Cầm coin",
     active: "false",
-    src: ROUTES.HOLD_PI,
-    icon: <i className="fas fa-file-contract"></i>,
+    src: ROUTES.HOLD_COIN,
+    icon: <i className="fas fa-fist-raised"></i>,
+  },
+  {
+    label: "Rút coin",
+    active: "false",
+    src: ROUTES.WITHDRAW_COIN,
+    icon: <i className="fas fa-ring"></i>,
   },
 ];

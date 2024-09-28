@@ -19,6 +19,10 @@ const CheckTokenMiddleware = ({ children }) => {
     // logic check token
     const isLoginPage = [ROUTES.LOGIN, ROUTES.REGISTER].includes(pathname);
     const isAllowLogin = pathname.includes(ROUTES.PROFILE);
+    const isAllowLogin_1 = [
+      ROUTES.SEARCH_TRANSACTION,
+      ROUTES.WITHDRAW_COIN,
+    ].includes(pathname);
     if (access_token && checkTimeExpired(timeExpired)) {
       onLogout();
     }
@@ -28,7 +32,10 @@ const CheckTokenMiddleware = ({ children }) => {
       return navigate(ROUTES.HOME_PAGE);
     }
     // nếu hết hiệu lực và không ở trang HOME_PAGE thì về trang login
-    if ((!access_token || checkTimeExpired(timeExpired)) && isAllowLogin) {
+    if (
+      (!access_token || checkTimeExpired(timeExpired)) &&
+      (isAllowLogin || isAllowLogin_1)
+    ) {
       if (isLoginPage) return;
       return navigate(ROUTES.LOGIN);
     }

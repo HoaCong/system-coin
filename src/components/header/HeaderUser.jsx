@@ -233,12 +233,21 @@ function Header({ menuIcon, children }) {
             </Nav.Link>
             <Nav.Link
               as={Link}
-              to={ROUTES.HOLD_PI}
+              to={ROUTES.HOLD_COIN}
               className={`px-0 mx-2 text-uppercase text-white text-12 fw-bold ${
-                location.pathname === "/contact" ? "active" : ""
+                location.pathname === "/holding_coin" ? "active" : ""
               }`}
             >
-              cầm pi
+              Cầm coin
+            </Nav.Link>
+            <Nav.Link
+              as={Link}
+              to={ROUTES.WITHDRAW_COIN}
+              className={`px-0 mx-2 text-uppercase text-white text-12 fw-bold ${
+                location.pathname === "/withdraw_coin" ? "active" : ""
+              }`}
+            >
+              Rút coin
             </Nav.Link>
           </Nav>
           <Nav className="ms-auto p-2 gap-2 desktop_menu">{InfoLogin}</Nav>
@@ -291,12 +300,21 @@ function Header({ menuIcon, children }) {
               </Nav.Link>
               <Nav.Link
                 as={Link}
-                to={ROUTES.HOLD_PI}
+                to={ROUTES.HOLD_COIN}
                 className={`px-0 mx-2 text-uppercase text-white text-12 fw-bold ${
-                  location.pathname === "/holding_pi" ? "active" : ""
+                  location.pathname === "/holding_coin" ? "active" : ""
                 }`}
               >
-                Cầm pi
+                Cầm coin
+              </Nav.Link>
+              <Nav.Link
+                as={Link}
+                to={ROUTES.WITHDRAW_COIN}
+                className={`px-0 mx-2 text-uppercase text-white text-12 fw-bold ${
+                  location.pathname === "/withdraw_coin" ? "active" : ""
+                }`}
+              >
+                Rút coin
               </Nav.Link>
               {InfoLogin}
             </Nav>

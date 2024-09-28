@@ -16,6 +16,8 @@ export const ENDPOINT = {
   // =======orders=======
   CREATE_ORDER: "api/order/create",
   HISTORY_ORDER: "api/order-coins",
+  WITHDRAW_ORDER: "api/order-draw/create",
+  HISTORY_WITHDRAW: "api/order-draw",
   SEND_CONTACT: "api/contact/create",
   PAYMENT: "api/setting",
   DETAIL_ORDER: "api/order-coins/search",

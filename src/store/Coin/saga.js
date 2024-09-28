@@ -7,10 +7,14 @@ import {
   actionCreateOrderSuccess,
   actionGetListFailed,
   actionGetListSuccess,
+  actionWithDrawOrderFailed,
+  actionWithDrawOrderSuccess,
   getDetailOrderFailed,
   getDetailOrderSuccess,
   getHistoriesOrderFailed,
   getHistoriesOrderSuccess,
+  getHistoriesWithDrawFailed,
+  getHistoriesWithDrawSuccess,
   getMethodPaymentFailed,
   getMethodPaymentSuccess,
 } from "./action";
@@ -75,6 +79,55 @@ function* callApiHistoriesOrder({ params }) {
     yield put(getHistoriesOrderFailed(error.response.data.error));
   }
 }
+
+function* callApiWithdrawOrder({ params }) {
+  try {
+    const response = yield call(POST, ENDPOINT.WITHDRAW_ORDER, params);
+
+    if (response.status === 200) {
+      yield put(actionWithDrawOrderSuccess(response.data.data));
+      yield put(
+        addToast({
+          text: response.data.message,
+          type: "success",
+          title: "",
+        })
+      );
+    } else {
+      yield put(actionWithDrawOrderFailed());
+      yield put(
+        addToast({
+          text: response.data?.message || "Tạo hóa đơn thất bại",
+          type: "danger",
+          title: "",
+        })
+      );
+    }
+  } catch (error) {
+    yield put(actionWithDrawOrderFailed(error.response.data.error));
+    yield put(
+      addToast({
+        text: error?.response?.data?.message || "Tạo hóa đơn thất bại",
+        type: "danger",
+        title: "",
+      })
+    );
+  }
+}
+function* callApiHistoriesWithdraw({ params }) {
+  try {
+    const response = yield call(GET, ENDPOINT.HISTORY_WITHDRAW, params);
+
+    if (response.status === 200) {
+      yield put(getHistoriesWithDrawSuccess(response.data));
+    } else {
+      yield put(getHistoriesWithDrawFailed());
+    }
+  } catch (error) {
+    yield put(getHistoriesWithDrawFailed(error.response.data.error));
+  }
+}
+
 function* callApiMethodPayment({ params }) {
   try {
     const response = yield call(GET, ENDPOINT.PAYMENT, params);
@@ -107,7 +160,9 @@ export default function* coinSaga() {
     yield takeLeading(ActionTypes.LIST, callApiList),
     yield takeLatest(ActionTypes.CREATE_ORDER, callApiCreateOrder),
     yield takeLatest(ActionTypes.HISTORIES_ORDER, callApiHistoriesOrder),
-    yield takeLatest(ActionTypes.METHOD_PAYMENT, callApiMethodPayment),
+    yield takeLatest(ActionTypes.WITHDRAW_ORDER, callApiWithdrawOrder),
+    yield takeLeading(ActionTypes.HISTORIES_WITHDRAW, callApiHistoriesWithdraw),
+    yield takeLeading(ActionTypes.METHOD_PAYMENT, callApiMethodPayment),
     yield takeLatest(ActionTypes.DETAIL_ORDER, callApiDetailOrder),
   ]);
 }

@@ -3,17 +3,16 @@ import LazyLoadImage from "components/common/LazyLoadImage";
 import LinearProgress from "components/common/LinearProgress";
 import { STATUS_LABEL } from "constants";
 import { format } from "date-fns";
-import { formatCurrency } from "helper/functions";
 import _size from "lodash/size";
 import { useEffect, useState } from "react";
-import { Badge, Spinner, Tab, Tabs } from "react-bootstrap"; // Import Tabs and Tab from react-bootstrap
+import { Badge, Spinner } from "react-bootstrap"; // Import Tabs and Tab from react-bootstrap
 import { useDispatch, useSelector } from "react-redux";
-import { getHistoriesOrder, resetData } from "store/Coin/action";
+import { getHistoriesWithDraw, resetData } from "store/Coin/action";
 import piImg from "../../assets/images/pi.jpg";
 import sidraImg from "../../assets/images/sidra.png";
-function Histories(props) {
+function HistoriesWithDraw(props) {
   const {
-    histories: {
+    withdraw: {
       list,
       params,
       total,
@@ -22,39 +21,27 @@ function Histories(props) {
   } = useSelector((state) => state.coinReducer);
 
   const dispatch = useDispatch();
-  const onGetList = (body) => dispatch(getHistoriesOrder(body));
+  const onGetList = (body) => dispatch(getHistoriesWithDraw(body));
   const onResetData = () => dispatch(resetData());
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [tabKey, setTabKey] = useState("BUY"); // State for the active tab
   useEffect(() => {
-    if (!isLoading) onGetList({ ...params, limit: 10, page: 1, type: tabKey }); // Include the selected tab type in the query
+    if (!isLoading) onGetList({ ...params, limit: 10, page: 1 }); // Include the selected tab type in the query
     return () => {
       onResetData();
     };
-  }, [tabKey]); // Fetch data when tab changes
+  }, []); // Fetch data when tab changes
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    onGetList({ ...params, page, type: tabKey });
+    onGetList({ ...params, page });
   };
 
   return (
     <div>
       <h5 className="mb-4">
-        <b>LỊCH SỬ GIAO DỊCH</b>
+        <b>LỊCH SỬ RÚT COIN</b>
       </h5>
-      <Tabs
-        id="controlled-tab"
-        activeKey={tabKey}
-        onSelect={(k) => setTabKey(k)}
-        className="mb-3"
-      >
-        <Tab eventKey="BUY" title="Mua"></Tab>
-        <Tab eventKey="SELL" title="Bán"></Tab>
-        <Tab eventKey="SELL_HOT" title="Bán nóng"></Tab>
-      </Tabs>
-
       <div className="overflow-x-auto">
         <table
           className="table table-hover table-striped"
@@ -64,19 +51,9 @@ function Histories(props) {
             <tr>
               <th scope="col">#</th>
               <th scope="col">Loại coin</th>
-              {["BUY", "SELL_HOT"].includes(tabKey) && (
-                <th scope="col">Ảnh bill</th>
-              )}
-              <th scope="col">Mã SKU</th>
+              <th scope="col">Đơn rút</th>
               <th scope="col">Số lượng coin</th>
-              <th scope="col">Giá coin</th>
-              <th scope="col">Tổng tiền</th>
-              {["BUY", "SELL_HOT"].includes(tabKey) && (
-                <th scope="col">Ví chủ shop</th>
-              )}
-              {["SELL", "SELL_HOT"].includes(tabKey) && (
-                <th scope="col">Thông tin</th>
-              )}
+              <th scope="col">Ví coin</th>
               <th scope="col">Trạng thái</th>
             </tr>
           </thead>
@@ -109,51 +86,12 @@ function Histories(props) {
                     className="rounded-circle"
                   />
                 </td>
-                {["BUY", "SELL_HOT"].includes(tabKey) && (
-                  <td className="align-middle">
-                    <LazyLoadImage
-                      src={item.image_bill}
-                      alt={item.sku}
-                      width={50}
-                      height={50}
-                    />
-                  </td>
-                )}
                 <td className="align-middle">
                   <b>{item?.sku}</b>
                   <div>{format(item?.createdAt, "MM:ss dd-MM-yyyy")}</div>
                 </td>
-                <td className="align-middle">
-                  {tabKey === "BUY" ? (
-                    <span className="text-success"> +{item?.count_coin}</span>
-                  ) : (
-                    <span className="text-danger"> -{item?.count_coin}</span>
-                  )}
-                </td>
-                <td className="align-middle">
-                  {formatCurrency(item?.price_coin_current)}
-                </td>
-                <td className="align-middle">
-                  {tabKey === "BUY" ? (
-                    <span className="text-danger">
-                      -{formatCurrency(item?.total_money)}
-                    </span> // Add minus sign for BUY
-                  ) : (
-                    <span className="text-success">
-                      +{formatCurrency(item?.total_money)}
-                    </span>
-                  )}
-                </td>
-                {["BUY", "SELL_HOT"].includes(tabKey) && (
-                  <td className="align-middle">{item?.wallet_coin}</td>
-                )}
-                {["SELL", "SELL_HOT"].includes(tabKey) && (
-                  <td className="align-middle">
-                    <div>{item?.stk_bank}</div>
-                    <div>{item?.stk}</div>
-                    <div>{item?.stk_name}</div>
-                  </td>
-                )}
+                <td className="align-middle">{item?.count_coin}</td>
+                <td className="align-middle">{item?.wallet_coin}</td>
                 <td className="align-middle">
                   <Badge
                     className="py-2 px-3"
@@ -191,4 +129,4 @@ function Histories(props) {
   );
 }
 
-export default Histories;
+export default HistoriesWithDraw;

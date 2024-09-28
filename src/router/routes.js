@@ -7,6 +7,7 @@ import ChangePassword from "pages/ChangePassword";
 import Contact from "pages/Contact";
 import GuireSection from "pages/Guire";
 import Histories from "pages/Histories";
+import HistoriesWithDraw from "pages/HistoriesWithDraw";
 import HoldPi from "pages/HoldPi";
 import Home from "pages/Home";
 import Login from "pages/Login";
@@ -17,6 +18,7 @@ import QuestionAnswer from "pages/QuestionAnswer";
 import Register from "pages/Register";
 import SearchTransaction from "pages/SearchTransaction";
 import Wallet from "pages/Wallet";
+import Withdraw from "pages/Withdraw";
 
 export const publicRoutes = [
   {
@@ -57,6 +59,11 @@ export const publicRoutes = [
             element: <Histories />,
           },
           {
+            path: ROUTES.HISTORIES_WITHDRAW,
+            name: "Histories Withdraw",
+            element: <HistoriesWithDraw />,
+          },
+          {
             path: ROUTES.CHANGE_PASSWORD,
             name: "ChangePassword",
             element: <ChangePassword />,
@@ -89,9 +96,14 @@ export const publicRoutes = [
             element: <Contact />,
           },
           {
-            path: ROUTES.HOLD_PI,
+            path: ROUTES.HOLD_COIN,
             name: "HoldPi",
             element: <HoldPi />,
+          },
+          {
+            path: ROUTES.WITHDRAW_COIN,
+            name: "Withdraw",
+            element: <Withdraw />,
           },
         ],
       },

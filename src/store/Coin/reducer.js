@@ -13,6 +13,12 @@ const initialState = {
     params: { limit: 10, page: 1 },
     total: 0,
   },
+  withdraw: {
+    list: [],
+    status,
+    params: { limit: 10, page: 1 },
+    total: 0,
+  },
   detailOrder: {
     data: {},
     status,
@@ -112,6 +118,42 @@ const coinReducer = (state = initialState, action) => {
         draft.detailOrder.status.isLoading = false;
         draft.detailOrder.status.isFailure = true;
         draft.detailOrder.data = {};
+        break;
+
+      case ActionTypes.WITHDRAW_ORDER:
+        draft.actionStatus.isLoading = true;
+        draft.actionStatus.isSuccess = false;
+        draft.actionStatus.isFailure = false;
+        break;
+
+      case ActionTypes.WITHDRAW_ORDER_SUCCESS:
+        draft.actionStatus.isLoading = false;
+        draft.actionStatus.isSuccess = true;
+        break;
+
+      case ActionTypes.WITHDRAW_ORDER_FAILED:
+        draft.actionStatus.isLoading = false;
+        draft.actionStatus.isFailure = true;
+        break;
+
+      case ActionTypes.HISTORIES_WITHDRAW:
+        draft.withdraw.status.isLoading = true;
+        draft.withdraw.status.isSuccess = false;
+        draft.withdraw.status.isFailure = false;
+        draft.withdraw.params = action.params;
+        break;
+
+      case ActionTypes.HISTORIES_WITHDRAW_SUCCESS:
+        draft.withdraw.status.isLoading = false;
+        draft.withdraw.status.isSuccess = true;
+        draft.withdraw.list = action.payload.data;
+        draft.withdraw.total = action.payload.total;
+        break;
+
+      case ActionTypes.HISTORIES_WITHDRAW_FAILED:
+        draft.withdraw.status.isLoading = false;
+        draft.withdraw.status.isFailure = true;
+        draft.withdraw.total = 0;
         break;
 
       case ActionTypes.RESET_DATA:

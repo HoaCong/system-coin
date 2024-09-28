@@ -75,6 +75,36 @@ export const getDetailOrderFailed = (error) => ({
   error,
 });
 
+export const actionWithDrawOrder = (params) => ({
+  type: ActionTypes.WITHDRAW_ORDER,
+  params,
+});
+
+export const actionWithDrawOrderSuccess = (payload) => ({
+  type: ActionTypes.WITHDRAW_ORDER_SUCCESS,
+  payload,
+});
+
+export const actionWithDrawOrderFailed = (error) => ({
+  type: ActionTypes.WITHDRAW_ORDER_FAILED,
+  error,
+});
+
+export const getHistoriesWithDraw = (params) => ({
+  type: ActionTypes.HISTORIES_WITHDRAW,
+  params,
+});
+
+export const getHistoriesWithDrawSuccess = (payload) => ({
+  type: ActionTypes.HISTORIES_WITHDRAW_SUCCESS,
+  payload,
+});
+
+export const getHistoriesWithDrawFailed = (error) => ({
+  type: ActionTypes.HISTORIES_WITHDRAW_FAILED,
+  error,
+});
+
 export const resetData = () => ({
   type: ActionTypes.RESET_DATA,
 });
