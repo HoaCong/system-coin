@@ -50,9 +50,7 @@ function FormWallet() {
       <Form onSubmit={formik.handleSubmit}>
         <Row className="mb-3">
           <Col md={3} className="d-flex align-items-center">
-            <Form.Label for="wallet_pi">
-              1) Địa chỉ ví Pi <span className="required">*</span>
-            </Form.Label>
+            <Form.Label for="wallet_pi">1) Địa chỉ ví Pi</Form.Label>
           </Col>
           <Col md={9}>
             <Form.Control
@@ -72,9 +70,7 @@ function FormWallet() {
         </Row>
         <Row className="mb-3">
           <Col md={3} className="d-flex align-items-center">
-            <Form.Label for="wallet_sidra">
-              2) Địa chỉ ví Sidra <span className="required">*</span>
-            </Form.Label>
+            <Form.Label for="wallet_sidra">2) Địa chỉ ví Sidra</Form.Label>
           </Col>
           <Col md={9}>
             <Form.Control
