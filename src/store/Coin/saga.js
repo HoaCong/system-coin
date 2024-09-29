@@ -37,14 +37,14 @@ function* callApiCreateOrder({ params }) {
     const response = yield call(POST, ENDPOINT.CREATE_ORDER, params);
 
     if (response.status === 200) {
-      yield put(actionCreateOrderSuccess(response.data.data));
-      yield put(
-        addToast({
-          text: response.data.message,
-          type: "success",
-          title: "",
-        })
-      );
+      yield put(actionCreateOrderSuccess(response.data));
+      // yield put(
+      //   addToast({
+      //     text: response.data.message,
+      //     type: "success",
+      //     title: "",
+      //   })
+      // );
     } else {
       yield put(actionCreateOrderFailed());
       yield put(

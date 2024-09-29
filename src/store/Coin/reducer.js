@@ -21,6 +21,7 @@ const initialState = {
   },
   detailOrder: {
     data: {},
+    message: "",
     status,
   },
   payment: {},
@@ -52,11 +53,15 @@ const coinReducer = (state = initialState, action) => {
         draft.actionStatus.isLoading = true;
         draft.actionStatus.isSuccess = false;
         draft.actionStatus.isFailure = false;
+        draft.detailOrder.data = {};
+        draft.detailOrder.message = "";
         break;
 
       case ActionTypes.CREATE_ORDER_SUCCESS:
         draft.actionStatus.isLoading = false;
         draft.actionStatus.isSuccess = true;
+        draft.detailOrder.data = action.payload.order_coin;
+        draft.detailOrder.message = action.payload.message;
         break;
 
       case ActionTypes.CREATE_ORDER_FAILED:
@@ -169,7 +174,6 @@ const coinReducer = (state = initialState, action) => {
           data: {},
           status,
         };
-        draft.payment = {};
         draft.paymentStatus = status;
         break;
 

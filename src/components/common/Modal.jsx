@@ -12,6 +12,7 @@ function ModalBlock(props) {
     hideSave = false,
     propsModal,
     loading,
+    showFooter = true,
   } = props;
 
   return (
@@ -20,29 +21,31 @@ function ModalBlock(props) {
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>{children}</Modal.Body>
-      <Modal.Footer>
-        {show && (
-          <>
-            <Button variant="secondary" disabled={loading} onClick={onClose}>
-              Hủy
-            </Button>
-            {!hideSave && (
-              <Button variant="primary" disabled={loading} onClick={onSave}>
-                {loading && (
-                  <Spinner
-                    as="span"
-                    animation="border"
-                    size="sm"
-                    role="status"
-                    aria-hidden="true"
-                  />
-                )}
-                Lưu
+      {showFooter && (
+        <Modal.Footer>
+          {show && (
+            <>
+              <Button variant="secondary" disabled={loading} onClick={onClose}>
+                Hủy
               </Button>
-            )}
-          </>
-        )}
-      </Modal.Footer>
+              {!hideSave && (
+                <Button variant="primary" disabled={loading} onClick={onSave}>
+                  {loading && (
+                    <Spinner
+                      as="span"
+                      animation="border"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                    />
+                  )}
+                  Lưu
+                </Button>
+              )}
+            </>
+          )}
+        </Modal.Footer>
+      )}
     </Modal>
   );
 }

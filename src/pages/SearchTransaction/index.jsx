@@ -19,6 +19,7 @@ import {
   Tabs,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { getHistoriesOrder, resetData } from "store/Coin/action";
 import piImg from "../../assets/images/pi.jpg";
 import sidraImg from "../../assets/images/sidra.png";
@@ -37,9 +38,14 @@ const SearchTransaction = () => {
   const onGetList = (body) => dispatch(getHistoriesOrder(body));
   const onResetData = () => dispatch(resetData());
 
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const init_sku = queryParams.get("sku");
+  const init_tabKey = queryParams.get("tabKey");
+
   const [currentPage, setCurrentPage] = useState(1);
-  const [tabKey, setTabKey] = useState("BUY");
-  const [sku, setSearch] = useState("");
+  const [tabKey, setTabKey] = useState(init_tabKey || "BUY");
+  const [sku, setSearch] = useState(init_sku || "");
 
   useEffect(() => {
     if (!isLoading)
