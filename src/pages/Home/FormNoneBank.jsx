@@ -2,7 +2,7 @@ import ModalBlock from "components/common/Modal";
 import { ROUTES } from "constants/routerWeb";
 import { Link } from "react-router-dom";
 
-function FormNoneBank({ visible }) {
+function FormNoneBank({ visible, onClose }) {
   return (
     <ModalBlock
       title="Thiếu thông tin tài khoản"
@@ -11,6 +11,7 @@ function FormNoneBank({ visible }) {
       propsModal={{
         size: "md",
       }}
+      onClose={onClose}
     >
       <div className="text-center">
         <i

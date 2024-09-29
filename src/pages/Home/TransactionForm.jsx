@@ -84,7 +84,7 @@ const TransactionForm = () => {
       image_bill: Yup.string().required("Vui lòng cập nhật ảnh bill"),
     }),
     onSubmit: (values) => {
-      if (mode === "SELL" && !values.stk) {
+      if (mode === "SELL" && values.stk) {
         setNoneBank(true);
         return;
       }
@@ -249,15 +249,6 @@ const TransactionForm = () => {
                 </div>
               ) : null}
             </Col>
-            {!isSellHot && (
-              <div className="text-warning text-12  text-center mt-1">
-                <i>
-                  Lưu ý: Số coin tối thiểu là 5.{" "}
-                  {mode === "SELL" &&
-                    `Số coin tối đa có thể bán là ${enumCoinCurrent[type]?.coin}`}
-                </i>
-              </div>
-            )}
           </Form.Group>
 
           <Form.Group as={Row} className="mb-3">
@@ -451,8 +442,17 @@ const TransactionForm = () => {
           </Form.Group>
         </Form>
       </div>
-      <FormOrderSuccess data={orderSuccess} />
-      <FormNoneBank visible={isNoneBank} />
+      <FormOrderSuccess
+        data={orderSuccess}
+        onClose={() =>
+          setOrderSuccess({
+            open: false,
+            info: {},
+            message: "",
+          })
+        }
+      />
+      <FormNoneBank visible={isNoneBank} onClose={() => setNoneBank(false)} />
     </>
   );
 };

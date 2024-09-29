@@ -2,7 +2,7 @@ import ModalBlock from "components/common/Modal";
 import { ROUTES } from "constants/routerWeb";
 import { Link } from "react-router-dom";
 
-function FormOrderSuccess({ data: { visible, info, message } }) {
+function FormOrderSuccess({ data: { visible, info, message }, onClose }) {
   return (
     <ModalBlock
       title="Tạo đơn hàng thành công"
@@ -11,6 +11,7 @@ function FormOrderSuccess({ data: { visible, info, message } }) {
       propsModal={{
         size: "md",
       }}
+      onClose={onClose}
     >
       <div className="text-center">
         <i
