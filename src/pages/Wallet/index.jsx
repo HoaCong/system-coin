@@ -23,10 +23,10 @@ function FormWallet() {
       wallet_pi: user?.wallet_pi || "",
       wallet_sidra: user?.wallet_sidra || "",
     },
-    validationSchema: Yup.object({
-      wallet_pi: Yup.string().required("Vui lòng nhập địa chỉ ví Pi"),
-      wallet_sidra: Yup.string().required("Vui lòng nhập địa chỉ ví Sidra"),
-    }),
+    // validationSchema: Yup.object({
+    //   wallet_pi: Yup.string().required("Vui lòng nhập địa chỉ ví Pi"),
+    //   wallet_sidra: Yup.string().required("Vui lòng nhập địa chỉ ví Sidra"),
+    // }),
     onSubmit: (values) => {
       onUpdateWallet({
         id: user?.id,

@@ -84,7 +84,7 @@ const TransactionForm = () => {
       image_bill: Yup.string().required("Vui lòng cập nhật ảnh bill"),
     }),
     onSubmit: (values) => {
-      if (mode === "SELL" && values.stk) {
+      if (mode === "SELL" && !values.stk) {
         setNoneBank(true);
         return;
       }
