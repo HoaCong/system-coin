@@ -2,7 +2,7 @@ import ModalBlock from "components/common/Modal";
 import { ROUTES } from "constants/routerWeb";
 import { Link } from "react-router-dom";
 
-function FormOrderSuccess({ data: { visible, info, message }, onClear }) {
+function FormOrderSuccess({ data: { visible, info, message } }) {
   return (
     <ModalBlock
       title="Tạo đơn hàng thành công"
@@ -15,7 +15,7 @@ function FormOrderSuccess({ data: { visible, info, message }, onClear }) {
       <div className="text-center">
         <i
           className="fas fa-check-circle"
-          style={{ fontSize: "90px", color: "#28a745" }} // Size 50x50 and green color
+          style={{ fontSize: "90px", color: "#28a745" }}
         ></i>
         <div className="mt-3">
           <b className="fs-5 text">{info.sku}</b>
@@ -26,7 +26,7 @@ function FormOrderSuccess({ data: { visible, info, message }, onClear }) {
             ROUTES.SEARCH_TRANSACTION +
             `?sku=${info.sku}&tabKey=${info.type_order}`
           }
-          className="btn btn-success text-white mt-3"
+          className="btn btn-success text-white my-3"
         >
           Xem đơn hàng
         </Link>

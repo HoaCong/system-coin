@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { actionCreateOrder } from "store/Coin/action";
 import { addToast } from "store/Toast/action";
 import * as Yup from "yup";
+import FormNoneBank from "./FormNoneBank";
 import FormOrderSuccess from "./FormOrderSuccess";
 
 const TransactionForm = () => {
@@ -32,6 +33,7 @@ const TransactionForm = () => {
   const [mode, setMode] = useState("SELL");
   const [isSellHot, setIsSellHot] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
+  const [isNoneBank, setNoneBank] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState({
     info: {},
     message: "",
@@ -82,8 +84,9 @@ const TransactionForm = () => {
       image_bill: Yup.string().required("Vui lòng cập nhật ảnh bill"),
     }),
     onSubmit: (values) => {
-      if (!values.stk) {
-        return navigate(ROUTES.BANK_ACCOUNT);
+      if (mode === "SELL" && !values.stk) {
+        setNoneBank(true);
+        return;
       }
       const payload = {
         type_order: isSellHot && mode === "SELL" ? "SELL_HOT" : mode,
@@ -448,14 +451,8 @@ const TransactionForm = () => {
           </Form.Group>
         </Form>
       </div>
-      <FormOrderSuccess
-        data={orderSuccess}
-        onClear={() => setOrderSuccess({ visible: false, info: null })}
-        onAccept={() => {
-          setOrderSuccess({ visible: false, info: {}, message: "" });
-          navigate(ROUTES.SEARCH_TRANSACTION + "?sku=abc");
-        }}
-      />
+      <FormOrderSuccess data={orderSuccess} />
+      <FormNoneBank visible={isNoneBank} />
     </>
   );
 };
