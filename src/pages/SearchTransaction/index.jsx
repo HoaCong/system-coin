@@ -112,7 +112,7 @@ const SearchTransaction = () => {
         >
           <Tab eventKey="BUY" title="Mua"></Tab>
           <Tab eventKey="SELL" title="Bán"></Tab>
-          <Tab eventKey="SELL_HOT" title="Bán nóng"></Tab>
+          <Tab eventKey="SELL_HOT" title="Bán coin trên ví"></Tab>
         </Tabs>
 
         <div className="overflow-x-auto">
