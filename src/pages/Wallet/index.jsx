@@ -5,7 +5,6 @@ import { Button, Col, Row } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { useDispatch, useSelector } from "react-redux";
 import { actionEditWallet } from "store/Customer/action";
-import * as Yup from "yup";
 function FormWallet() {
   const {
     data: { user },
@@ -25,7 +24,7 @@ function FormWallet() {
     },
     // validationSchema: Yup.object({
     //   wallet_pi: Yup.string().required("Vui lòng nhập địa chỉ ví Pi"),
-    //   wallet_sidra: Yup.string().required("Vui lòng nhập địa chỉ ví Sidra"),
+    //   wallet_sidra: Yup.string().required("Vui lòng nhập địa chỉ ví Sidra"),O
     // }),
     onSubmit: (values) => {
       onUpdateWallet({

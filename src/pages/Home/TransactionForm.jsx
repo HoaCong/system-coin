@@ -27,8 +27,6 @@ const TransactionForm = () => {
   const onCreateOrder = (body) => dispatch(actionCreateOrder(body));
   const onAddToast = (data) => dispatch(addToast(data));
 
-  const navigate = useNavigate();
-
   const [type, setType] = useState("PI_NETWORD");
   const [mode, setMode] = useState("SELL");
   const [isSellHot, setIsSellHot] = useState(false);
@@ -45,14 +43,14 @@ const TransactionForm = () => {
       SELL: list[0]?.giamua || 0,
       BUY: list[0]?.giaban || 0,
       wallet: "wallet_pi",
-      coin: user.picoin,
+      coin: user?.picoin,
       address_pay: list[0]?.address_pay,
     },
     SIDRA: {
       SELL: list[1]?.giamua || 0,
       BUY: list[1]?.giaban || 0,
       wallet: "wallet_sidra",
-      coin: user.sidracoin,
+      coin: user?.sidracoin,
       address_pay: list[1]?.address_pay,
     },
   };
