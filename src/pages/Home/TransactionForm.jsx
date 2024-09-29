@@ -43,12 +43,14 @@ const TransactionForm = () => {
       SELL: list[0]?.giamua || 0,
       BUY: list[0]?.giaban || 0,
       wallet: "wallet_pi",
+      coin: user.picoin,
       address_pay: list[0]?.address_pay,
     },
     SIDRA: {
       SELL: list[1]?.giamua || 0,
       BUY: list[1]?.giaban || 0,
       wallet: "wallet_sidra",
+      coin: user.sidracoin,
       address_pay: list[1]?.address_pay,
     },
   };
@@ -76,9 +78,7 @@ const TransactionForm = () => {
       stk_bank: user?.stk_bank || "",
     },
     validationSchema: Yup.object({
-      count_coin: Yup.number()
-        .required("Vui lòng nhập số coin")
-        .min(5, `Số coin tối thiểu là 5`),
+      count_coin: Yup.number().required("Vui lòng nhập số coin"),
       image_bill: Yup.string().required("Vui lòng cập nhật ảnh bill"),
     }),
     onSubmit: (values) => {
@@ -246,6 +246,15 @@ const TransactionForm = () => {
                 </div>
               ) : null}
             </Col>
+            {!isSellHot && (
+              <div className="text-warning text-12  text-center mt-1">
+                <i>
+                  Lưu ý: Số coin tối thiểu là 5.{" "}
+                  {mode === "SELL" &&
+                    `Số coin tối đa có thể bán là ${enumCoinCurrent[type]?.coin}`}
+                </i>
+              </div>
+            )}
           </Form.Group>
 
           <Form.Group as={Row} className="mb-3">
