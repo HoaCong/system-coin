@@ -129,6 +129,7 @@ const Withdraw = () => {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.wallet_coin}
+                readOnly
                 isInvalid={
                   formik.touched.wallet_coin && formik.errors.wallet_coin
                 }
@@ -154,7 +155,7 @@ const Withdraw = () => {
                   className="me-2"
                 />
               )}
-              <b>GỬI</b>
+              <b>RÚT</b>
             </Button>
           </Form>
         </Col>

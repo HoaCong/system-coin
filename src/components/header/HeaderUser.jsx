@@ -128,6 +128,12 @@ function Header({ menuIcon, children }) {
                   Lịch sử giao dịch
                 </li>
               </Link>
+              <Link to={ROUTES.HISTORIES_WITHDRAW}>
+                <li>
+                  <i className="fas fa-clock me-2"></i>
+                  Lịch sử rút coin
+                </li>
+              </Link>
               <Link to={ROUTES.CHANGE_PASSWORD}>
                 <li>
                   <i className="fas fa-unlock-alt me-2"></i>
