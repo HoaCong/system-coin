@@ -45,7 +45,6 @@ const ContactPage = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log("Form data", values);
       onSendContact(values);
       // You can handle form submission here (e.g., API call)
     },

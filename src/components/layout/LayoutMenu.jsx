@@ -7,7 +7,7 @@ function LayoutMenu({ name, menu }) {
   return (
     <div className="container" key={name}>
       <div className="row">
-        <div className="col-12 col-md-4 col-lg-3  border-1 border-end">
+        <div className="col-12 col-md-4 col-lg-3 border-1 border-end">
           <Menu menu={menu} type={name} />
         </div>
         <main className="col-12 col-md-8 col-lg-9">

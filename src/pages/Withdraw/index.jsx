@@ -45,7 +45,6 @@ const Withdraw = () => {
         .required("Vui lòng nhập số coin muốn rút")
         .test("is-within-balance", "count_coin_invalid", function (value) {
           const sodu = enumCoinCurrent[this.parent.type_coin]["coin"];
-          console.log("sodu:", sodu);
           return value <= sodu;
         }),
       // wallet_coin: Yup.string().required("Vui lòng nhập ví coin"),
@@ -75,7 +74,7 @@ const Withdraw = () => {
   return (
     <Container fluid>
       <Row className="mt-4">
-        <Col xs={12} md={6} className="mx-auto">
+        <Col xs={12} md={10} lg={6} className="mx-auto">
           <h5>
             <b>RÚT COIN</b>
           </h5>

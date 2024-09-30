@@ -26,6 +26,17 @@ function Header({ menuIcon, children }) {
   const onLogout = () => dispatch(actionLogout());
 
   const [isActive, setIsActive] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+
+  const handleToggle = () => {
+    setExpanded(!expanded);
+  };
+
+  const handleClose = () => {
+    setIsActive(false);
+    setExpanded(false);
+  };
+
   const handleLogout = () => {
     onLogout();
   };
@@ -64,7 +75,9 @@ function Header({ menuIcon, children }) {
 
             <Nav.Link
               className={`px-0 mx-2 text-uppercase text-white text-12`}
-              onClick={() => setIsActive((prev) => !prev)}
+              onClick={() => {
+                setIsActive((prev) => !prev);
+              }}
             >
               <div className="d-flex align-items-center gap-1">
                 <LazyLoadImage
@@ -78,10 +91,7 @@ function Header({ menuIcon, children }) {
               </div>
             </Nav.Link>
           </div>
-          <div
-            onClick={() => setIsActive((prev) => !prev)}
-            className="account-header d-flex gap-2 align-items-center"
-          >
+          <div className="account-header d-flex gap-2 align-items-center">
             <ul
               className={`${
                 !isActive ? "d-none" : ""
@@ -104,37 +114,37 @@ function Header({ menuIcon, children }) {
                   </div>
                 ))}
               </div>
-              <Link to={ROUTES.INFO}>
+              <Link onClick={handleClose} to={ROUTES.INFO}>
                 <li>
                   <i className="fas fa-user me-2"></i>
                   Thông tin cá nhân
                 </li>
               </Link>
-              <Link to={ROUTES.BANK_ACCOUNT}>
+              <Link onClick={handleClose} to={ROUTES.BANK_ACCOUNT}>
                 <li>
                   <i className="fas fa-money-check-alt me-2"></i>
                   Tài khoản ngân hàng
                 </li>
               </Link>
-              <Link to={ROUTES.WALLET}>
+              <Link onClick={handleClose} to={ROUTES.WALLET}>
                 <li>
                   <i className="fas fa-wallet me-2"></i>
                   Ví tiền
                 </li>
               </Link>
-              <Link to={ROUTES.HISTORIES}>
+              <Link onClick={handleClose} to={ROUTES.HISTORIES}>
                 <li>
                   <i className="fas fa-clock me-2"></i>
                   Lịch sử giao dịch
                 </li>
               </Link>
-              <Link to={ROUTES.HISTORIES_WITHDRAW}>
+              <Link onClick={handleClose} to={ROUTES.HISTORIES_WITHDRAW}>
                 <li>
                   <i className="fas fa-clock me-2"></i>
                   Lịch sử rút coin
                 </li>
               </Link>
-              <Link to={ROUTES.CHANGE_PASSWORD}>
+              <Link onClick={handleClose} to={ROUTES.CHANGE_PASSWORD}>
                 <li>
                   <i className="fas fa-unlock-alt me-2"></i>
                   Đổi mật khẩu
@@ -151,6 +161,7 @@ function Header({ menuIcon, children }) {
       ) : (
         <>
           <Nav.Link
+            onClick={handleClose}
             as={Link}
             to="/login"
             className={`px-0 mx-2 text-uppercase text-white text-12 ${
@@ -160,6 +171,7 @@ function Header({ menuIcon, children }) {
             <i className="fas fa-sign-in-alt me-1"></i>Đăng nhập
           </Nav.Link>
           <Nav.Link
+            onClick={handleClose}
             as={Link}
             to="/register"
             className={`px-0 mx-2 text-uppercase text-white text-12 ${
@@ -175,7 +187,7 @@ function Header({ menuIcon, children }) {
 
   return (
     <div id="header" className="position-sticky top-0" style={{ zIndex: 3 }}>
-      <Navbar expand="lg" className="py-0 h-60px">
+      <Navbar expand="lg" className="py-0 h-60px" expanded={expanded}>
         <Container>
           <Navbar.Brand href="/">
             <LazyLoadImage
@@ -190,6 +202,7 @@ function Header({ menuIcon, children }) {
           <Navbar.Toggle
             aria-controls="mobile-nav"
             className="shadow-none bg-white"
+            onClick={handleToggle}
           />
           <Nav className="ms-auto p-2 gap-2 desktop_menu">
             <Nav.Link
@@ -260,6 +273,7 @@ function Header({ menuIcon, children }) {
           <Navbar.Collapse id="mobile-nav">
             <Nav className="ms-auto p-2 gap-2">
               <Nav.Link
+                onClick={handleClose}
                 as={Link}
                 to="/"
                 className={`px-0 mx-2 text-uppercase text-white text-12 fw-bold ${
@@ -269,6 +283,7 @@ function Header({ menuIcon, children }) {
                 Trang chủ
               </Nav.Link>
               <Nav.Link
+                onClick={handleClose}
                 as={Link}
                 to={ROUTES.SEARCH_TRANSACTION}
                 className={`px-0 mx-2 text-uppercase text-white text-12 fw-bold ${
@@ -278,6 +293,7 @@ function Header({ menuIcon, children }) {
                 Đơn hàng của tôi
               </Nav.Link>
               <Nav.Link
+                onClick={handleClose}
                 as={Link}
                 to={ROUTES.NEWS}
                 className={`px-0 mx-2 text-uppercase text-white text-12 fw-bold ${
@@ -287,6 +303,7 @@ function Header({ menuIcon, children }) {
                 Tin tức
               </Nav.Link>
               <Nav.Link
+                onClick={handleClose}
                 as={Link}
                 to={ROUTES.GUIRE}
                 className={`px-0 mx-2 text-uppercase text-white text-12 fw-bold ${
@@ -296,6 +313,7 @@ function Header({ menuIcon, children }) {
                 Hướng dẫn
               </Nav.Link>
               <Nav.Link
+                onClick={handleClose}
                 as={Link}
                 to={ROUTES.CONTACT}
                 className={`px-0 mx-2 text-uppercase text-white text-12 fw-bold ${
@@ -305,6 +323,7 @@ function Header({ menuIcon, children }) {
                 Liên hệ
               </Nav.Link>
               <Nav.Link
+                onClick={handleClose}
                 as={Link}
                 to={ROUTES.HOLD_COIN}
                 className={`px-0 mx-2 text-uppercase text-white text-12 fw-bold ${
@@ -314,6 +333,7 @@ function Header({ menuIcon, children }) {
                 Cầm coin
               </Nav.Link>
               <Nav.Link
+                onClick={handleClose}
                 as={Link}
                 to={ROUTES.WITHDRAW_COIN}
                 className={`px-0 mx-2 text-uppercase text-white text-12 fw-bold ${
