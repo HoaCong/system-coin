@@ -15,6 +15,21 @@ export const actionGetListFailed = (error) => ({
   error,
 });
 
+export const actionGetDetail = (params) => ({
+  type: ActionTypes.DETAIL,
+  params,
+});
+
+export const actionGetDetailSuccess = (payload) => ({
+  type: ActionTypes.DETAIL_SUCCESS,
+  payload,
+});
+
+export const actionGetDetailFailed = (error) => ({
+  type: ActionTypes.DETAIL_FAILED,
+  error,
+});
+
 export const resetData = () => ({
   type: ActionTypes.RESET_DATA,
 });

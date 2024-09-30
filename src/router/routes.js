@@ -6,12 +6,14 @@ import BankAccount from "pages/BankAccount";
 import ChangePassword from "pages/ChangePassword";
 import Contact from "pages/Contact";
 import GuireSection from "pages/Guire";
+import GuireDetail from "pages/GuireDetail";
 import Histories from "pages/Histories";
 import HistoriesWithDraw from "pages/HistoriesWithDraw";
 import HoldPi from "pages/HoldPi";
 import Home from "pages/Home";
 import Login from "pages/Login";
 import NewsSection from "pages/News";
+import NewsDetail from "pages/NewsDetail";
 import PageNotFound from "pages/NotFoundPage";
 import ProfileInfo from "pages/ProfileInfo";
 import QuestionAnswer from "pages/QuestionAnswer";
@@ -81,7 +83,23 @@ export const publicRoutes = [
             element: <NewsSection />,
           },
           {
+            path: ROUTES.NEWS_DETAIL,
+            name: "NewsDetail",
+            element: <NewsDetail />,
+          },
+          {
             path: ROUTES.GUIRE,
+            name: "GuireSection",
+            element: <GuireSection />,
+          },
+          {
+            path: ROUTES.GUIRE_DETAIL,
+            name: "GuireDetail",
+            element: <GuireDetail />,
+          },
+
+          {
+            path: ROUTES.GUIRE_DETAIL,
             name: "GuireSection",
             element: <GuireSection />,
           },

@@ -10,8 +10,10 @@ export const ENDPOINT = {
   UPDATE_WALLET_SIDRA: (id) => `api/customer/walletsidra/${id}`,
   // ======news======
   LIST_NEWS: "api/new",
+  NEWS_DETAIL: (id) => `api/new/${id}`,
   // ======guires======
   LIST_GUIRE: "api/guidline",
+  GUIRE_DETAIL: (id) => `api/guidline/${id}`,
   LIST_COIN: "api/coin",
   // =======orders=======
   CREATE_ORDER: "api/order/create",

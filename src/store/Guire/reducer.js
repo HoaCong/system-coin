@@ -7,6 +7,8 @@ const initialState = {
   listStatus: { ...status },
   actionStatus: { ...status },
   list: [],
+  detail: {},
+  detailStatus: { ...status },
   params: { limit: 10, page: 1 },
   meta: {
     total: 0,
@@ -34,6 +36,24 @@ const guireReducer = (state = initialState, action) => {
         draft.listStatus.isLoading = false;
         draft.listStatus.isFailure = true;
         draft.list = [];
+        break;
+
+      case ActionTypes.DETAIL:
+        draft.detailStatus.isLoading = true;
+        draft.detailStatus.isSuccess = false;
+        draft.detailStatus.isFailure = false;
+        break;
+
+      case ActionTypes.DETAIL_SUCCESS:
+        draft.detailStatus.isLoading = false;
+        draft.detailStatus.isSuccess = true;
+        draft.detail = action.payload.data;
+        break;
+
+      case ActionTypes.DETAIL_FAILED:
+        draft.detailStatus.isLoading = false;
+        draft.detailStatus.isFailure = true;
+        draft.detail = {};
         break;
 
       case ActionTypes.RESET_DATA:

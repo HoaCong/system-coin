@@ -1,10 +1,13 @@
 import CustomPagination from "components/common/CustomPagination";
 import ImgCover from "components/common/ImgCover";
 import TextLineClamp from "components/common/TextLineClamp";
+import { ROUTES } from "constants/routerWeb";
+import { parserRouter } from "helper/functions";
 import _size from "lodash/size";
 import { useEffect, useState } from "react";
 import { Card, Col, Container, Row, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { actionGetList, resetData } from "store/Guire/action";
 
 const GuireSection = () => {
@@ -16,13 +19,14 @@ const GuireSection = () => {
   } = useSelector((state) => state.guireReducer);
 
   const dispatch = useDispatch();
-  const onGetListCategory = (body) => dispatch(actionGetList(body));
+  const onGetList = (body) => dispatch(actionGetList(body));
   const onResetData = () => dispatch(resetData());
 
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    if (!isLoading) onGetListCategory(params);
+    if (!isLoading) onGetList(params);
     return () => {
       onResetData();
     };
@@ -30,7 +34,7 @@ const GuireSection = () => {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    onGetListCategory({ ...params, page });
+    onGetList({ ...params, page });
   };
 
   return (
@@ -49,20 +53,31 @@ const GuireSection = () => {
             </Spinner>
           </div>
         )}
-        {list?.map((news, index) => (
+        {list?.map((item, index) => (
           <Col xs={12} lg={6} className="mb-4" key={index}>
             <Card className="border-0">
               <div className="row g-3">
-                <div className="ps-0" style={{ width: 210 }}>
-                  <ImgCover image={news.image} ratio="43" />
+                <div
+                  className="ps-0"
+                  style={{ width: 210 }}
+                  onClick={() =>
+                    navigate(parserRouter(ROUTES.GUIRE_DETAIL, item.id))
+                  }
+                >
+                  <ImgCover image={item.image} ratio="43" />
                 </div>
                 <div className="col">
-                  <Card.Title className="fw-bold text-14">
-                    {news.title}
+                  <Card.Title
+                    className="fw-bold text-14"
+                    onClick={() =>
+                      navigate(parserRouter(ROUTES.GUIRE_DETAIL, item.id))
+                    }
+                  >
+                    {item.title}
                   </Card.Title>
                   <Card.Text>
                     <TextLineClamp line={5}>
-                      <span className="text-12">{news.content}</span>
+                      <span className="text-12">{item.content}</span>
                     </TextLineClamp>
                   </Card.Text>
                 </div>
