@@ -1,5 +1,7 @@
+import FormNoneInfo from "components/common/FormNoneInfo";
+import { ROUTES } from "constants/routerWeb";
 import { useFormik } from "formik";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import { NumericFormat } from "react-number-format";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +17,7 @@ const Withdraw = () => {
   } = useSelector((state) => state.loginReducer);
   const dispatch = useDispatch();
   const onWithdraw = (params) => dispatch(actionWithDrawOrder(params));
-
+  const [isNoneWallet, setNoneWallet] = useState(false);
   const enumCoinCurrent = {
     PI_NETWORD: {
       wallet: user["wallet_pi"],
@@ -46,10 +48,13 @@ const Withdraw = () => {
           console.log("sodu:", sodu);
           return value <= sodu;
         }),
-      wallet_coin: Yup.string().required("Vui lòng nhập ví coin"),
+      // wallet_coin: Yup.string().required("Vui lòng nhập ví coin"),
     }),
     onSubmit: (values) => {
-      console.log("Form data", values);
+      if (!values.wallet_coin) {
+        setNoneWallet(true);
+        return;
+      }
       onWithdraw(values);
     },
   });
@@ -160,6 +165,19 @@ const Withdraw = () => {
           </Form>
         </Col>
       </Row>
+      <FormNoneInfo
+        visible={isNoneWallet}
+        onClose={() => setNoneWallet(false)}
+        title="Thiếu thông tin ví"
+        content={
+          <div className="mt-3">
+            Bạn chưa cập nhật thông tin ví coin.
+            <div>Vui lòng cập nhật thông tin trước khi rút coin</div>
+          </div>
+        }
+        url={ROUTES.WALLET}
+        textLink="Đến Ví của tôi"
+      />
     </Container>
   );
 };

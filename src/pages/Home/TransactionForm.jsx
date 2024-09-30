@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { actionCreateOrder } from "store/Coin/action";
 import { addToast } from "store/Toast/action";
 import * as Yup from "yup";
-import FormNoneBank from "./FormNoneBank";
+import FormNoneInfo from "../../components/common/FormNoneInfo";
 import FormOrderSuccess from "./FormOrderSuccess";
 
 const TransactionForm = () => {
@@ -450,7 +450,19 @@ const TransactionForm = () => {
           })
         }
       />
-      <FormNoneBank visible={isNoneBank} onClose={() => setNoneBank(false)} />
+      <FormNoneInfo
+        visible={isNoneBank}
+        onClose={() => setNoneBank(false)}
+        title="Thiếu thông tin tài khoản"
+        content={
+          <div className="mt-3">
+            Bạn chưa cập nhật thông tin tài khoản ngân hàng.
+            <div>Vui lòng cập nhật thông tin trước khi tạo giao dịch</div>
+          </div>
+        }
+        url={ROUTES.BANK_ACCOUNT}
+        textLink="Đến tài khoản ngân hàng"
+      />
     </>
   );
 };
