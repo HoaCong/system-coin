@@ -148,29 +148,6 @@ span.required {
   display: block;
 }
 
-#btn-custom {
-  border: none;
-  border-radius: 100px;
-  background: #ab0033;
-  color: #ffe300;
-  &:hover {
-    background: #fff2e5;
-    color: #ab0033;
-  }
-}
-
-.btn.btn-submit-quiz {
-  border-radius: 12px 0 12px 0;
-  background: #ab0033;
-  color: #ffe300;
-  border: 2px solid #ab0033 !important;
-  &:hover,
-  &:focus {
-    background: #ffe300;
-    color: #ab0033;
-  }
-}
-
 .image-cover {
   background-position: center;
   background-repeat: no-repeat;

@@ -245,9 +245,8 @@ const Register = () => {
           Đăng ký
         </Button>
 
-        <div className="d-flex justify-content-between mt-3">
+        <div className="mt-3">
           <Link to="/login">Đăng nhập</Link>
-          <Link>Quên mật khẩu?</Link>
         </div>
       </Form>
       <Link to="/" className="text-white cursor-pointer">

@@ -1,7 +1,15 @@
 import ModalBlock from "components/common/Modal";
 import { Link } from "react-router-dom";
 
-function FormNoneInfo({ visible, onClose, title, content, url, textLink }) {
+function FormNoneInfo({
+  visible,
+  icon,
+  onClose,
+  title,
+  content,
+  url,
+  textLink,
+}) {
   return (
     <ModalBlock
       title={title}
@@ -13,14 +21,21 @@ function FormNoneInfo({ visible, onClose, title, content, url, textLink }) {
       onClose={onClose}
     >
       <div className="text-center">
-        <i
-          className="fas fa-times-circle text-danger"
-          style={{ fontSize: "90px" }}
-        ></i>
+        {!!icon ? (
+          icon
+        ) : (
+          <i
+            className="fas fa-times-circle text-danger"
+            style={{ fontSize: "90px" }}
+          ></i>
+        )}
         {content}
-        <Link to={url} className="btn btn-secondary text-white my-3">
-          {textLink}
-        </Link>
+
+        {!!url && (
+          <Link to={url} className="btn btn-secondary text-white my-3">
+            {textLink}
+          </Link>
+        )}
       </div>
     </ModalBlock>
   );

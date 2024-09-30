@@ -21,7 +21,7 @@ const Withdraw = () => {
   const enumCoinCurrent = {
     PI_NETWORD: {
       wallet: user["wallet_pi"],
-      coin: user["picoin"],
+      coin: user["picoin"] || 0,
     },
     SIDRA: {
       wallet: user["wallet_sidra"],

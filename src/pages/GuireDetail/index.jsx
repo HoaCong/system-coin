@@ -44,10 +44,10 @@ const GuireDetail = () => {
         <div>
           <ImgCover image={detail.image} ratio="169" />
           <div className="fw-bold my-2">{detail.title}</div>
-          <div>
-            <span className="text-14 mb-3"> {detail.content}</span>
+          <div className="mb-3">
+            <span className="text-14"> {detail.content}</span>
           </div>
-          <VideoPlayer url={detail.video_url} />
+          <VideoPlayer videoId={detail.video_url} />
         </div>
       )}
       {!detail?.id && (isSuccess || isFailure) && (

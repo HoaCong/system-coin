@@ -1,31 +1,19 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import YouTube from "react-youtube";
 
-const VideoPlayer = ({ url }) => {
-  return (
-    <div
-      style={{
-        position: "relative",
-        overflow: "hidden",
-        width: "100%",
-        paddingTop: "56.25%",
-      }}
-    >
-      <iframe
-        src={url}
-        title="YouTube video player"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-        }}
-      ></iframe>
-    </div>
-  );
+const VideoPlayer = ({ videoId }) => {
+  const opts = {
+    height: "450",
+    width: "100%",
+  };
+
+  const ref = useRef();
+
+  useEffect(() => {
+    ref?.current?.internalPlayer?.stopVideo();
+  }, []);
+
+  return <YouTube videoId={videoId} opts={opts} ref={ref} />;
 };
 
 export default VideoPlayer;

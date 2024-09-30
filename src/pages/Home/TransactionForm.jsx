@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { NumericFormat } from "react-number-format";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { actionCreateOrder } from "store/Coin/action";
 import { addToast } from "store/Toast/action";
 import * as Yup from "yup";
@@ -437,6 +437,11 @@ const TransactionForm = () => {
                 {type === "PI_NETWORD" ? "π" : "$"}
               </Button>
             </Col>
+            <div className="text-center text-14 text-secondary mt-2">
+              <Link to={ROUTES.GUIRE} className="link_router">
+                Hướng dẫn giao dịch
+              </Link>
+            </div>
           </Form.Group>
         </Form>
       </div>

@@ -1,3 +1,4 @@
+import FormNoneInfo from "components/common/FormNoneInfo";
 import { ROUTES } from "constants/routerWeb";
 import _capitalize from "lodash/capitalize";
 import { useEffect, useState } from "react";
@@ -25,6 +26,7 @@ function Login() {
 
   // state local
   const navigate = useNavigate();
+  const [isForget, setForget] = useState(false);
   const [formdata, setData] = useState({
     username: "",
     password: "",
@@ -149,12 +151,44 @@ function Login() {
 
         <div className="d-flex justify-content-between mt-3">
           <Link to="/register">Đăng ký</Link>
-          <Link>Quên mật khẩu?</Link>
+          <Link onClick={() => setForget(true)}>Quên mật khẩu?</Link>
         </div>
       </Form>
       <Link to="/" className="text-white cursor-pointer">
         <small> [ Quay lại trang chủ ]</small>
       </Link>
+      <FormNoneInfo
+        visible={isForget}
+        onClose={() => setForget(false)}
+        title="Thông báo"
+        icon={
+          <i
+            className="fas fa-info-circle text-warning"
+            style={{ fontSize: "90px" }}
+          ></i>
+        }
+        content={
+          <div className="mt-3">
+            Vui lòng liên hệ admin để cấp lại mật khẩu.
+            <div>
+              <Link className="text-primary" to="https://zalo.me/0332986587">
+                zalo
+              </Link>{" "}
+              hoặc{" "}
+              <Link
+                className="text-primary"
+                to="https://www.facebook.com/profile.php?id=100079449032579"
+              >
+                facebook
+              </Link>{" "}
+              hoặc{" "}
+              <Link className="text-primary" to="https://t.me/+84332986587">
+                telegram
+              </Link>{" "}
+            </div>
+          </div>
+        }
+      />
     </div>
   );
 }
