@@ -84,7 +84,9 @@ const loginReducer = (state = initialState, action) => {
         break;
 
       case ActionTypes.UPDATE_USER_LOGIN:
-        draft.data.user = { ...state.data.user, ...action.data };
+        const newData = { ...state.data.user, ...action.data };
+        draft.data.user = newData;
+        localStorage.setItem("user", JSON.stringify(newData));
         break;
 
       case ActionTypes.CLEAR_ERROR:

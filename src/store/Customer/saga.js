@@ -54,20 +54,22 @@ function* callApiAdd({ params }) {
 
 function* callApiEdit({ params }) {
   try {
-    const { id, email, phone, full_name, password, image, ref_email } = params;
+    const { id, phone, full_name, image } = params;
     const response = yield call(PUT, ENDPOINT.UPDATE_USER + id, {
-      // email,
       phone,
       full_name,
       image,
-      // password,
-      // ref_email,
     });
 
     if (response.status === 200) {
-      localStorage.setItem("user", JSON.stringify(response.data.data));
       yield put(actionEditSuccess(response.data.data));
-      yield put(actionUpdateUserLogin(response.data.data));
+      yield put(
+        actionUpdateUserLogin({
+          phone,
+          full_name,
+          image,
+        })
+      );
       yield put(
         addToast({
           text: response.data.message,
@@ -103,9 +105,8 @@ function* callApiEditBank({ params }) {
     const response = yield call(PUT, ENDPOINT.UPDATE_BANKING(id), resParams);
 
     if (response.status === 200) {
-      localStorage.setItem("user", JSON.stringify(response.data.data));
       yield put(actionEditBankSuccess(response.data.data));
-      yield put(actionUpdateUserLogin(response.data.data));
+      yield put(actionUpdateUserLogin(resParams));
       yield put(
         addToast({
           text: response.data.message,
@@ -143,10 +144,6 @@ function* callApiEditWallet({ params }) {
       call(PUT, ENDPOINT.UPDATE_WALLET_SIDRA(id), { wallet_sidra }),
     ]);
     if (response.status === 200 && response_2.status === 200) {
-      localStorage.setItem(
-        "user",
-        JSON.stringify({ ...response.data.data, wallet_pi, wallet_sidra })
-      );
       yield put(actionEditWalletSuccess(response.data.data));
       yield put(actionUpdateUserLogin({ wallet_pi, wallet_sidra }));
       yield put(
