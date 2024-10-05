@@ -23,7 +23,12 @@ const CheckTokenMiddleware = ({ children }) => {
       ROUTES.SEARCH_TRANSACTION,
       ROUTES.WITHDRAW_COIN,
     ].includes(pathname);
-    if (access_token && checkTimeExpired(timeExpired)) {
+    if (
+      (access_token && checkTimeExpired(timeExpired)) ||
+      !access_token ||
+      !timeExpired ||
+      !user
+    ) {
       onLogout();
     }
     // nếu đang ở trang login và còn hiệu lực token
